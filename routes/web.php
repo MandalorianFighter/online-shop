@@ -17,12 +17,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
+Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'),'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+});
+
+Route::middleware(['auth:sanctum,admin', config('jetstream.auth_session'),'verified'])->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
+
+Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin'], 'namespace' => '\App\Http\Controllers'], function () {
+    Route::get('/login', 'AdminController@login');
+    Route::post('/login', 'AdminController@store')->name('admin.login');
 });
