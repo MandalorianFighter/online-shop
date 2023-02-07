@@ -22,41 +22,6 @@ class AdminProfileController extends Controller
         ]);
     }
 
-    public function changePass()
-    {
-        return view('admin.auth.change-password');
-    }
-
-    public function updatePass(Request $request)
-    {
-        $validateData = $request->validate([
-            'old_password' => 'required',
-            'password' => 'required|confirmed',
-        ]);
-
-        $hashedPass = Auth::user()->password;
-        if(Hash::check($request->old_password, $hashedPass)) {
-            $admin = Admin::find(Auth::id());
-            $admin->password = Hash::make($request->password);
-            $admin->save();
-            Auth::logout();
-
-            $notification = array(
-                'message' => 'Password Is Changed Successfully!',
-                'alert-type' => 'success',
-            );
-
-            return redirect()->route('admin.login')->with($notification);
-        } else {
-            $notification = array(
-                'message' => 'Current Password Is Invalid.',
-                'alert-type' => 'error',
-            );
-
-            return redirect()->back()->with($notification);
-        }
-    }
-
     public function adminUpdateProfile(Request $request)
     {
         $validated = $request->validate([
@@ -93,7 +58,40 @@ class AdminProfileController extends Controller
         return redirect()->back();
        }
     }
+    public function changePass()
+    {
+        return view('admin.auth.change-password');
+    }
 
+    public function updatePass(Request $request)
+    {
+        $validateData = $request->validate([
+            'old_password' => 'required',
+            'password' => 'required|confirmed',
+        ]);
+
+        $hashedPass = Auth::user()->password;
+        if(Hash::check($request->old_password, $hashedPass)) {
+            $admin = Admin::find(Auth::id());
+            $admin->password = Hash::make($request->password);
+            $admin->save();
+            Auth::logout();
+
+            $notification = array(
+                'message' => 'Password Is Changed Successfully!',
+                'alert-type' => 'success',
+            );
+
+            return redirect()->route('admin.login.form')->with($notification);
+        } else {
+            $notification = array(
+                'message' => 'Current Password Is Invalid.',
+                'alert-type' => 'error',
+            );
+
+            return redirect()->back()->with($notification);
+        }
+    }
     public function logout(Request $request)
     {
         Auth::guard('admin')->logout();
