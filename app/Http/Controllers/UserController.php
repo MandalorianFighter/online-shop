@@ -6,16 +6,15 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Hash;
-use Laravel\Fortify\Contracts\LogoutResponse;
 
 class UserController extends Controller
 {
-    public function changePassword()
+    public function changePass()
     {
         return view('auth.change-password');
     }
 
-    public function updatePassword(Request $request)
+    public function updatePass(Request $request)
     {
         $password = Auth::user()->password;
         $oldpass = $request->oldpass;

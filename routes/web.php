@@ -50,8 +50,8 @@ Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'),'verifie
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/password-change', 'App\Http\Controllers\UserController@changePassword')->name('password.change');
-    Route::post('/password-update', 'App\Http\Controllers\UserController@updatePassword')->name('password.change.update');
+    Route::get('/password-change', 'App\Http\Controllers\UserController@changePass')->name('password.change');
+    Route::post('/password-update', 'App\Http\Controllers\UserController@updatePass')->name('password.change.update');
     Route::get('/user/logout', 'App\Http\Controllers\UserController@logout')->name('user.logout');
 });
 

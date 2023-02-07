@@ -24,7 +24,7 @@ class AdminProfileController extends Controller
 
     public function changePass()
     {
-        return view('admin.body.change_pass');
+        return view('admin.auth.change-password');
     }
 
     public function updatePass(Request $request)

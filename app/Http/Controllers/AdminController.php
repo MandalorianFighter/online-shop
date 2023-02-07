@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
+use Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -93,22 +96,20 @@ class AdminController extends Controller
             PrepareAuthenticatedSession::class,
         ]));
     }
-
-    /**
-     * Destroy an authenticated session.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Laravel\Fortify\Contracts\LogoutResponse
-     */
-    public function destroy(Request $request): LogoutResponse
+    
+    public function logout(Request $request)
     {
-        $this->guard->logout();
+        Auth::guard('admin')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
-        return app(LogoutResponse::class);
+        $notification = array(
+            'message' => 'Successfully Logout',
+            'alert-type' => 'success'
+        );
+
+        return Redirect()->route('login')->with($notification);
     }
 }
 
