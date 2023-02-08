@@ -425,7 +425,7 @@
         <!-- Main js -->
         <script src="{{asset('panel/assets/js/main.js')}}"></script>
 
-         <script>
+        <script>
         @if(Session::has('message'))
           var type="{{Session::get('alert-type','info')}}"
           switch(type){

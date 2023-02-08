@@ -1,26 +1,26 @@
 @extends('admin.admin_layouts')
 
 @section('admin_content')
-<div class="container">
+<div class="container bracket">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Change Password') }}</div>
+                <div class="card-header">{{ __('Admin Change Password') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('password.change.update') }}" aria-label="{{ __('Reset Password') }}">
+                    <form method="POST" action="{{ route('admin.password.update') }}" aria-label="{{ __('Reset Password') }}">
                         @csrf
 
 
                         <div class="form-group row">
-                            <label for="oldpass" class="col-md-4 col-form-label text-md-right">{{ __('Old Password') }}</label>
+                            <label for="old_password" class="col-md-4 col-form-label text-md-right">{{ __('Old Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="oldpass" type="password" class="form-control{{ $errors->has('oldpass') ? ' is-invalid' : '' }}" name="oldpass" value="{{ $oldpass ?? old('oldpass') }}" required autofocus>
+                                <input id="old_password" type="password" class="form-control{{ $errors->has('old_password') ? ' is-invalid' : '' }}" name="old_password" value="{{ $oldpass ?? old('old_password') }}" required autofocus>
 
-                                @if ($errors->has('oldpass'))
+                                @if ($errors->has('old_password'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('oldpass') }}</strong>
+                                        <strong>{{ $errors->first('old_password') }}</strong>
                                     </span>
                                 @endif
                             </div>
