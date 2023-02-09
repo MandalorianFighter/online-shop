@@ -42,8 +42,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin'], 'namespace' 
 });
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('pages.index');
+})->name('home');
 
 Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'),'verified'])->group(function () {
     Route::get('/dashboard', function () {
