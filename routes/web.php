@@ -13,11 +13,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('pages.index');
+})->name('home');
+
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth:web')->name('verification.notice');
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin'], 'namespace' => 'App\Http\Controllers\Admin'], function () {   
+// Admin routes
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config('jetstream.auth_session'),'verified'], 'namespace' => 'App\Http\Controllers\Admin'], function () {   
+
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+
+    Route::resources([
+        'categories' => Category\CategoryController::class
+    ]);
+
+    // Admin change password
     
     Route::get('/password', 'AdminProfileController@changePass')->name('admin.password.change');
     Route::post('/password/update', 'AdminProfileController@updatePass')->name('admin.password.update');
@@ -29,6 +45,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin'], 'namespace' =
     Route::get('/logout', 'AdminProfileController@logout')->name('admin.logout');
 });
 
+// Admin login & forgot password
+
 Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin'], 'namespace' => 'App\Http\Controllers'], function () {
     Route::get('/login', 'AdminController@login')->name('admin.login.form');
     Route::post('/login', 'AdminController@store')->name('admin.login');
@@ -38,12 +56,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin'], 'namespace' 
     
     Route::post('/reset-password', 'Admin\NewPasswordController@store')->name('admin.pass-reset.update');
     Route::get('/reset-password/{token}', 'Admin\NewPasswordController@create')->name('admin.password.reset');
-    
 });
 
-Route::get('/', function () {
-    return view('pages.index');
-})->name('home');
+// User routes
 
 Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'),'verified'])->group(function () {
     Route::get('/dashboard', function () {
@@ -53,10 +68,4 @@ Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'),'verifie
     Route::get('/password-change', 'App\Http\Controllers\UserController@changePass')->name('password.change');
     Route::post('/password-update', 'App\Http\Controllers\UserController@updatePass')->name('password.change.update');
     Route::get('/user/logout', 'App\Http\Controllers\UserController@logout')->name('user.logout');
-});
-
-Route::middleware(['auth:sanctum,admin', config('jetstream.auth_session'),'verified'])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
 });

@@ -38,6 +38,12 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 
+    <!-- datatable css -->
+    <link href="{{ asset('backend/lib/highlightjs/github.css') }}" rel="stylesheet">
+    <link href="{{ asset('backend/lib/datatables/jquery.dataTables.css') }}" rel="stylesheet">
+    <link href="{{ asset('backend/lib/select2/css/select2.min.css') }}" rel="stylesheet">
+
+
     <!-- Starlight CSS -->
     <link rel="stylesheet" href="{{ asset('backend/css/starlight.css') }}">
   </head>
@@ -67,7 +73,7 @@
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="#" class="nav-link">Category</a></li>
+          <li class="nav-item"><a href="{{ route('categories.index') }}" class="nav-link">Category</a></li>
           <li class="nav-item"><a href="#" class="nav-link">Sub Category</a></li>
           <li class="nav-item"><a href="#" class="nav-link">Brand</a></li>
         </ul>
@@ -352,6 +358,37 @@
     <script src="{{ asset('backend/lib/bootstrap/bootstrap.js') }}"></script>
     <script src="{{ asset('backend/lib/jquery-ui/jquery-ui.js') }}"></script>
     <script src="{{ asset('backend/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js') }}"></script>
+
+    <script src="{{ asset('backend/lib/highlightjs/highlight.pack.js') }}"></script>
+    <script src="{{ asset('backend/lib/datatables/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('backend/lib/datatables-responsive/dataTables.responsive.js') }}"></script>
+    <script src="{{ asset('backend/lib/select2/js/select2.min.js') }}"></script>
+
+    <script>
+      $(function(){
+        'use strict';
+
+        $('#datatable1').DataTable({
+          responsive: true,
+          language: {
+            searchPlaceholder: 'Search...',
+            sSearch: '',
+            lengthMenu: '_MENU_ items/page',
+          }
+        });
+
+        $('#datatable2').DataTable({
+          bLengthChange: false,
+          searching: false,
+          responsive: true
+        });
+
+        // Select2
+        $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
+
+      });
+    </script>
+
     <script src="{{ asset('backend/lib/jquery.sparkline.bower/jquery.sparkline.min.js') }}"></script>
     <script src="{{ asset('backend/lib/d3/d3.js') }}"></script>
     <script src="{{ asset('backend/lib/rickshaw/rickshaw.min.js') }}"></script>
@@ -393,7 +430,7 @@
              e.preventDefault();
              var link = $(this).attr("href");
                 swal({
-                  title: "Are you Want to delete?",
+                  title: "Are you sure, you want to delete?",
                   text: "Once Delete, This will be Permanently Delete!",
                   icon: "warning",
                   buttons: true,
