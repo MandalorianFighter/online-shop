@@ -29,9 +29,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
-    Route::resources([
-        'categories' => Category\CategoryController::class
-    ]);
+    Route::resource('categories', Category\CategoryController::class)->except(['create', 'show']);
 
     // Admin change password
     

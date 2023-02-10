@@ -21,7 +21,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return response()->view('admin.category.index', compact('categories'), 200);
+        return view('admin.category.index', compact('categories'));
     }
 
     /**
@@ -42,7 +42,20 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'category_name' => 'required|unique:categories|max:255',
+        ]);
+
+        $category = new Category();
+        $category->category_name = $request->category_name;
+        $category->save();
+
+        $notification = array(
+            'message' => 'Category Is Added Successfully!',
+            'alert-type' => 'success',
+        );
+
+        return redirect()->back()->with($notification);
     }
 
     /**
@@ -64,7 +77,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
@@ -76,7 +89,19 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'category_name' => 'required|unique:categories|max:255',
+        ]);
+
+        $category->category_name = $request->category_name;
+        $category->update();
+
+        $notification = array(
+            'message' => 'Category Is Updated Successfully!',
+            'alert-type' => 'success',
+        );
+
+        return redirect()->route('categories.index')->with($notification);
     }
 
     /**
@@ -87,6 +112,12 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        $notification = array(
+            'message' => 'Category Is Deleted Successfully!',
+            'alert-type' => 'success',
+        );
+
+        return redirect()->route('categories.index')->with($notification);
     }
 }

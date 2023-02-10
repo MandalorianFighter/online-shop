@@ -426,24 +426,25 @@
      </script>  
 
      <script>  
-         $(document).on("click", "#delete", function(e){
-             e.preventDefault();
-             var link = $(this).attr("href");
-                swal({
-                  title: "Are you sure, you want to delete?",
-                  text: "Once Delete, This will be Permanently Delete!",
-                  icon: "warning",
-                  buttons: true,
-                  dangerMode: true,
-                })
-                .then((willDelete) => {
-                  if (willDelete) {
-                       window.location.href = link;
-                  } else {
-                    swal("Safe Data!");
-                  }
-                });
-            });
+      $(document).on("click", "#delete", function(e){
+          e.preventDefault();
+          var form = e.target.form;
+          swal({
+            title: "Are you sure, you want to delete?",
+            text: "Once Delete, This will be Permanently Delete!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              form.submit();
+            } else {
+              swal("Safe Data!");
+            }
+          });
+        });
     </script>
+    
   </body>
 </html>
