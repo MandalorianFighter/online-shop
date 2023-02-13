@@ -13,33 +13,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('pages.index');
-})->name('home');
+Route::view('/', 'pages.index')->name('home');
 
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth:web')->name('verification.notice');
+Route::view('/email/verify', 'auth.verify-email')->middleware('auth:web')->name('verification.notice');
 
 // Admin routes
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config('jetstream.auth_session'),'verified'], 'namespace' => 'App\Http\Controllers\Admin'], function () {   
 
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+    Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
 
     Route::resource('categories', Category\CategoryController::class)->except(['create', 'show']);
+    Route::resource('brands', Category\BrandController::class)->except(['create', 'show']);
 
     // Admin change password
     
     Route::get('/password', 'AdminProfileController@changePass')->name('admin.password.change');
-    Route::post('/password/update', 'AdminProfileController@updatePass')->name('admin.password.update');
+    Route::put('/password/update', 'AdminProfileController@updatePass')->name('admin.password.update');  //+
 
     // Admin Profile
 
     Route::get('/profile', 'AdminProfileController@show')->name('admin.profile.show');
-    Route::post('/profile/update', 'AdminProfileController@adminUpdateProfile')->name('update.admin.profile');
+    Route::put('/profile/update', 'AdminProfileController@adminUpdateProfile')->name('update.admin.profile'); //no view
     Route::get('/logout', 'AdminProfileController@logout')->name('admin.logout');
 });
 
@@ -59,11 +54,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin'], 'namespace' 
 // User routes
 
 Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'),'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::view('/dashboard', 'dashboard')->name('dashboard');
 
     Route::get('/password-change', 'App\Http\Controllers\UserController@changePass')->name('password.change');
-    Route::post('/password-update', 'App\Http\Controllers\UserController@updatePass')->name('password.change.update');
+    Route::put('/password-update', 'App\Http\Controllers\UserController@updatePass')->name('password.change.update');
     Route::get('/user/logout', 'App\Http\Controllers\UserController@logout')->name('user.logout');
 });

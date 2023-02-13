@@ -8,10 +8,6 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:admin');
-    }
 
     /**
      * Display a listing of the resource.
@@ -25,16 +21,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -43,12 +29,10 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'category_name' => 'required|unique:categories|max:255',
+            'category_name' => 'required|max:255|unique:categories',
         ]);
 
-        $category = new Category();
-        $category->category_name = $request->category_name;
-        $category->save();
+        Category::create($request->validated());
 
         $notification = array(
             'message' => 'Category Is Added Successfully!',
@@ -56,17 +40,6 @@ class CategoryController extends Controller
         );
 
         return redirect()->back()->with($notification);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Admin\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
     }
 
     /**
@@ -90,11 +63,10 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $request->validate([
-            'category_name' => 'required|unique:categories|max:255',
+            'category_name' => 'required|max:255|unique:categories',
         ]);
 
-        $category->category_name = $request->category_name;
-        $category->update();
+        $category->update($request->validated());
 
         $notification = array(
             'message' => 'Category Is Updated Successfully!',

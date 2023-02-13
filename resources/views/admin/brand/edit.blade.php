@@ -7,12 +7,12 @@
 
       <div class="sl-pagebody">
         <div class="sl-page-title">
-          <h5>Category Update</h5>
+          <h5>Brand Update</h5>
         </div><!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40">
-          <h6 class="card-body-title">Category Update
-          <a href="{{ route('categories.index') }}" class="btn btn-secondary pd-x-20" style="float:right;">Back</a>
+          <h6 class="card-body-title">Brand Update
+          <a href="{{ route('brands.index') }}" class="btn btn-secondary pd-x-20" style="float:right;">Back</a>
           </h6>
 
           <div class="table-wrapper">
@@ -27,13 +27,21 @@
                   </div>
               @endif
 
-              <form method="POST" action="{{ route('categories.update', $category) }}">
+              <form method="POST" action="{{ route('brands.update', $brand) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
               <div class="modal-body pd-20">
                 <div class="mb-3">
-                    <label for="categoryInput" class="form-label">Category Name</label>
-                    <input type="text" class="form-control" id="categoryInput" value="{{ $category->category_name }}" name="category_name">
+                    <label for="brandInput" class="form-label">Brand Name</label>
+                    <input type="text" class="form-control" id="brandInput" value="{{ $brand->brand_name }}" name="brand_name">
+                </div>
+                <div class="mb-3">
+                    <label for="brandLogoInput" class="form-label">Brand Logo</label>
+                    <input type="file" class="form-control" id="brandLogoInput" name="brand_logo">
+                </div>
+                <div class="mb-3">
+                    <label for="brandOldLogo" class="form-label">Old Brand Logo</label>
+                    <img id="brandOldLogo" src="{{ $brand->getFirstMediaUrl('brands') }}" alt="logo"  height="70em" max-width="100%">
                 </div>
               </div><!-- modal-body -->
 
