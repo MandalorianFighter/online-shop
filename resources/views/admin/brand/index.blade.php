@@ -33,11 +33,9 @@
                   <td><img src="{{ $brand->getFirstMediaUrl('brands') }}" alt="{{ $brand->brand_name }} logo" height="70em" max-width="100%"></td>
                   <td>
                     <a href="{{ route('brands.edit', $brand) }}" class="btn btn-sm btn-info">Edit</a>
-                    <form method="POST" action="{{ route('brands.destroy', $brand) }}" style="display:inline-block;">
-                      @csrf
-                      @method('DELETE')
-                      <button type="submit" class="btn btn-sm btn-danger" id="delete">Delete</button>
-                    </form>
+                    {{ Form::model($brand, ['route' => ['brands.destroy', $brand], 'method' => 'DELETE', 'style' => 'display:inline-block;']) }}
+                    {{ Form::submit('Delete', ['class' => 'btn btn-sm btn-danger', 'id' => 'delete']) }}
+                    {{ Form::close() }}
                   </td>
                 </tr>
               @endforeach
@@ -71,24 +69,23 @@
                   </div>
               @endif
 
-              <form method="POST" action="{{ route('brands.store') }}" enctype="multipart/form-data">            
-                @csrf
+              {{ Form::open(['route' => 'brands.store', 'files' => true]) }}
               <div class="modal-body pd-20">
                 <div class="mb-3">
-                    <label for="brandInput" class="form-label">Brand Name</label>
-                    <input type="text" class="form-control" id="brandInput" placeholder="Brand" name="brand_name">
+                  {{ Form::label('brand_name', null, ['class' => 'form-label']) }}
+                  {{ Form::text('brand_name', null, ['class' => 'form-control', 'placeholder' => 'Brand']) }}
                 </div>
                 <div class="mb-3">
-                    <label for="brandLogoInput" class="form-label">Brand Logo</label>
-                    <input type="file" class="form-control" id="brandLogoInput" placeholder="Brand Logo" name="brand_logo">
+                  {{ Form::label('brand_logo', null, ['class' => 'form-label']) }}
+                  {{ Form::file('brand_logo', ['class' => 'form-control', 'placeholder' => 'Brand Logo']) }}
                 </div>
               </div><!-- modal-body -->
 
               <div class="modal-footer">
-                <button type="submit" class="btn btn-info pd-x-20">Submit</button>
-                <button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Close</button>
+                {{ Form::submit('Submit', ['class' => 'btn btn-info pd-x-20']) }}
+                {{ Form::button('Close', ['class' => 'btn btn-secondary pd-x-20', 'data-dismiss' => 'modal']) }}
               </div>
-              </form>
+              {{ Form::close() }}
             </div>
           </div><!-- modal-dialog -->
         </div><!-- modal -->

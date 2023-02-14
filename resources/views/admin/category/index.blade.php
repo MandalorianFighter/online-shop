@@ -31,11 +31,9 @@
                   <td>{{ $category->category_name }}</td>
                   <td>
                     <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-info">Edit</a>
-                    <form method="POST" action="{{ route('categories.destroy', $category) }}" style="display:inline-block;">
-                      @csrf
-                      @method('DELETE')
-                      <button type="submit" class="btn btn-sm btn-danger" id="delete">Delete</button>
-                    </form>
+                    {{ Form::model($category, ['route' => ['categories.destroy', $category], 'method' => 'DELETE', 'style' => 'display:inline-block;']) }}
+                    {{ Form::submit('Delete', ['class' => 'btn btn-sm btn-danger', 'id' => 'delete']) }}
+                    {{ Form::close() }}
                   </td>
                 </tr>
               @endforeach
@@ -69,20 +67,19 @@
                   </div>
               @endif
 
-              <form method="POST" action="{{ route('categories.store') }}">
-                @csrf
+              {{ Form::open(['route' => 'categories.store']) }}
               <div class="modal-body pd-20">
                 <div class="mb-3">
-                    <label for="categoryInput" class="form-label">Category Name</label>
-                    <input type="text" class="form-control" id="categoryInput" placeholder="Category" name="category_name">
+                  {{ Form::label('category_name', null, ['class' => 'form-label']) }}
+                  {{ Form::text('category_name', null, ['class' => 'form-control', 'placeholder' => 'Category']) }}
                 </div>
               </div><!-- modal-body -->
 
               <div class="modal-footer">
-                <button type="submit" class="btn btn-info pd-x-20">Submit</button>
-                <button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Close</button>
+                {{ Form::submit('Submit', ['class' => 'btn btn-info pd-x-20']) }}
+                {{ Form::button('Close', ['class' => 'btn btn-secondary pd-x-20', 'data-dismiss' => 'modal']) }}
               </div>
-              </form>
+              {{ Form::close() }}
             </div>
           </div><!-- modal-dialog -->
         </div><!-- modal -->

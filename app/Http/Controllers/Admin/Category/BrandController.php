@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Category;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreBrandRequest;
-use App\Http\Requests\UpdateBrandRequest;
+use App\Http\Requests\Brand\StoreBrandRequest;
+use App\Http\Requests\Brand\UpdateBrandRequest;
 use App\Models\Admin\Brand;
 
 class BrandController extends Controller
@@ -23,7 +23,7 @@ class BrandController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreBrandRequest  $request
+     * @param  \App\Http\Requests\Brand\StoreBrandRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreBrandRequest $request)
@@ -56,7 +56,7 @@ class BrandController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateBrandRequest  $request
+     * @param  \App\Http\Requests\Brand\UpdateBrandRequest  $request
      * @param  \App\Models\Admin\Brand  $brand
      * @return \Illuminate\Http\Response
      */
@@ -65,13 +65,9 @@ class BrandController extends Controller
         $brand->update([
             'brand_name' => $request->brand_name,
         ]);
-        $image = $request->file('brand_logo');
 
         if ($request->hasFile('brand_logo')) {
-            $brand->clearMediaCollection('brands');
-            $brand->addMedia($image)
-            ->usingFileName(time().'.'.$image->extension())
-            ->toMediaCollection('brands');
+            $brand->updateLogo($request->file('brand_logo'));
         }
 
         $notification = array(

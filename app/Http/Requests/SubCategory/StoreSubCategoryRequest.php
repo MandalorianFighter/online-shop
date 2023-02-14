@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\SubCategory;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreBrandRequest extends FormRequest
+class StoreSubCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreBrandRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,8 +24,7 @@ class StoreBrandRequest extends FormRequest
     public function rules()
     {
         return [
-            'brand_name' => 'required|unique:brands|max:255',
-            'brand_logo' => 'image|max:5120|mimes:jpeg,jpg,png|dimensions:min_width=200,min_height=200',
+            //
         ];
     }
 }

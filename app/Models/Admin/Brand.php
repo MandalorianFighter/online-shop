@@ -38,4 +38,13 @@ class Brand extends Model implements HasMedia
         ->toMediaCollection('brands');
         }        
     }
+
+    public function updateLogo($image)
+    {
+        $this->clearMediaCollection('brands');
+            
+        return $this->addMedia($image)
+            ->usingFileName(time().'.'.$image->extension())
+            ->toMediaCollection('brands');        
+    }
 }

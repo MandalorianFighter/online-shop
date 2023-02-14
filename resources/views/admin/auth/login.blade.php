@@ -7,10 +7,10 @@
       <div class="login-wrapper wd-300 wd-xs-350 pd-25 pd-xs-40 bg-white">
         <div class="signin-logo tx-center tx-24 tx-bold tx-inverse">Starlight <span class="tx-info tx-normal">Admin</span></div>
         <div class="tx-center mg-b-60">Ecommerce Project</div>
-        <form action="{{ route('admin.login') }}" method="POST">
-            @csrf
+        
+        {{ Form::open(['route' => 'admin.login']) }}
         <div class="form-group">
-          <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email Address">
+          {{ Form::email('email', old('email'), ['class' => "form-control @error('email') is-invalid @enderror", 'autocomplete' => 'email', 'placeholder' => 'Email Address', 'autofocus', 'required']) }}
         </div><!-- form-group -->
         @error('email')
         <span class="invalid-feedback" role="alert">
@@ -18,7 +18,7 @@
         </span>
         @enderror
         <div class="form-group">
-          <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
+        {{ Form::password('password', null, ['class' => "form-control @error('password') is-invalid @enderror", 'autocomplete' => 'current-password', 'placeholder' => 'Password', 'required']) }}
         @error('password')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -26,9 +26,9 @@
         @enderror
           <a href="{{ route('admin.password.request') }}" class="tx-info tx-12 d-block mg-t-10">Forgot password?</a>
         </div><!-- form-group -->
-        
-        <button type="submit" class="btn btn-info btn-block">Sign In</button>
-        </form>
+        {{ Form::submit('Sign In', ['class' => 'btn btn-info btn-block']) }}
+        {{ Form::close() }}
+
       </div><!-- login-wrapper -->
     </div><!-- d-flex -->
 @endsection

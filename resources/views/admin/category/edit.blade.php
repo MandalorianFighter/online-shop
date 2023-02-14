@@ -27,20 +27,18 @@
                   </div>
               @endif
 
-              <form method="POST" action="{{ route('categories.update', $category) }}">
-                @csrf
-                @method('PUT')
+              {{ Form::model($category, ['route' => ['categories.update', $category], 'method' => 'PUT']) }}
               <div class="modal-body pd-20">
                 <div class="mb-3">
-                    <label for="categoryInput" class="form-label">Category Name</label>
-                    <input type="text" class="form-control" id="categoryInput" value="{{ $category->category_name }}" name="category_name">
+                  {{ Form::label('category_name', null, ['class' => 'form-label']) }}
+                  {{ Form::text('category_name', $category->category_name, ['class' => 'form-control']) }}
                 </div>
               </div><!-- modal-body -->
 
               <div class="modal-footer">
-                <button type="submit" class="btn btn-info pd-x-20">Update</button>
+                {{ Form::submit('Update', ['class' => 'btn btn-info pd-x-20']) }}
               </div>
-              </form>
+              {{ Form::close() }}
 
           </div><!-- table-wrapper -->
         </div><!-- card -->

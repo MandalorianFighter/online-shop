@@ -27,28 +27,26 @@
                   </div>
               @endif
 
-              <form method="POST" action="{{ route('brands.update', $brand) }}" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
+              {{ Form::model($brand, ['route' => ['brands.update', $brand], 'method' => 'PUT', 'files' => true]) }}
               <div class="modal-body pd-20">
                 <div class="mb-3">
-                    <label for="brandInput" class="form-label">Brand Name</label>
-                    <input type="text" class="form-control" id="brandInput" value="{{ $brand->brand_name }}" name="brand_name">
+                  {{ Form::label('brand_name', null, ['class' => 'form-label']) }}
+                  {{ Form::text('brand_name', $brand->brand_name, ['class' => 'form-control']) }}
                 </div>
                 <div class="mb-3">
-                    <label for="brandLogoInput" class="form-label">Brand Logo</label>
-                    <input type="file" class="form-control" id="brandLogoInput" name="brand_logo">
+                  {{ Form::label('brand_logo', null, ['class' => 'form-label']) }}
+                  {{ Form::file('brand_logo', ['class' => 'form-control']) }}
                 </div>
                 <div class="mb-3">
-                    <label for="brandOldLogo" class="form-label">Old Brand Logo</label>
-                    <img id="brandOldLogo" src="{{ $brand->getFirstMediaUrl('brands') }}" alt="logo"  height="70em" max-width="100%">
+                  {{ Form::label('old_brand_logo', null, ['class' => 'form-label']) }}
+                  <img id="old_brand_logo" src="{{ $brand->getFirstMediaUrl('brands') }}" alt="logo"  height="70em" max-width="100%">
                 </div>
               </div><!-- modal-body -->
 
               <div class="modal-footer">
-                <button type="submit" class="btn btn-info pd-x-20">Update</button>
+                {{ Form::submit('Update', ['class' => 'btn btn-info pd-x-20']) }}
               </div>
-              </form>
+              {{ Form::close() }}
 
           </div><!-- table-wrapper -->
         </div><!-- card -->
