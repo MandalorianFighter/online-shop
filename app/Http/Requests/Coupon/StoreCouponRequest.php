@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\SubCategory;
+namespace App\Http\Requests\Coupon;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreSubCategoryRequest extends FormRequest
+class StoreCouponRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class StoreSubCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'subcategory_name' => 'required|max:255|unique:subcategories',
-            'category_id' => 'required',
+            'coupon' => 'required|max:56|unique:coupons',
+            'discount' => 'required',
         ];
     }
 }

@@ -29,10 +29,6 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        $request->validate([
-            'category_name' => 'required|max:255|unique:categories',
-        ]);
-
         Category::create($request->validated());
 
         $notification = array(

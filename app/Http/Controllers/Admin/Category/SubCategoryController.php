@@ -3,94 +3,88 @@
 namespace App\Http\Controllers\Admin\Category;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Category;
-use App\Models\Admin\SubCategory;
 use App\Http\Requests\SubCategory\StoreSubCategoryRequest;
 use App\Http\Requests\SubCategory\UpdateSubCategoryRequest;
-use Illuminate\Http\Request;
+use App\Models\Admin\Category;
+use App\Models\Admin\Subcategory;
 
 class SubCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param  \App\Models\Admin\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function index(Category $category)
+    public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @param  \App\Models\Admin\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Category $category)
-    {
-        //
+        $subcategories = Subcategory::with('category:id,category_name')->get(); // we need an 'id' field also to find proper category row
+        $categories = Category::pluck('category_name','id');
+        return view('admin.subcategory.index', compact('subcategories', 'categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Admin\Category  $category
+     * @param  \App\Http\Requests\SubCategory\StoreSubCategoryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreSubCategoryRequest $request, Category $category)
+    public function store(StoreSubCategoryRequest $request)
     {
-        //
-    }
+        Subcategory::create($request->validated());
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Admin\Category  $category
-     * @param  \App\Models\Admin\SubCategory  $subCategory
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category, SubCategory $subCategory)
-    {
-        //
+        $notification = array(
+            'message' => 'SubCategory Is Added Successfully!',
+            'alert-type' => 'success',
+        );
+
+        return redirect()->back()->with($notification);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Admin\Category  $category
-     * @param  \App\Models\Admin\SubCategory  $subCategory
+     * @param  \App\Models\Admin\Subcategory  $subcategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category, SubCategory $subCategory)
+    public function edit(Subcategory $subcategory)
     {
-        //
+        $categories = Category::pluck('category_name','id');
+        return view('admin.subcategory.edit', compact('subcategory', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Admin\Category  $category
-     * @param  \App\Models\Admin\SubCategory  $subCategory
+     * @param  \App\Http\Requests\SubCategory\UpdateSubCategoryRequest  $request
+     * @param  \App\Models\Admin\Subcategory  $subcategory
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSubCategoryRequest $request, Category $category, SubCategory $subCategory)
+    public function update(UpdateSubCategoryRequest $request, Subcategory $subcategory)
     {
-        //
+        $subcategory->update($request->validated());
+
+        $notification = array(
+            'message' => 'SubCategory Is Updated Successfully!',
+            'alert-type' => 'success',
+        );
+
+        return redirect()->route('subcategories.index')->with($notification);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Admin\Category  $category
-     * @param  \App\Models\Admin\SubCategory  $subCategory
+     * @param  \App\Models\Admin\Subcategory  $subcategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category, SubCategory $subCategory)
+    public function destroy(Subcategory $subcategory)
     {
-        //
+        $subcategory->delete();
+        $notification = array(
+            'message' => 'SubCategory Is Deleted Successfully!',
+            'alert-type' => 'success',
+        );
+
+        return redirect()->route('subcategories.index')->with($notification);
     }
 }

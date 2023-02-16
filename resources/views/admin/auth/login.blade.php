@@ -10,7 +10,7 @@
         
         {{ Form::open(['route' => 'admin.login']) }}
         <div class="form-group">
-          {{ Form::email('email', old('email'), ['class' => "form-control @error('email') is-invalid @enderror", 'autocomplete' => 'email', 'placeholder' => 'Email Address', 'autofocus', 'required']) }}
+          {{ Form::email('email', old('email'), ['class' => 'form-control'. ($errors->has('email') ? ' is-invalid' : null), 'autocomplete' => 'email', 'placeholder' => 'Email Address', 'autofocus', 'required']) }}
         </div><!-- form-group -->
         @error('email')
         <span class="invalid-feedback" role="alert">
@@ -18,7 +18,7 @@
         </span>
         @enderror
         <div class="form-group">
-        {{ Form::password('password', null, ['class' => "form-control @error('password') is-invalid @enderror", 'autocomplete' => 'current-password', 'placeholder' => 'Password', 'required']) }}
+        {{ Form::password('password', ['class' => 'form-control'. ($errors->has('password') ? ' is-invalid' : null), 'autocomplete' => 'current-password', 'placeholder' => 'Password', 'required']) }}
         @error('password')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

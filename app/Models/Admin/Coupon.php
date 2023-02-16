@@ -5,12 +5,12 @@ namespace App\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SubCategory extends Model
+class Coupon extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'category_id',
-        'subcategory_name',
+        'coupon',
+        'discount',
     ];
 }
