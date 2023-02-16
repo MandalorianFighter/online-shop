@@ -27,6 +27,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config
     Route::resource('brands', Category\BrandController::class)->except(['create', 'show']);
     Route::resource('subcategories', Category\SubCategoryController::class)->except(['create', 'show']);
     Route::resource('coupons', Category\CouponController::class)->except(['create', 'show']);
+    Route::resource('newsletters', Category\NewsletterController::class)->only(['index', 'store', 'destroy']);
 
     // Admin change password
     

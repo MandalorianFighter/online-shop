@@ -4067,10 +4067,10 @@
 							<div class="newsletter_text"><p>...and receive %20 coupon for first shopping.</p></div>
 						</div>
 						<div class="newsletter_content clearfix">
-							<form action="#" class="newsletter_form">
-								<input type="email" class="newsletter_input" required="required" placeholder="Enter your email address">
-								<button class="newsletter_button">Subscribe</button>
-							</form>
+							{{ Form::open(['route' => 'newsletters.store', 'class' => 'newsletter_form']) }}
+							{{ Form::email('email', null, ['class' => 'newsletter_input', 'required', 'placeholder' => 'Enter your email address']) }}
+							{{ Form::submit('Subscribe', ['class' => 'newsletter_button']) }}
+							{{ Form::close() }}
 							<div class="newsletter_unsubscribe_link"><a href="#">unsubscribe</a></div>
 						</div>
 					</div>
