@@ -28,6 +28,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config
     Route::resource('subcategories', Category\SubCategoryController::class)->except(['create', 'show']);
     Route::resource('coupons', Category\CouponController::class)->except(['create', 'show']);
     Route::resource('newsletters', Category\NewsletterController::class)->only(['index', 'store', 'destroy']);
+    Route::resource('products', ProductController::class);
+    Route::post('/get-subcategories', 'ProductController@getSubcat')->name('get.subcategories');
 
     // Admin change password
     

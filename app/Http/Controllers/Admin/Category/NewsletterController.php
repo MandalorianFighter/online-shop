@@ -21,16 +21,6 @@ class NewsletterController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\Newsletter\StoreNewsletterRequest  $request
@@ -46,40 +36,6 @@ class NewsletterController extends Controller
         );
 
         return redirect()->back()->with($notification);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Admin\Newsletter  $newsletter
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Newsletter $newsletter)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Admin\Newsletter  $newsletter
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Newsletter $newsletter)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\Newsletter\UpdateNewsletterRequest  $request
-     * @param  \App\Models\Admin\Newsletter  $newsletter
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateNewsletterRequest $request, Newsletter $newsletter)
-    {
-        //
     }
 
     /**
