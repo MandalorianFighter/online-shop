@@ -16,6 +16,11 @@ class Brand extends Model implements HasMedia
         'brand_name',
     ];
 
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
     public static function last()
     {
         return static::all()->last();

@@ -7,33 +7,53 @@
 
       <div class="sl-pagebody">
         <div class="sl-page-title">
-          <h5>Category List</h5>
+          <h5>Product List</h5>
         </div><!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40">
-          <h6 class="card-body-title">Category List
-          <a href="" class="btn btn-sm btn-warning" style="float:right;" data-toggle="modal" data-target="#modaldemo3">Add New</a>
+          <h6 class="card-body-title">Product List
+          <a href="{{ route('products.create') }}" class="btn btn-sm btn-warning" style="float:right;">Add New</a>
           </h6>
 
           <div class="table-wrapper">
             <table id="datatable1" class="table display responsive nowrap">
               <thead>
                 <tr>
-                  <th class="wd-15p">ID</th>
-                  <th class="wd-15p">Category Name</th>
+                  <th class="wd-15p">Product Code</th>
+                  <th class="wd-15p">Product Name</th>
+                  <th class="wd-15p">Image</th>
+                  <th class="wd-20p">Category</th>
+                  <th class="wd-15p">Brand</th>
+                  <th class="wd-15p">Quantity</th>
+                  <th class="wd-15p">Status</th>
                   <th class="wd-20p">Action</th>
                 </tr>
               </thead>
               <tbody>
-              @foreach ($categories as $key => $category)
+              @foreach ($products as $key => $product)
                 <tr>
-                  <td>{{ $key + 1 }}</td>
-                  <td>{{ $category->category_name }}</td>
+                  <td>{{ $product->code }}</td>
+                  <td>{{ $product->name }}</td>
+                  <td><img src="{{ $product->getFirstMediaUrl('products') }}" alt="{{ $product->name }} logo" height="70em" max-width="100%"></td>
+                  <td>{{ $product->category->category_name }}</td>
+                  <td>{{ $product->brand->brand_name }}</td>
+                  <td>{{ $product->quantity }}</td>
+                  <td id="status">
+                    @if($product->status == true)
+                    <span class="badge badge-success">Active</span>
+                    @else
+                    <span class="badge badge-danger">Inactive</span>
+                    @endif
+                  </td>
                   <td>
-                    <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-info">Edit</a>
-                    {{ Form::model($category, ['route' => ['categories.destroy', $category], 'method' => 'DELETE', 'style' => 'display:inline-block;']) }}
-                    {{ Form::submit('Delete', ['class' => 'btn btn-sm btn-danger', 'id' => 'delete']) }}
+                    <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-info" title="Edit"><i class="fa fa-edit"></i></a>
+                    {{ Form::model($product, ['route' => ['products.destroy', $product], 'method' => 'DELETE', 'style' => 'display:inline-block;']) }}
+                    {{ Form::button('<i class="fa fa-trash"></i>', ['class' => 'btn btn-sm btn-danger', 'id' => 'delete', 'title' => 'Delete', 'type' => 'submit']) }}
                     {{ Form::close() }}
+                    <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-warning" title="Show"><i class="fa fa-eye"></i></a>
+                    
+                    <div class="btn btn-sm"><input type="checkbox" data-toggle="toggle" class="toggle-status" data-id="{{ $product->id }}" data-on="Inactive <i class='fa fa-thumbs-down'></i>" data-off="<i class='fa fa-thumbs-up'></i> Active" data-onstyle="danger" data-offstyle="success" data-size="small" {{ $product->status == true ? "checked" : "" }}></div>
+                    <!-- {!! Html::decode(Form::checkbox(null, null, null, ['data-toggle' => 'toggle', 'class' => 'toggle-status', 'data-id' => $product->id, 'data-on' => '<i class=\'fa fa-thumbs-down\'></i>', 'data-off' => '<i class=\'fa fa-thumbs-up\'></i>', 'data-onstyle' => 'danger', 'data-offstyle' => 'success', 'data-size' => 'small', $product->status == true ? 'checked' : '' ])) !!} -->
                   </td>
                 </tr>
               @endforeach
@@ -45,42 +65,5 @@
     </div><!-- sl-mainpanel -->
     <!-- ########## END: MAIN PANEL ########## -->
 
-
-    <!-- LARGE MODAL -->
-    <div id="modaldemo3" class="modal fade">
-          <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content tx-size-sm">
-              <div class="modal-header pd-x-20">
-                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Add Category</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-
-              @if ($errors->any())
-                  <div class="alert alert-danger">
-                      
-                          @foreach ($errors->all() as $error)
-                              <p>Error: {{ $error }}</p>
-                          @endforeach
-                
-                  </div>
-              @endif
-
-              {{ Form::open(['route' => 'categories.store']) }}
-              <div class="modal-body pd-20">
-                <div class="mb-3">
-                  {{ Form::label('category_name', null, ['class' => 'form-label']) }}
-                  {{ Form::text('category_name', null, ['class' => 'form-control', 'placeholder' => 'Category']) }}
-                </div>
-              </div><!-- modal-body -->
-
-              <div class="modal-footer">
-                {{ Form::submit('Submit', ['class' => 'btn btn-info pd-x-20']) }}
-                {{ Form::button('Close', ['class' => 'btn btn-secondary pd-x-20', 'data-dismiss' => 'modal']) }}
-              </div>
-              {{ Form::close() }}
-            </div>
-          </div><!-- modal-dialog -->
-        </div><!-- modal -->
 @endsection
+

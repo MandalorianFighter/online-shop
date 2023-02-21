@@ -35,10 +35,12 @@
     <link href="{{ asset('backend/lib/Ionicons/css/ionicons.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/lib/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/lib/rickshaw/rickshaw.min.css') }}" rel="stylesheet">
-
+    <link href="{{ asset('backend/lib/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+    
     <!-- tags input cdn css -->
     <link href="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet" />
-
+    <!-- toggle cdn css -->
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <!-- chart -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 
@@ -47,7 +49,6 @@
     <link href="{{ asset('backend/lib/datatables/jquery.dataTables.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/lib/select2/css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/lib/summernote/summernote-bs4.css') }}" rel="stylesheet">
-
 
     <!-- Starlight CSS -->
     <link rel="stylesheet" href="{{ asset('backend/css/starlight.css') }}">
@@ -384,6 +385,7 @@
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
     <script>
         @if(Session::has('message'))
@@ -426,5 +428,34 @@
         });
     </script>
     
+  <script type="text/javascript">
+  $('.toggle-status').on('change', function(e) {
+    var status = $(this).prop('checked') == true ? 1 : 0;
+    var prod_id = $(this).data('id');
+    
+    $.ajax({
+                type: 'POST',
+                url: '{{ route('change.status') }}',
+                data: {
+                  _token: '{{ csrf_token() }}',
+                  status: status,
+                  id: prod_id
+                },
+                success: function(response){
+                  var data = $.parseJSON(response);
+                  
+                  toastr.warning(data.message);
+                  var row = $(e.target).parents('tr');
+                  if(data.status == true) {
+                    row.find('#status').html('').append('<span class="badge badge-success">Active</span>');
+                    $(this).title('Make Inactive');
+                  } else {
+                    row.find('#status').html('').append('<span class="badge badge-danger">Inactive</span>');
+                    $(this).title('Make Active');
+                  }
+                }
+            });
+  });
+</script>
   </body>
 </html>

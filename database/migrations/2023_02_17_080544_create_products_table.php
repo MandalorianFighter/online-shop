@@ -33,7 +33,7 @@ return new class extends Migration
             $table->integer('mid_slider')->nullable();
             $table->integer('hot_new')->nullable();
             $table->integer('trend')->nullable();
-            $table->integer('status')->nullable();
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

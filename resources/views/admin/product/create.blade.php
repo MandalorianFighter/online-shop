@@ -11,7 +11,19 @@
       <div class="sl-pagebody">
 
       <div class="card pd-20 pd-sm-40">
-          <h6 class="card-body-title">New Product ADD</h6>
+          <h6 class="card-body-title">New Product ADD
+            <a href="{{ route('products.index') }}" class="btn btn-success btn-sm pull-right">All Products</a>
+          </h6>
+
+          @if ($errors->any())
+                  <div class="alert alert-danger">
+                      
+                          @foreach ($errors->all() as $error)
+                              <p>Error: {{ $error }}</p>
+                          @endforeach
+                
+                  </div>
+              @endif
           <p class="mg-b-20 mg-sm-b-30">New Product Add Form</p>
 
           {{ Form::open(['route' => 'products.store', 'files' => true]) }}
@@ -81,7 +93,7 @@
               <div class="col-lg-12">
                 <div class="form-group">
                   {!! Html::decode(Form::label('details', 'Product Details: <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
-                  {{ Form::text('details', null, ['class' => 'form-control', 'id' => 'summernote']) }}
+                  {{ Form::textarea('details', null, ['class' => 'form-control', 'id' => 'summernote']) }}
                 </div>
               </div><!-- col-4 -->
 
@@ -96,7 +108,7 @@
                 <div class="form-group">
                   {!! Html::decode(Form::label('image_one', 'Image One (Main Thumbnail): <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
                   <label class="custom-file">
-                  {{ Form::file('image_one', ['class' => 'custom-file-input', 'id' => 'file', 'onChange' => 'readURL(this);']) }}
+                  {{ Form::file('image_one', ['class' => 'custom-file-input', 'id' => 'file', 'onChange' => 'readURL(this);', 'required']) }}
                     <span class="custom-file-control"></span>
                   </label>
                 </div>
@@ -109,7 +121,7 @@
                 <div class="form-group">
                   {!! Html::decode(Form::label('image_two', 'Image Two (Thumbnail): <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
                   <label class="custom-file">
-                  {{ Form::file('image_two', ['class' => 'custom-file-input', 'id' => 'file', 'onChange' => 'readURL2(this);']) }}
+                  {{ Form::file('image_two', ['class' => 'custom-file-input', 'id' => 'file', 'onChange' => 'readURL2(this);', 'required']) }}
                     <span class="custom-file-control"></span>
                   </label>
                 </div>
@@ -122,7 +134,7 @@
                 <div class="form-group row">
                   {!! Html::decode(Form::label('image_three', 'Image Three (Thumbnail): <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
                   <label class="custom-file">
-                  {{ Form::file('image_three', ['class' => 'custom-file-input', 'id' => 'file', 'onChange' => 'readURL3(this);']) }}
+                  {{ Form::file('image_three', ['class' => 'custom-file-input', 'id' => 'file', 'onChange' => 'readURL3(this);', 'required']) }}
                     <span class="custom-file-control"></span>
                   </label>
                 </div>
@@ -201,6 +213,9 @@
     <!-- ########## END: MAIN PANEL ########## -->
 
 
+
+@endsection
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
     <script type="text/javascript">
@@ -219,14 +234,9 @@
                   if(data.error) {
                     $.notify(data.message, "warning");
                   } else {
-                    $("#subcat").html('').append('<option value="0">Pick a subcategory...</option>');
-                    $.each(data, function(key, value){
-                        //Use the Option() constructor to create a new HTMLOptionElement.
-                        var option = new Option(key, value);
-                        //Convert the HTMLOptionElement into a JQuery object that can be used with the append method.
-                        $(option).html(value);
-                        //Append the option to our Select element.
-                        $("#subcat").append(option);
+                    $("#subcat").html('').append(new Option('Pick a subcategory...', 0));
+                    $.each(data, function(key, value) {
+                        $("#subcat").append(new Option(value, key));
                     });
                   }
                 }
@@ -277,5 +287,3 @@
     }
   }
 </script>
-@endsection
-

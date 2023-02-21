@@ -29,7 +29,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config
     Route::resource('coupons', Category\CouponController::class)->except(['create', 'show']);
     Route::resource('newsletters', Category\NewsletterController::class)->only(['index', 'store', 'destroy']);
     Route::resource('products', ProductController::class);
-    Route::post('/get-subcategories', 'ProductController@getSubcat')->name('get.subcategories');
+    Route::post('/subcategories/defined', 'ProductController@getSubcat')->name('get.subcategories');
+    Route::post('/product/status', 'ProductController@changeStatus')->name('change.status');
+
 
     // Admin change password
     
