@@ -35,6 +35,8 @@ class Product extends Model implements HasMedia
         'status',
     ];
 
+    protected $with = ['category:id,category_name', 'subcategory:id,subcategory_name', 'brand:id,brand_name'];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -63,17 +65,43 @@ class Product extends Model implements HasMedia
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')
-              ->height(300)
+              ->height(100)
               ->sharpen(10)
               ->nonQueued();
     }
 
-    public function attachImg($image)
+    public function attachImgOne($image)
     {
         if(is_file($image)) {
             return $this->addMedia($image)
         ->usingFileName(time().'.'.$image->extension())
+        ->toMediaCollection('products/imageOne');
+        } else {
+            return $this->addMedia(public_path('default/image-def.png'))
+            ->preservingOriginal()
         ->toMediaCollection('products');
+        }        
+    }
+
+    public function attachImgTwo($image)
+    {
+        if(is_file($image)) {
+            return $this->addMedia($image)
+        ->usingFileName(time().'.'.$image->extension())
+        ->toMediaCollection('products/imageTwo');
+        } else {
+            return $this->addMedia(public_path('default/image-def.png'))
+            ->preservingOriginal()
+        ->toMediaCollection('products');
+        }        
+    }
+
+    public function attachImgThree($image)
+    {
+        if(is_file($image)) {
+            return $this->addMedia($image)
+        ->usingFileName(time().'.'.$image->extension())
+        ->toMediaCollection('products/imageThree');
         } else {
             return $this->addMedia(public_path('default/image-def.png'))
             ->preservingOriginal()
@@ -83,21 +111,28 @@ class Product extends Model implements HasMedia
 
     public function updateImgOne($image)
     {
-        $mediaItems = $this->getMedia();
-        $mediaItems[0]->delete();
+        $this->clearMediaCollection('products/imageOne');
             
         return $this->addMedia($image)
             ->usingFileName(time().'.'.$image->extension())
-            ->toMediaCollection('products');        
+            ->toMediaCollection('products/imageOne');        
     }
 
     public function updateImgTwo($image)
     {
-        $mediaItems = $this->getMedia();
-        $mediaItems[1]->delete();
+        $this->clearMediaCollection('products/imageTwo');
             
         return $this->addMedia($image)
             ->usingFileName(time().'.'.$image->extension())
-            ->toMediaCollection('products');        
+            ->toMediaCollection('products/imageTwo');       
+    }
+
+    public function updateImgThree($image)
+    {
+        $this->clearMediaCollection('products/imageThree');
+            
+        return $this->addMedia($image)
+            ->usingFileName(time().'.'.$image->extension())
+            ->toMediaCollection('products/imageThree');       
     }
 }

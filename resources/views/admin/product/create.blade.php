@@ -105,7 +105,7 @@
               </div><!-- col-4 -->
 
               <div class="col-lg-4">
-                <div class="form-group">
+                <div class="form-group row">
                   {!! Html::decode(Form::label('image_one', 'Image One (Main Thumbnail): <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
                   <label class="custom-file">
                   {{ Form::file('image_one', ['class' => 'custom-file-input', 'id' => 'file', 'onChange' => 'readURL(this);', 'required']) }}
@@ -118,8 +118,8 @@
               </div><!-- col-4 -->
               
               <div class="col-lg-4">
-                <div class="form-group">
-                  {!! Html::decode(Form::label('image_two', 'Image Two (Thumbnail): <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
+                <div class="form-group row">
+                  {!! Html::decode(Form::label('image_two', 'Image Two: <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
                   <label class="custom-file">
                   {{ Form::file('image_two', ['class' => 'custom-file-input', 'id' => 'file', 'onChange' => 'readURL2(this);', 'required']) }}
                     <span class="custom-file-control"></span>
@@ -132,7 +132,7 @@
 
               <div class="col-lg-4">
                 <div class="form-group row">
-                  {!! Html::decode(Form::label('image_three', 'Image Three (Thumbnail): <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
+                  {!! Html::decode(Form::label('image_three', 'Image Three: <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
                   <label class="custom-file">
                   {{ Form::file('image_three', ['class' => 'custom-file-input', 'id' => 'file', 'onChange' => 'readURL3(this);', 'required']) }}
                     <span class="custom-file-control"></span>
@@ -149,6 +149,7 @@
 
             <div class="col-lg-4">
             <label class="ckbox">
+              {{ Form::hidden('main_slider', 0) }}
               {{ Form::checkbox('main_slider', 1) }}
               <span>Main Slider</span>
             </label>
@@ -156,6 +157,7 @@
 
             <div class="col-lg-4">
             <label class="ckbox">
+              {{ Form::hidden('hot_deal', 0) }}
               {{ Form::checkbox('hot_deal', 1) }}
               <span>Hot Deal</span>
             </label>
@@ -163,6 +165,7 @@
 
             <div class="col-lg-4">
             <label class="ckbox">
+              {{ Form::hidden('best_rated', 0) }}
               {{ Form::checkbox('best_rated', 1) }}
               <span>Best Rated</span>
             </label>
@@ -170,6 +173,7 @@
 
             <div class="col-lg-4">
             <label class="ckbox">
+              {{ Form::hidden('trend', 0) }}
               {{ Form::checkbox('trend', 1) }}
               <span>Trend Product</span>
             </label>
@@ -177,6 +181,7 @@
 
             <div class="col-lg-4">
             <label class="ckbox">
+              {{ Form::hidden('mid_slider', 0) }}
               {{ Form::checkbox('mid_slider', 1) }}
               <span>Mid Slider</span>
             </label>
@@ -184,6 +189,7 @@
 
             <div class="col-lg-4">
             <label class="ckbox">
+              {{ Form::hidden('hot_new', 0) }}
               {{ Form::checkbox('hot_new', 1) }}
               <span>Hot New</span>
             </label>
@@ -215,75 +221,3 @@
 
 
 @endsection
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
-    <script type="text/javascript">
-    function loadSubcat($this) {
-            //Make an Ajax request to a Laravel route
-            //This will return the data that we can add to our Select element.
-            $.ajax({
-                type: 'POST',
-                url: '{{ route('get.subcategories') }}',
-                data: {
-                  _token: '{{ csrf_token() }}',
-                  id: $this.value
-                },
-                success: function(response){
-                  var data = $.parseJSON(response);
-                  if(data.error) {
-                    $.notify(data.message, "warning");
-                  } else {
-                    $("#subcat").html('').append(new Option('Pick a subcategory...', 0));
-                    $.each(data, function(key, value) {
-                        $("#subcat").append(new Option(value, key));
-                    });
-                  }
-                }
-            });
-        }
-</script>
-<script type="text/javascript">
-  function readURL(input){
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        $('#one')
-        .attr('src', e.target.result)
-        .height(80)
-        .removeClass("invisible");
-      };
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
-</script>
-
-<script type="text/javascript">
-  function readURL2(input){
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        $('#two')
-        .attr('src', e.target.result)
-        .height(80)
-        .removeClass("invisible");
-      };
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
-</script>
-<script type="text/javascript">
-  function readURL3(input){
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      
-      reader.onload = function(e) {
-        $('#three')
-        .attr('src', e.target.result)
-        .height(80)
-        .removeClass("invisible");
-      };
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
-</script>

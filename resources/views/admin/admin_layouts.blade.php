@@ -40,7 +40,7 @@
     <!-- tags input cdn css -->
     <link href="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet" />
     <!-- toggle cdn css -->
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link href="{{ asset('backend/lib/bootstrap/bootstrap-toggle.css') }}" rel="stylesheet">
     <!-- chart -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 
@@ -384,8 +384,9 @@
     <script src="{{ asset('backend/js/dashboard.js') }}"></script>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
 
     <script>
         @if(Session::has('message'))
@@ -434,28 +435,95 @@
     var prod_id = $(this).data('id');
     
     $.ajax({
+        type: 'POST',
+        url: '{{ route('change.status') }}',
+        data: {
+          _token: '{{ csrf_token() }}',
+          status: status,
+          id: prod_id
+        },
+        success: function(response){
+          var data = $.parseJSON(response);
+          
+          toastr.warning(data.message);
+          var row = $(e.target).parents('tr');
+          if(data.status == true) {
+            row.find('#status').html('').append('<span class="badge badge-success">Active</span>');
+          } else {
+            row.find('#status').html('').append('<span class="badge badge-danger">Inactive</span>');
+          }
+        }
+    });
+  });
+</script>
+<script type="text/javascript">
+    function loadSubcat($this) {
+            //Make an Ajax request to a Laravel route
+            //This will return the data that we can add to our Select element.
+            $.ajax({
                 type: 'POST',
-                url: '{{ route('change.status') }}',
+                url: '{{ route('get.subcategories') }}',
                 data: {
                   _token: '{{ csrf_token() }}',
-                  status: status,
-                  id: prod_id
+                  id: $this.value
                 },
                 success: function(response){
                   var data = $.parseJSON(response);
-                  
-                  toastr.warning(data.message);
-                  var row = $(e.target).parents('tr');
-                  if(data.status == true) {
-                    row.find('#status').html('').append('<span class="badge badge-success">Active</span>');
-                    $(this).title('Make Inactive');
+                  if(data.error) {
+                    $.notify(data.message, "warning");
                   } else {
-                    row.find('#status').html('').append('<span class="badge badge-danger">Inactive</span>');
-                    $(this).title('Make Active');
+                    $("#subcat").html('').append(new Option('Pick a subcategory...', 0));
+                    $.each(data, function(key, value) {
+                        $("#subcat").append(new Option(value, key));
+                    });
                   }
                 }
             });
-  });
+        }
+</script>
+<script type="text/javascript">
+  function readURL(input){
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $('#one')
+        .attr('src', e.target.result)
+        .height(100)
+        .removeClass("invisible");
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+
+<script type="text/javascript">
+  function readURL2(input){
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $('#two')
+        .attr('src', e.target.result)
+        .height(100)
+        .removeClass("invisible");
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+<script type="text/javascript">
+  function readURL3(input){
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      
+      reader.onload = function(e) {
+        $('#three')
+        .attr('src', e.target.result)
+        .height(100)
+        .removeClass("invisible");
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
 </script>
   </body>
 </html>

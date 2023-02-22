@@ -1,86 +1,215 @@
 @extends('admin.admin_layouts')
 
 @section('admin_content')
-
-    <!-- ########## START: MAIN PANEL ########## -->
-    <div class="sl-mainpanel">
+<!-- ########## START: MAIN PANEL ########## -->
+<div class="sl-mainpanel">
+      <nav class="breadcrumb sl-breadcrumb">
+        <a class="breadcrumb-item" href="index.html">Starlight</a>
+        <span class="breadcrumb-item active">Product Section</span>
+      </nav>
 
       <div class="sl-pagebody">
-        <div class="sl-page-title">
-          <h5>Category List</h5>
-        </div><!-- sl-page-title -->
 
-        <div class="card pd-20 pd-sm-40">
-          <h6 class="card-body-title">Category List
-          <a href="" class="btn btn-sm btn-warning" style="float:right;" data-toggle="modal" data-target="#modaldemo3">Add New</a>
+      <div class="card pd-20 pd-sm-40">
+          <h6 class="card-body-title">Product Details Page
+            <a href="{{ route('products.index') }}" class="btn btn-success btn-sm pull-right">All Products</a>
           </h6>
 
-          <div class="table-wrapper">
-            <table id="datatable1" class="table display responsive nowrap">
-              <thead>
-                <tr>
-                  <th class="wd-15p">ID</th>
-                  <th class="wd-15p">Category Name</th>
-                  <th class="wd-20p">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-              @foreach ($categories as $key => $category)
-                <tr>
-                  <td>{{ $key + 1 }}</td>
-                  <td>{{ $category->category_name }}</td>
-                  <td>
-                    <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-info">Edit</a>
-                    {{ Form::model($category, ['route' => ['categories.destroy', $category], 'method' => 'DELETE', 'style' => 'display:inline-block;']) }}
-                    {{ Form::submit('Delete', ['class' => 'btn btn-sm btn-danger', 'id' => 'delete']) }}
-                    {{ Form::close() }}
-                  </td>
-                </tr>
-              @endforeach
-              </tbody>
-            </table>
-          </div><!-- table-wrapper -->
+  
+          <div class="form-layout">
+            <div class="row mg-b-25">
+              <div class="col-lg-4">
+                <div class="form-group">
+                  {{ Form::label('name', 'Product Name: ', ['class' => 'form-control-label']) }}
+                  <p><strong>{{ $product->name }}</strong></p>
+                </div>
+              </div><!-- col-4 -->
+              <div class="col-lg-4">
+                <div class="form-group">
+                {{ Form::label('code', 'Product Code: ', ['class' => 'form-control-label']) }}
+                  <p><strong>{{ $product->code }}</strong></p>
+                </div>
+              </div><!-- col-4 -->
+              <div class="col-lg-4">
+                <div class="form-group">
+                {{ Form::label('quantity', 'Product Quantity: ', ['class' => 'form-control-label']) }}
+                  <p><strong>{{ $product->quantity }}</strong></p>
+                </div>
+              </div><!-- col-4 -->
+              <div class="col-lg-4">
+                <div class="form-group mg-b-10-force">
+                {{ Form::label('category_id', 'Product Category: ', ['class' => 'form-control-label']) }}
+                  <p><strong>{{ $product->category->category_name }}</strong></p>
+                </div>
+              </div><!-- col-4 -->
+
+              <div class="col-lg-4">
+                <div class="form-group mg-b-10-force">
+                {{ Form::label('subcategory_id', 'Product SubCategory: ', ['class' => 'form-control-label']) }}
+                  <p><strong>{{ $product->subcategory->subcategory_name }}</strong></p>
+                </div>
+              </div><!-- col-4 -->
+
+              <div class="col-lg-4">
+                <div class="form-group mg-b-10-force">
+                {{ Form::label('brand_id', 'Product Brand: ', ['class' => 'form-control-label']) }}
+                  <p><strong>{{ $product->brand->brand_name }}</strong></p>
+                </div>
+              </div><!-- col-4 -->
+
+              <div class="col-lg-4">
+                <div class="form-group">
+                {{ Form::label('size', 'Product Size: ', ['class' => 'form-control-label']) }}
+                  <p><strong>{{ $product->size }}</strong></p>
+                </div>
+              </div><!-- col-4 -->
+
+              <div class="col-lg-4">
+                <div class="form-group">
+                {{ Form::label('color', 'Product Color: ', ['class' => 'form-control-label']) }}
+                  <p><strong>{{ $product->color }}</strong></p>
+                </div>
+              </div><!-- col-4 -->
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                {{ Form::label('selling_price', 'Selling Price: ', ['class' => 'form-control-label']) }}
+                  <p><strong>{{ $product->selling_price }}</strong></p>
+                </div>
+              </div><!-- col-4 -->
+
+              <div class="col-lg-12">
+                <div class="form-group">
+                {{ Form::label('details', 'Product Details: ', ['class' => 'form-control-label']) }}
+                  <p>{!! $product->details !!}</p>
+                </div>
+              </div><!-- col-4 -->
+
+              <div class="col-lg-12">
+                <div class="form-group">
+                {{ Form::label('video_link', 'Video Link: ', ['class' => 'form-control-label']) }}
+                  <p><strong>{{ $product->video_link }}</strong></p>
+                </div>
+              </div><!-- col-4 -->
+
+              <div class="col-lg-4">
+                <div class="form-group row">
+                {{ Form::label('image_one', 'Image One (Main Thumbnail): ', ['class' => 'form-control-label']) }}
+                  <label class="custom-file">
+                  <img src="{{ $product->getFirstMediaUrl('products/imageOne', 'thumb') }}" height="80em" max-width="100%">
+                  </label>
+                </div>
+                <div>
+                <img src="#" id="one" class="invisible">
+                </div>
+              </div><!-- col-4 -->
+              
+              <div class="col-lg-4">
+                <div class="form-group row">
+                {{ Form::label('image_two', 'Image Two: ', ['class' => 'form-control-label']) }}
+                  <label class="custom-file">
+                  <img src="{{ $product->getFirstMediaUrl('products/imageTwo', 'thumb') }}" height="80em" max-width="100%">
+                  </label>
+                </div>
+                <div>
+                <img src="#" id="two" class="invisible">
+                </div>
+              </div><!-- col-4 -->
+
+              <div class="col-lg-4">
+                <div class="form-group row">
+                {{ Form::label('image_three', 'Image Three: ', ['class' => 'form-control-label']) }}
+                  <label class="custom-file">
+                  <img src="{{ $product->getFirstMediaUrl('products/imageThree', 'thumb') }}" height="80em" max-width="100%">
+                  </label>
+                </div>
+                <div>
+                <img src="#" id="three" class="invisible">
+                </div>
+              </div><!-- col-4 -->
+            </div><!-- row -->
+
+            <hr>
+            <div class="row">
+
+            <div class="col-lg-4">
+            <label class="">
+              @if($product->main_slider == 1)
+              <span class="badge badge-success">Active</span>
+              @else
+              <span class="badge badge-danger">Inactive</span>
+              @endif
+              <span>Main Slider</span>
+            </label>
+            </div><!-- col-4 -->
+
+            <div class="col-lg-4">
+            <label class="">
+            @if($product->hot_deal == 1)
+              <span class="badge badge-success">Active</span>
+              @else
+              <span class="badge badge-danger">Inactive</span>
+              @endif
+              <span>Hot Deal</span>
+            </label>
+            </div><!-- col-4 -->
+
+            <div class="col-lg-4">
+            <label class="">
+              @if($product->best_rated == 1)
+              <span class="badge badge-success">Active</span>
+              @else
+              <span class="badge badge-danger">Inactive</span>
+              @endif
+              <span>Best Rated</span>
+            </label>
+            </div><!-- col-4 -->
+
+            <div class="col-lg-4">
+            <label class="">
+              @if($product->trend == 1)
+              <span class="badge badge-success">Active</span>
+              @else
+              <span class="badge badge-danger">Inactive</span>
+              @endif
+              <span>Trend Product</span>
+            </label>
+            </div><!-- col-4 -->
+
+            <div class="col-lg-4">
+            <label class="">
+              @if($product->mid_slider == 1)
+              <span class="badge badge-success">Active</span>
+              @else
+              <span class="badge badge-danger">Inactive</span>
+              @endif
+              <span>Mid Slider</span>
+            </label>
+            </div><!-- col-4 -->
+
+            <div class="col-lg-4">
+            <label class="">
+              @if($product->hot_new == 1)
+              <span class="badge badge-success">Active</span>
+              @else
+              <span class="badge badge-danger">Inactive</span>
+              @endif
+              <span>Hot New</span>
+            </label>
+            </div><!-- col-4 -->
+
+            </div>
+
+            
+          </div><!-- form-layout -->
         </div><!-- card -->
 
-    </div><!-- sl-mainpanel -->
+
+      </div><!-- row -->
+
+</div><!-- sl-mainpanel -->
     <!-- ########## END: MAIN PANEL ########## -->
 
 
-    <!-- LARGE MODAL -->
-    <div id="modaldemo3" class="modal fade">
-          <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content tx-size-sm">
-              <div class="modal-header pd-x-20">
-                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Add Category</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
 
-              @if ($errors->any())
-                  <div class="alert alert-danger">
-                      
-                          @foreach ($errors->all() as $error)
-                              <p>Error: {{ $error }}</p>
-                          @endforeach
-                
-                  </div>
-              @endif
-
-              {{ Form::open(['route' => 'categories.store']) }}
-              <div class="modal-body pd-20">
-                <div class="mb-3">
-                  {{ Form::label('category_name', null, ['class' => 'form-label']) }}
-                  {{ Form::text('category_name', null, ['class' => 'form-control', 'placeholder' => 'Category']) }}
-                </div>
-              </div><!-- modal-body -->
-
-              <div class="modal-footer">
-                {{ Form::submit('Submit', ['class' => 'btn btn-info pd-x-20']) }}
-                {{ Form::button('Close', ['class' => 'btn btn-secondary pd-x-20', 'data-dismiss' => 'modal']) }}
-              </div>
-              {{ Form::close() }}
-            </div>
-          </div><!-- modal-dialog -->
-        </div><!-- modal -->
 @endsection

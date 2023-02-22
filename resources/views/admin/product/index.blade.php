@@ -34,7 +34,7 @@
                 <tr>
                   <td>{{ $product->code }}</td>
                   <td>{{ $product->name }}</td>
-                  <td><img src="{{ $product->getFirstMediaUrl('products') }}" alt="{{ $product->name }} logo" height="70em" max-width="100%"></td>
+                  <td><img src="{{ $product->getFirstMediaUrl('products/imageOne', 'thumb') }}" alt="{{ $product->name }} logo" height="70em" max-width="100%"></td>
                   <td>{{ $product->category->category_name }}</td>
                   <td>{{ $product->brand->brand_name }}</td>
                   <td>{{ $product->quantity }}</td>
@@ -50,9 +50,9 @@
                     {{ Form::model($product, ['route' => ['products.destroy', $product], 'method' => 'DELETE', 'style' => 'display:inline-block;']) }}
                     {{ Form::button('<i class="fa fa-trash"></i>', ['class' => 'btn btn-sm btn-danger', 'id' => 'delete', 'title' => 'Delete', 'type' => 'submit']) }}
                     {{ Form::close() }}
-                    <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-warning" title="Show"><i class="fa fa-eye"></i></a>
+                    <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-warning" title="Show"><i class="fa fa-eye"></i></a>
                     
-                    <div class="btn btn-sm"><input type="checkbox" data-toggle="toggle" class="toggle-status" data-id="{{ $product->id }}" data-on="Inactive <i class='fa fa-thumbs-down'></i>" data-off="<i class='fa fa-thumbs-up'></i> Active" data-onstyle="danger" data-offstyle="success" data-size="small" {{ $product->status == true ? "checked" : "" }}></div>
+                    <input type="checkbox" data-toggle="toggle" class="toggle-status" data-id="{{ $product->id }}" data-on="<i class='fa fa-thumbs-down'></i>" data-off="<i class='fa fa-thumbs-up'></i>" data-onstyle="danger" data-offstyle="success" data-size="small" {{ $product->status == true ? "checked" : "" }}>
                     <!-- {!! Html::decode(Form::checkbox(null, null, null, ['data-toggle' => 'toggle', 'class' => 'toggle-status', 'data-id' => $product->id, 'data-on' => '<i class=\'fa fa-thumbs-down\'></i>', 'data-off' => '<i class=\'fa fa-thumbs-up\'></i>', 'data-onstyle' => 'danger', 'data-offstyle' => 'success', 'data-size' => 'small', $product->status == true ? 'checked' : '' ])) !!} -->
                   </td>
                 </tr>

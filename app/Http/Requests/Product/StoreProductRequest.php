@@ -37,7 +37,6 @@ class StoreProductRequest extends FormRequest
             'image_one' => 'required|image|max:5120|mimes:jpeg,jpg,png',
             'image_two' => 'required|image|max:5120|mimes:jpeg,jpg,png',
             'image_three' => 'required|image|max:5120|mimes:jpeg,jpg,png',
-            'discount_price' => 'nullable',
             'video_link' => 'nullable',
             'main_slider'=> 'nullable',
             'hot_deal' => 'nullable',
