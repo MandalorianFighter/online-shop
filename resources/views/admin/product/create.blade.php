@@ -201,7 +201,6 @@
 
             <div class="form-layout-footer">
             {{ Form::submit('Submit Form', ['class' => 'btn btn-info mg-r-5']) }}
-            {{ Form::button('Cancel', ['class' => 'btn btn-secondary']) }}
             </div><!-- form-layout-footer -->
           </div><!-- form-layout -->
         </div><!-- card -->

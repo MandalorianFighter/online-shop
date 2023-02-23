@@ -32,7 +32,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config
     Route::post('/subcategories/defined', 'ProductController@getSubcat')->name('get.subcategories');
     Route::post('/product/status', 'ProductController@changeStatus')->name('change.status');
     Route::put('/product/images/{product}', 'ProductController@updateImages')->name('products.update.images');
-
+    Route::resource('blog-categories', BlogCategoryController::class)->except(['create', 'show']);;
+    Route::resource('posts', PostController::class);
 
     // Admin change password
     

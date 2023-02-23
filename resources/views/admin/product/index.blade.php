@@ -45,15 +45,18 @@
                     <span class="badge badge-danger">Inactive</span>
                     @endif
                   </td>
-                  <td>
-                    <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-info" title="Edit"><i class="fa fa-edit"></i></a>
+                  <td id="btns" data-id="{{ $product->id }}">
+                    <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-warning" title="Edit"><i class="fa fa-edit"></i></a>
                     {{ Form::model($product, ['route' => ['products.destroy', $product], 'method' => 'DELETE', 'style' => 'display:inline-block;']) }}
                     {{ Form::button('<i class="fa fa-trash"></i>', ['class' => 'btn btn-sm btn-danger', 'id' => 'delete', 'title' => 'Delete', 'type' => 'submit']) }}
                     {{ Form::close() }}
-                    <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-warning" title="Show"><i class="fa fa-eye"></i></a>
-                    
+                    <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-info" title="Show"><i class="fa fa-eye"></i></a>
+                    <!-- @if($product->status == true) 
+                    <a href="" class="btn btn-sm btn-danger" id="btn-status" title="Inactive"><i class='fa fa-thumbs-down'></i></a>
+                    @else
+                    <a href="" class="btn btn-sm btn-info" id="btn-status" title="Active"><i class='fa fa-thumbs-up'></i></a>
+                    @endif  -->
                     <input type="checkbox" data-toggle="toggle" class="toggle-status" data-id="{{ $product->id }}" data-on="<i class='fa fa-thumbs-down'></i>" data-off="<i class='fa fa-thumbs-up'></i>" data-onstyle="danger" data-offstyle="success" data-size="small" {{ $product->status == true ? "checked" : "" }}>
-                    <!-- {!! Html::decode(Form::checkbox(null, null, null, ['data-toggle' => 'toggle', 'class' => 'toggle-status', 'data-id' => $product->id, 'data-on' => '<i class=\'fa fa-thumbs-down\'></i>', 'data-off' => '<i class=\'fa fa-thumbs-up\'></i>', 'data-onstyle' => 'danger', 'data-offstyle' => 'success', 'data-size' => 'small', $product->status == true ? 'checked' : '' ])) !!} -->
                   </td>
                 </tr>
               @endforeach

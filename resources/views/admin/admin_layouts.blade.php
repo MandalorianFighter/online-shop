@@ -108,6 +108,19 @@
 
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
+            <span class="menu-item-label">Blog</span>
+            <i class="menu-item-arrow fa fa-angle-down"></i>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <ul class="sl-menu-sub nav flex-column">
+        <li class="nav-item"><a href="{{ route('blog-categories.index') }}" class="nav-link">Blog Categories</a></li>
+          <li class="nav-item"><a href="{{ route('posts.create') }}" class="nav-link">Add Post</a></li>
+          <li class="nav-item"><a href="{{ route('posts.index') }}" class="nav-link">Posts List</a></li>
+        </ul>
+
+        <a href="#" class="sl-menu-link">
+          <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-filing-outline tx-24"></i>
             <span class="menu-item-label">Others</span>
             <i class="menu-item-arrow fa fa-angle-down"></i>
@@ -376,6 +389,11 @@
           height: 150,
           tooltip: false
         })
+
+        $('#summernote1').summernote({
+          height: 150,
+          tooltip: false
+        })
       });
     </script>
 
@@ -456,8 +474,37 @@
     });
   });
 </script>
+<!-- <script type="text/javascript">
+  $(document).on('click', '#btn-status', function(e) {
+    var status = $(this).prop('title') == 'Active' ? 1 : 0;
+    var row = $(e.target).parents('tr');
+    var prod_id = row.find('#btns').data('id');
+    
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('change.status') }}',
+        data: {
+          _token: '{{ csrf_token() }}',
+          status: status,
+          id: prod_id
+        },
+        success: function(response){
+          var data = $.parseJSON(response);
+          
+          toastr.warning(data.message);
+          if(data.status == true) {
+            $(this).attr('class', 'btn btn-sm btn-danger').title('Inactive').html('<i class="fa fa-thumbs-down"></i>');
+            row.find('#status').html('').append('<span class="badge badge-success">Active</span>');
+          } else {
+            $(this).attr('class', 'btn btn-sm btn-info').title('Active').html('<i class="fa fa-thumbs-up"></i>');
+            row.find('#status').html('').append('<span class="badge badge-danger">Inactive</span>');
+          }
+        }
+    });
+  });
+</script> -->
 <script type="text/javascript">
-    function loadSubcat($this) {
+    async function loadSubcat($this) {
             //Make an Ajax request to a Laravel route
             //This will return the data that we can add to our Select element.
             $.ajax({
