@@ -33,6 +33,7 @@ class StoreProductRequest extends FormRequest
             'color' => 'required',
             'size' => 'required',
             'selling_price' => 'required',
+            'discount_price' => 'nullable',
             'details' => 'required|min:100|max:750',
             'image_one' => 'required|image|max:5120|mimes:jpeg,jpg,png',
             'image_two' => 'required|image|max:5120|mimes:jpeg,jpg,png',

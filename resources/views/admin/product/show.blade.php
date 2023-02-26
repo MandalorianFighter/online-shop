@@ -46,7 +46,7 @@
               <div class="col-lg-4">
                 <div class="form-group mg-b-10-force">
                 {{ Form::label('subcategory_id', 'Product SubCategory: ', ['class' => 'form-control-label']) }}
-                  <p><strong>{{ $product->subcategory->subcategory_name }}</strong></p>
+                  <p><strong>{{ $product->subcategory ? $product->subcategory->subcategory_name : 'None' }}</strong></p>
                 </div>
               </div><!-- col-4 -->
 

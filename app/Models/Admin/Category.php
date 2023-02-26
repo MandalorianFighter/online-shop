@@ -13,12 +13,13 @@ class Category extends Model
         'category_name',
     ];
 
+
     /**
      * Get the subcategories for the category.
      */
     public function subcategories()
     {
-        return $this->hasMany(SubCategory::class);
+        return $this->hasMany(Subcategory::class);
     }
 
     public function products()

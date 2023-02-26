@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'pages.index')->name('home');
+Route::get('/', 'App\Http\Controllers\HomeController@indexCategories')->name('home');
 
 Route::view('/email/verify', 'auth.verify-email')->middleware('auth:web')->name('verification.notice');
 

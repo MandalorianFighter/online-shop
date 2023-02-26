@@ -30,22 +30,28 @@
 
           <div class="form-layout">
             <div class="row mg-b-25">
-              <div class="col-lg-4">
+              <div class="col-lg-6">
                 <div class="form-group">
                   {!! Html::decode(Form::label('name', 'Product Name: <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
                   {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Enter Product Name']) }}
                 </div>
               </div><!-- col-4 -->
-              <div class="col-lg-4">
+              <div class="col-lg-6">
                 <div class="form-group">
                   {!! Html::decode(Form::label('code', 'Product Code: <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
                   {{ Form::text('code', null, ['class' => 'form-control', 'placeholder' => 'Enter Product Code']) }}
                 </div>
               </div><!-- col-4 -->
-              <div class="col-lg-4">
+              <div class="col-lg-6">
                 <div class="form-group">
                   {!! Html::decode(Form::label('quantity', 'Product Quantity: <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
                   {{ Form::number('quantity', null, ['class' => 'form-control', 'placeholder' => 'Enter Product Quantity']) }}
+                </div>
+              </div><!-- col-4 -->
+              <div class="col-lg-6">
+                <div class="form-group">
+                  {!! Html::decode(Form::label('quantity', 'Discount Price: <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
+                  {{ Form::number('discount_price', null, ['class' => 'form-control', 'placeholder' => 'Enter Product Discount']) }}
                 </div>
               </div><!-- col-4 -->
               <div class="col-lg-4">

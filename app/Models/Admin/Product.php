@@ -7,11 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Support\Str;
 
 class Product extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;
+
+    const LIMIT = 16;
 
     protected $fillable = [
         'category_id',
@@ -52,6 +55,16 @@ class Product extends Model implements HasMedia
         return $this->belongsTo(Brand::class);
     }
 
+    public function getDiscount()
+    {
+        return intval(($this->selling_price - $this->discount_price) / $this->selling_price * 100);
+    }
+
+    public function limitName()
+    {
+        return Str::limit($this->name, Product::LIMIT);
+    }
+
     public static function last()
     {
         return static::all()->last();
@@ -65,8 +78,16 @@ class Product extends Model implements HasMedia
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')
-              ->height(100)
-              ->sharpen(10)
+              ->height(150)
+              ->width(150)
+              ->quality(90)
+              ->nonQueued();
+
+        $this->addMediaConversion('thumb-mid')
+              ->performOnCollections('products/imageOne')
+              ->height(500)
+              ->width(500)
+              ->quality(90)
               ->nonQueued();
     }
 

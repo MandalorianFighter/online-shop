@@ -350,13 +350,10 @@
             searchPlaceholder: 'Search...',
             sSearch: '',
             lengthMenu: '_MENU_ items/page',
-          }
-        });
-
-        $('#datatable2').DataTable({
-          bLengthChange: false,
-          searching: false,
-          responsive: true
+          },
+          "fnDrawCallback": function() {
+            $('.toggle-status').bootstrapToggle();
+            }
         });
 
         // Select2

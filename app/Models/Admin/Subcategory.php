@@ -14,7 +14,6 @@ class Subcategory extends Model
         'subcategory_name',
     ];
 
-    protected $with = ['category'];
 
     /**
      * Get the category that owns the subcategory.

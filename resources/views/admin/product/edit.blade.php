@@ -65,7 +65,7 @@
               <div class="col-lg-4">
                 <div class="form-group mg-b-10-force">
                   {!! Html::decode(Form::label('subcategory_id', 'Product SubCategory: <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
-                  {{ Form::select('subcategory_id', $subcategories, null, ['class' => 'form-control', 'value' => $product->subcategory->subcategory_name, 'id' => 'subcat']) }}
+                  {{ Form::select('subcategory_id', $subcategories, null, ['class' => 'form-control', 'value' => $product->subcategory ? $product->subcategory->subcategory_name : 'placeholder', 'placeholder' => 'Pick a subcategory...', 'id' => 'subcat']) }}
                 </div>
               </div><!-- col-4 -->
 
