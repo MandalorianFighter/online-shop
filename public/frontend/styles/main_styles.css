@@ -2103,6 +2103,11 @@ select option
 {
 	width: 100%;
 }
+#banner_2_img
+{
+	width: 60%;
+	float: right;
+}
 .banner_2_category
 {
 	font-size: 12px;

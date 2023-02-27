@@ -16,9 +16,10 @@ class HomeController extends Controller
         $trend = Product::where('status',1)->where('trend',1)->orderBy('id','desc')->limit(8)->get();
         $best = Product::where('status',1)->where('best_rated',1)->orderBy('id','desc')->limit(8)->get();
         $hot = Product::where('status',1)->where('hot_deal',1)->orderBy('id','desc')->limit(3)->get();
+        $midSlider = Product::where('status',1)->where('mid_slider',1)->orderBy('id','desc')->limit(3)->get();
         
         // return response()->json($categories);
-        return view('pages.index', compact('categories', 'slider', 'featured', 'trend', 'best', 'hot'));
+        return view('pages.index', compact('categories', 'slider', 'featured', 'trend', 'best', 'hot', 'midSlider'));
     }
 
 }
