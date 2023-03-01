@@ -29,7 +29,7 @@
 
 							<!-- Main Nav Menu -->
 
-							<div class="main_nav_menu ml-auto">
+							<div class="main_nav_menu ms-auto">
 								<ul class="standard_dropdown main_nav_dropdown">
 									<li><a href="#">Home<i class="fas fa-chevron-down"></i></a></li>
 									<li class="hassubs">
@@ -83,7 +83,7 @@
 
 							<!-- Menu Trigger -->
 
-							<div class="menu_trigger_container ml-auto">
+							<div class="menu_trigger_container ms-auto">
 								<div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
 									<div class="menu_burger">
 										<div class="menu_trigger_text">menu</div>
@@ -192,7 +192,7 @@
 		<div class="banner_background" style="background-image:url({{ asset('frontend/images/banner_background.jpg') }})"></div>
 		<div class="container fill_height">
 			<div class="row fill_height">
-				<div class="banner_product_image"><img src="{{ $slider->getFirstMediaUrl('products/imageOne') }}" class="main_banner" alt=""></div>
+				<div class="banner_product_image"><img src="{{ $slider->getFirstMediaUrl('products/imageOne') }}" class="main_banner float-end" alt=""></div>
 				<div class="col-lg-5 offset-lg-4 fill_height">
 					<div class="banner_content">
 						<h1 class="banner_text">{{ $slider->name }}</h1>

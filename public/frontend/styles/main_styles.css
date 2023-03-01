@@ -1252,7 +1252,7 @@ select option
 
 .main_banner
 {
-	height: 530px;
+	height: 33rem;
 }
 
 /*********************************
@@ -2103,10 +2103,9 @@ select option
 {
 	width: 100%;
 }
-#banner_2_img
+.banner_2_img
 {
-	width: 60%;
-	float: right;
+	width: 33rem!important;
 }
 .banner_2_category
 {
@@ -3633,10 +3632,6 @@ select option
 {
 	font-weight: 500;
 }
-.logos
-{
-	
-}
 .logos_list li
 {
 	display: inline-block;
@@ -3645,4 +3640,10 @@ select option
 .logos_list li:last-child
 {
 	margin-right: 0px;
+}
+.sign-form
+{
+border: 1px solid grey;
+padding: 20px;
+border-radius: 25px;
 }

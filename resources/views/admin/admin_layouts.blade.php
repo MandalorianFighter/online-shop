@@ -144,15 +144,15 @@
       <div class="sl-header-right">
         <nav class="nav">
           <div class="dropdown">
-            <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
+            <a href="" role="button" class="nav-link nav-link-profile" data-bs-toggle="dropdown">
               <span class="logged-name">Jane<span class="hidden-md-down"> Doe</span></span>
               <img src="{{ asset('backend/img/img3.jpg') }}" class="wd-32 rounded-circle" alt="">
             </a>
             <div class="dropdown-menu dropdown-menu-header wd-200">
               <ul class="list-unstyled user-profile-nav">
-                <li><a href=""><i class="icon ion-ios-person-outline"></i> Edit Profile</a></li>
-                <li><a href="{{ route('admin.password.change') }}"><i class="icon ion-ios-gear-outline"></i> Settings</a></li>
-                <li><a href="{{ route('admin.logout') }}"><i class="icon ion-power"></i> Sign Out</a></li>
+                <li><a class="dropdown-item" href=""><i class="icon ion-ios-person-outline"></i> Edit Profile</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.password.change') }}"><i class="icon ion-ios-gear-outline"></i> Settings</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.logout') }}"><i class="icon ion-power"></i> Sign Out</a></li>
               </ul>
             </div><!-- dropdown-menu -->
           </div><!-- dropdown -->

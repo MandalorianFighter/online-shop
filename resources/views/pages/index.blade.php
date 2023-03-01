@@ -82,18 +82,18 @@
 									<div class="deals_content">
 										<div class="deals_info_line d-flex flex-row justify-content-start">
 											<div class="deals_item_category"><a href="#">{{ $item->category->category_name }}</a></div>
-											<div class="deals_item_price_a ml-auto">${{ $item->selling_price }}</div>
+											<div class="deals_item_price_a ms-auto">${{ $item->selling_price }}</div>
 										</div>
 										<div class="deals_info_line d-flex flex-row justify-content-start">
 											<div class="deals_item_name" title="{{ $item->name }}">{{ $item->limitName() }}</div>
 											@if($item->discount_price)
-											<div class="deals_item_price ml-auto">${{ $item->discount_price }}</div>
+											<div class="deals_item_price ms-auto">${{ $item->discount_price }}</div>
 											@endif
 										</div>
 										<div class="available">
 											<div class="available_line d-flex flex-row justify-content-start">
 												<div class="available_title">Available: <span>{{ $item->quantity }}</span></div>
-												<div class="sold_title ml-auto">Already sold: <span>28</span></div>
+												<div class="sold_title ms-auto">Already sold: <span>28</span></div>
 											</div>
 											<div class="available_bar"><span style="width:17%"></span></div>
 										</div>
@@ -102,7 +102,7 @@
 												<div class="deals_timer_title">Hurry Up</div>
 												<div class="deals_timer_subtitle">Offer ends in:</div>
 											</div>
-											<div class="deals_timer_content ml-auto">
+											<div class="deals_timer_content ms-auto">
 												<div class="deals_timer_box clearfix" data-target-time="">
 													<div class="deals_timer_unit">
 														<div id="deals_timer1_hr" class="deals_timer_hr"></div>
@@ -127,8 +127,8 @@
 						</div>
 
 						<div class="deals_slider_nav_container">
-							<div class="deals_slider_prev deals_slider_nav"><i class="fas fa-chevron-left ml-auto"></i></div>
-							<div class="deals_slider_next deals_slider_nav"><i class="fas fa-chevron-right ml-auto"></i></div>
+							<div class="deals_slider_prev deals_slider_nav"><i class="fas fa-chevron-left ms-auto"></i></div>
+							<div class="deals_slider_next deals_slider_nav"><i class="fas fa-chevron-right ms-auto"></i></div>
 						</div>
 					</div>
 					
@@ -285,8 +285,8 @@
 					<div class="popular_categories_content">
 						<div class="popular_categories_title">Popular Categories</div>
 						<div class="popular_categories_slider_nav">
-							<div class="popular_categories_prev popular_categories_nav"><i class="fas fa-angle-left ml-auto"></i></div>
-							<div class="popular_categories_next popular_categories_nav"><i class="fas fa-angle-right ml-auto"></i></div>
+							<div class="popular_categories_prev popular_categories_nav"><i class="fas fa-angle-left ms-auto"></i></div>
+							<div class="popular_categories_next popular_categories_nav"><i class="fas fa-angle-right ms-auto"></i></div>
 						</div>
 						<div class="popular_categories_link"><a href="#">full catalog</a></div>
 					</div>
@@ -343,7 +343,7 @@
 								</div>
 								<div class="col-lg-8 col-md-6 fill_height">
 									<div class="banner_2_image_container">
-										<div class="banner_2_image"><img src="{{ $item->getFirstMediaUrl('products/imageOne') }}" id="banner_2_img" alt=""></div>
+										<div class="banner_2_image"><img src="{{ $item->getFirstMediaUrl('products/imageOne') }}" class="banner_2_img float-end" alt=""></div>
 									</div>
 								</div>
 							</div>
@@ -2339,7 +2339,7 @@
 							<div class="advert_title"><a href="#">Trends 2018</a></div>
 							<div class="advert_text">Lorem ipsum dolor sit amet, consectetur adipiscing Donec et.</div>
 						</div>
-						<div class="ml-auto"><div class="advert_image"><img src="{{ asset('frontend/images/adv_1.png') }}" alt=""></div></div>
+						<div class="ms-auto"><div class="advert_image"><img src="{{ asset('frontend/images/adv_1.png') }}" alt=""></div></div>
 					</div>
 				</div>
 
@@ -2353,7 +2353,7 @@
 							<div class="advert_title_2"><a href="#">Sale -45%</a></div>
 							<div class="advert_text">Lorem ipsum dolor sit amet, consectetur.</div>
 						</div>
-						<div class="ml-auto"><div class="advert_image"><img src="{{ asset('frontend/images/adv_2.png') }}" alt=""></div></div>
+						<div class="ms-auto"><div class="advert_image"><img src="{{ asset('frontend/images/adv_2.png') }}" alt=""></div></div>
 					</div>
 				</div>
 
@@ -2366,7 +2366,7 @@
 							<div class="advert_title"><a href="#">Trends 2018</a></div>
 							<div class="advert_text">Lorem ipsum dolor sit amet, consectetur.</div>
 						</div>
-						<div class="ml-auto"><div class="advert_image"><img src="{{ asset('frontend/images/adv_3.png') }}" alt=""></div></div>
+						<div class="ms-auto"><div class="advert_image"><img src="{{ asset('frontend/images/adv_3.png') }}" alt=""></div></div>
 					</div>
 				</div>
 
@@ -2388,8 +2388,8 @@
 						<h2 class="trends_title">Trends 2018</h2>
 						<div class="trends_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing Donec et.</p></div>
 						<div class="trends_slider_nav">
-							<div class="trends_prev trends_nav"><i class="fas fa-angle-left ml-auto"></i></div>
-							<div class="trends_next trends_nav"><i class="fas fa-angle-right ml-auto"></i></div>
+							<div class="trends_prev trends_nav"><i class="fas fa-angle-left ms-auto"></i></div>
+							<div class="trends_next trends_nav"><i class="fas fa-angle-right ms-auto"></i></div>
 						</div>
 					</div>
 				</div>
@@ -2533,7 +2533,7 @@
 					
 					<div class="reviews_title_container">
 						<h3 class="reviews_title">Latest Reviews</h3>
-						<div class="reviews_all ml-auto"><a href="#">view all <span>reviews</span></a></div>
+						<div class="reviews_all ms-auto"><a href="#">view all <span>reviews</span></a></div>
 					</div>
 
 					<div class="reviews_slider_container">

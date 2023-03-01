@@ -11,21 +11,23 @@
         {{ Form::open(['route' => 'admin.login']) }}
         <div class="form-group">
           {{ Form::email('email', old('email'), ['class' => 'form-control'. ($errors->has('email') ? ' is-invalid' : null), 'autocomplete' => 'email', 'placeholder' => 'Email Address', 'autofocus', 'required']) }}
+          @error('email')
+          <span class="invalid-feedback">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
         </div><!-- form-group -->
-        @error('email')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-        @enderror
         <div class="form-group">
-        {{ Form::password('password', ['class' => 'form-control'. ($errors->has('password') ? ' is-invalid' : null), 'autocomplete' => 'current-password', 'placeholder' => 'Password', 'required']) }}
+        {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password', 'required']) }}
         @error('password')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
-          <a href="{{ route('admin.password.request') }}" class="tx-info tx-12 d-block mg-t-10">Forgot password?</a>
         </div><!-- form-group -->
+        <hr>
+        <a href="{{ route('admin.password.request') }}" class="tx-info tx-12 d-block mg-t-10">Forgot password?</a>
+        <hr>
         {{ Form::submit('Sign In', ['class' => 'btn btn-info btn-block']) }}
         {{ Form::close() }}
 

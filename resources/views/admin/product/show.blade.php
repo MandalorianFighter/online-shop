@@ -20,8 +20,8 @@
             <div class="row mg-b-25">
               <div class="col-lg-4">
                 <div class="form-group">
-                  {{ Form::label('name', 'Product Name: ', ['class' => 'form-control-label']) }}
-                  <p><strong>{{ $product->name }}</strong></p>
+                  {{ Form::label('product_name', 'Product Name: ', ['class' => 'form-control-label']) }}
+                  <p><strong>{{ $product->product_name }}</strong></p>
                 </div>
               </div><!-- col-4 -->
               <div class="col-lg-4">
@@ -80,8 +80,8 @@
 
               <div class="col-lg-12">
                 <div class="form-group">
-                {{ Form::label('details', 'Product Details: ', ['class' => 'form-control-label']) }}
-                  <p>{!! $product->details !!}</p>
+                {{ Form::label('product_details', 'Product Details: ', ['class' => 'form-control-label']) }}
+                  <p>{!! $product->product_details !!}</p>
                 </div>
               </div><!-- col-4 -->
 

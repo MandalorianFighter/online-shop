@@ -18,10 +18,10 @@ return new class extends Migration
             $table->integer('category_id');
             $table->integer('subcategory_id')->nullable();
             $table->integer('brand_id')->nullable();
-            $table->string('name');
+            $table->string('product_name');
             $table->string('code');
             $table->string('quantity');
-            $table->text('details');
+            $table->text('product_details');
             $table->string('color');
             $table->string('size');
             $table->string('selling_price');

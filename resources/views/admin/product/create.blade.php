@@ -32,8 +32,8 @@
             <div class="row mg-b-25">
               <div class="col-lg-6">
                 <div class="form-group">
-                  {!! Html::decode(Form::label('name', 'Product Name: <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
-                  {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Enter Product Name']) }}
+                  {!! Html::decode(Form::label('product_name', 'Product Name: <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
+                  {{ Form::text('product_name', null, ['class' => 'form-control', 'placeholder' => 'Enter Product Name']) }}
                 </div>
               </div><!-- col-4 -->
               <div class="col-lg-6">
@@ -98,8 +98,8 @@
 
               <div class="col-lg-12">
                 <div class="form-group">
-                  {!! Html::decode(Form::label('details', 'Product Details: <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
-                  {{ Form::textarea('details', null, ['class' => 'form-control', 'id' => 'summernote']) }}
+                  {!! Html::decode(Form::label('product_details', 'Product Details: <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
+                  {{ Form::textarea('product_details', null, ['class' => 'form-control', 'id' => 'summernote']) }}
                 </div>
               </div><!-- col-4 -->
 
