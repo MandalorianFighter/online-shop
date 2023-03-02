@@ -53,7 +53,7 @@
                         {{ Form::open(['route' => 'register', 'id' => 'contact_form']) }}
                         <div class="mb-3">
                             {{ Form::label('name', 'Full Name', ['class' => 'form-label']) }}
-                            {{ Form::text('name', old('name'), ['class' => 'form-control'. ($errors->has('name') ? ' is-invalid' : null), 'autocomplete' => 'off', 'placeholder' => 'Enter Your Full Name', 'required']) }}
+                            {{ Form::text('name', old('name'), ['class' => 'form-control'. ($errors->has('name') ? ' is-invalid' : null), 'autocomplete' => false, 'placeholder' => 'Enter Your Full Name', 'required']) }}
                         @error('name')
                         <span class="invalid-feedback">
                             <strong>{{ $message }}</strong>
@@ -63,7 +63,7 @@
 
                         <div class="mb-3">
                             {{ Form::label('register_phone', 'Phone Number', ['class' => 'form-label']) }}
-                            {{ Form::text('register_phone', old('register_phone'), ['class' => 'form-control'. ($errors->has('register_phone') ? ' is-invalid' : null), 'autocomplete' => 'off', 'placeholder' => 'Enter Your Phone Number', 'required']) }}  
+                            {{ Form::text('register_phone', old('register_phone'), ['class' => 'form-control'. ($errors->has('register_phone') ? ' is-invalid' : null), 'autocomplete' => false, 'placeholder' => 'Enter Your Phone Number', 'required']) }}  
                         @error('register_phone')
                         <span class="invalid-feedback">
                             <strong>{{ $message }}</strong>
@@ -73,7 +73,7 @@
 
                         <div class="mb-3">
                             {{ Form::label('register_email', 'Email', ['class' => 'form-label']) }}
-                            {{ Form::email('register_email', old('register_email'), ['class' => 'form-control'. ($errors->has('register_email') ? ' is-invalid' : null), 'autocomplete' => 'off', 'placeholder' => 'Enter Your Email', 'required']) }}   
+                            {{ Form::email('register_email', old('register_email'), ['class' => 'form-control'. ($errors->has('register_email') ? ' is-invalid' : null), 'autocomplete' => false, 'placeholder' => 'Enter Your Email', 'required']) }}   
                         @error('register_email')
                         <span class="invalid-feedback">
                             <strong>{{ $message }}</strong>
@@ -83,7 +83,7 @@
 
                         <div class="mb-3">
                             {{ Form::label('register_password', 'Password', ['class' => 'form-label']) }}
-                            {{ Form::password('register_password', ['class' => 'form-control'. ($errors->has('register_password') ? ' is-invalid' : null), 'autocomplete' => 'off', 'placeholder' => 'Enter Your Password', 'required']) }}  
+                            {{ Form::password('register_password', ['class' => 'form-control'. ($errors->has('register_password') ? ' is-invalid' : null), 'autocomplete' => false, 'placeholder' => 'Enter Your Password', 'required']) }}  
                         @error('register_password')
                         <span class="invalid-feedback">
                             <strong>{{ $message }}</strong>

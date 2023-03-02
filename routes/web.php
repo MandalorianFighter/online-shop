@@ -53,11 +53,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin'], 'namespace' 
     Route::get('/login', 'AdminController@login')->name('admin.login.form');
     Route::post('/login', 'AdminController@store')->name('admin.login');
     
-    Route::get('/forgot-password', 'Admin\PasswordResetLinkController@create')->name('admin.password.request');
-    Route::post('/forgot-password', 'Admin\PasswordResetLinkController@store')->name('admin.password.email');
+    Route::get('/forgot-password', 'Admin\Reset\PasswordResetLinkController@create')->name('admin.password.request');
+    Route::post('/forgot-password', 'Admin\Reset\PasswordResetLinkController@store')->name('admin.password.email');
     
-    Route::post('/reset-password', 'Admin\NewPasswordController@store')->name('admin.pass-reset.update');
-    Route::get('/reset-password/{token}', 'Admin\NewPasswordController@create')->name('admin.password.reset');
+    Route::post('/reset-password', 'Admin\Reset\NewPasswordController@store')->name('admin.pass-reset.update');
+    Route::get('/reset-password/{token}', 'Admin\Reset\NewPasswordController@create')->name('admin.password.reset');
 });
 
 // User routes
@@ -66,6 +66,6 @@ Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'),'verifie
     Route::view('/dashboard', 'dashboard')->name('dashboard');
 
     Route::get('/password-change', 'App\Http\Controllers\UserController@changePass')->name('password.change');
-    Route::put('/password-update', 'App\Http\Controllers\UserController@updatePass')->name('password.change.update');
+    Route::put('/password-update/{user}', 'App\Http\Controllers\UserController@updatePass')->name('password.change.update');
     Route::get('/user/logout', 'App\Http\Controllers\UserController@logout')->name('user.logout');
 });

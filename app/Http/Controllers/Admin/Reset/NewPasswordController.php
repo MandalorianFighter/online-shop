@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Reset;
 
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Contracts\Auth\StatefulGuard;
@@ -12,7 +12,7 @@ use Laravel\Fortify\Actions\CompletePasswordReset;
 use Laravel\Fortify\Contracts\FailedPasswordResetResponse;
 use Laravel\Fortify\Contracts\PasswordResetResponse;
 use Laravel\Fortify\Contracts\ResetPasswordViewResponse;
-use Laravel\Fortify\Contracts\ResetsUserPasswords;
+use App\Actions\Fortify\ResetAdminPassword;
 use Laravel\Fortify\Fortify;
 
 class NewPasswordController extends Controller
@@ -43,7 +43,7 @@ class NewPasswordController extends Controller
      */
     public function create(Request $request)
     {
-        return view('admin.auth.reset-password');
+        return view('admin.auth.reset-password', compact('request'));
     }
 
     /**
@@ -65,10 +65,10 @@ class NewPasswordController extends Controller
         // database. Otherwise we will parse the error and return the response.
         $status = $this->broker('admins')->reset(
             $request->only(Fortify::email(), 'password', 'password_confirmation', 'token'),
-            function ($user) use ($request) {
-                app(ResetsUserPasswords::class)->reset($user, $request->all());
+            function ($admin) use ($request) {
+                app(ResetAdminPassword::class)->reset($admin, $request->all());
 
-                app(CompletePasswordReset::class)($this->guard, $user);
+                app(CompletePasswordReset::class)($this->guard, $admin);
             }
         );
 

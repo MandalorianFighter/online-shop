@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Reset;
 
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Contracts\Support\Responsable;
@@ -22,7 +22,7 @@ class PasswordResetLinkController extends Controller
      */
     public function create(Request $request)
     {
-        return view('admin.auth.forgot-password');
+        return view('admin.auth.forgot-password', compact('request'));
     }
 
     /**

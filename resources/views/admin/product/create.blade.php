@@ -201,6 +201,14 @@
             </label>
             </div><!-- col-4 -->
 
+            <div class="col-lg-4">
+            <label class="ckbox">
+              {{ Form::hidden('buyone_getone', 0) }}
+              {{ Form::checkbox('buyone_getone', 1) }}
+              <span>BuyOne & GetOne</span>
+            </label>
+            </div><!-- col-4 -->
+
             </div>
 
             <hr>

@@ -198,6 +198,18 @@
             </label>
             </div><!-- col-4 -->
 
+            <div class="col-lg-4">
+            <label class="">
+              @if($product->buyone_getone == 1)
+              <span class="badge badge-success">Active</span>
+              @else
+              <span class="badge badge-danger">Inactive</span>
+              @endif
+              <span>BuyOne & GetOne</span>
+            </label>
+            </div><!-- col-4 -->
+
+
             </div>
 
             

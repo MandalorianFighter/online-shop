@@ -195,7 +195,7 @@
 				<div class="banner_product_image"><img src="{{ $slider->getFirstMediaUrl('products/imageOne') }}" class="main_banner float-end" alt=""></div>
 				<div class="col-lg-5 offset-lg-4 fill_height">
 					<div class="banner_content">
-						<h1 class="banner_text">{{ $slider->name }}</h1>
+						<h1 class="banner_text">{{ $slider->product_name }}</h1>
 						<div class="banner_price">
 							@if(!$slider->discount_price) 
 							${{ $slider->selling_price }}

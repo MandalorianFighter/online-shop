@@ -49,9 +49,14 @@ class ProductController extends Controller
         
         $product = Product::create($request->except(['image_one', 'image_two', 'image_three']));
 
-        if($request->hasFile('image_one') && $request->hasFile('image_two') && $request->hasFile('image_three')) {
+        if($request->hasFile('image_one')) 
+        {
             $product->attachImgOne($request->file('image_one'));
+        }
+        if ($request->hasFile('image_two')) {
             $product->attachImgTwo($request->file('image_two'));
+        }
+        if ($request->hasFile('image_three')) {
             $product->attachImgThree($request->file('image_three'));
         }
 

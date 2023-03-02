@@ -34,6 +34,7 @@ class Product extends Model implements HasMedia
         'best_rated',
         'mid_slider',
         'hot_new',
+        'buyone_getone',
         'trend',
         'status',
     ];
@@ -62,7 +63,7 @@ class Product extends Model implements HasMedia
 
     public function limitName()
     {
-        return Str::limit($this->name, Product::LIMIT);
+        return Str::limit($this->product_name, Product::LIMIT);
     }
 
     public static function last()

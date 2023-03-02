@@ -1,36 +1,49 @@
-<x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
+@extends('admin.admin_layouts')
 
-        <x-jet-validation-errors class="mb-4" />
+@section('admin_content')
 
-        <form method="POST" action="{{ route('admin.pass-reset.update') }}">
-            @csrf
+    <div class="d-flex align-items-center justify-content-center bg-sl-primary ht-100v">
 
-            <input type="hidden" name="token" value="{{ $request->route('token') }}">
+      <div class="login-wrapper wd-300 wd-xs-350 pd-25 pd-xs-40 bg-white">
+        
+        {{ Form::open(['route' => 'admin.pass-reset.update']) }}
 
-            <div class="block">
-                <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus />
-            </div>
+        {{ Form::hidden('token', $request->route('token')) }}
+        
+        <div class="mb-3 text-secondary">
+          {{ Form::label('email', 'Email', ['class' => 'form-label']) }}
+          {{ Form::email('email', old('email', $request->email), ['class' => 'form-control'. ($errors->has('email') ? ' is-invalid' : null), 'placeholder' => 'Email Address', 'autofocus', 'required']) }}
+          @error('email')
+          <span class="invalid-feedback">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+        </div><!-- form-group -->
 
-            <div class="mt-4">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
+        <div class="mb-3 text-secondary">
+          {{ Form::label('password', 'Password', ['class' => 'form-label']) }}
+          {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password', 'required']) }}
+          @error('password')
+          <span class="invalid-feedback">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+        </div><!-- form-group -->
 
-            <div class="mt-4">
-                <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
+        <div class="mb-3 text-secondary">
+          {{ Form::label('password_confirmation', 'Confirm Password', ['class' => 'form-label']) }}
+          {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => 'Confirm Password', 'required']) }}
+          @error('password_confirmation')
+          <span class="invalid-feedback">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+        </div><!-- form-group -->
+        
+        <hr>
+        {{ Form::submit('Reset Password', ['class' => 'btn btn-info btn-block']) }}
+        {{ Form::close() }}
 
-            <div class="flex items-center justify-end mt-4">
-                <x-jet-button>
-                    {{ __('Reset Password') }}
-                </x-jet-button>
-            </div>
-        </form>
-    </x-jet-authentication-card>
-</x-guest-layout>
+      </div><!-- login-wrapper -->
+    </div><!-- d-flex -->
+@endsection
