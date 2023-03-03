@@ -170,7 +170,11 @@
 													<button class="product_cart_button active">Add to Cart</button>
 												</div>
 											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
+											
+											<button id="wishlist" data-id="{{ $item->id }}">
+												<div class="product_fav"><i class="fas fa-heart"></i></div>
+											</button>
+											
 											<ul class="product_marks">
 												@if(!$item->discount_price) 
 												<li class="product_mark product_new">new</li>
@@ -212,7 +216,9 @@
 													<button class="product_cart_button active">Add to Cart</button>
 												</div>
 											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
+											<button id="wishlist" data-id="{{ $item->id }}">
+												<div class="product_fav"><i class="fas fa-heart"></i></div>
+											</button>
 											<ul class="product_marks">
 												@if(!$item->discount_price) 
 												<li class="product_mark product_new">new</li>
@@ -253,7 +259,9 @@
 													<button class="product_cart_button active">Add to Cart</button>
 												</div>
 											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
+											<button id="wishlist" data-id="{{ $item->id }}">
+												<div class="product_fav"><i class="fas fa-heart"></i></div>
+											</button>
 											<ul class="product_marks">
 												@if(!$item->discount_price) 
 												<li class="product_mark product_new">new</li>
@@ -4046,3 +4054,4 @@
 	</div>
 
     @endsection
+	

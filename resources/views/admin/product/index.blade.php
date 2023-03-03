@@ -45,7 +45,7 @@
                     <span class="badge badge-danger">Inactive</span>
                     @endif
                   </td>
-                  <td id="btns" data-id="{{ $product->id }}">
+                  <td data-id="{{ $product->id }}">
                     <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-warning" title="Edit"><i class="fa fa-edit"></i></a>
                     {{ Form::model($product, ['route' => ['products.destroy', $product], 'method' => 'DELETE', 'style' => 'display:inline-block;']) }}
                     {{ Form::button('<i class="fa fa-trash"></i>', ['class' => 'btn btn-sm btn-danger', 'id' => 'delete', 'title' => 'Delete', 'type' => 'submit']) }}

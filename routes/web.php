@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::resource('wishlist', App\Http\Controllers\WishlistController::class);
+Route::post('/wishlist/add-product', 'App\Http\Controllers\WishlistController@addProduct')->name('wishlist.add');
+
 Route::get('/', 'App\Http\Controllers\HomeController@indexCategories')->name('home');
 
 Route::view('/email/verify', 'auth.verify-email')->middleware('auth:web')->name('verification.notice');
@@ -32,7 +35,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config
     Route::post('/subcategories/defined', 'ProductController@getSubcat')->name('get.subcategories');
     Route::post('/product/status', 'ProductController@changeStatus')->name('change.status');
     Route::put('/product/images/{product}', 'ProductController@updateImages')->name('products.update.images');
-    Route::resource('blog-categories', BlogCategoryController::class)->except(['create', 'show']);;
+    Route::resource('blog-categories', BlogCategoryController::class)->except(['create', 'show']);
     Route::resource('posts', PostController::class);
 
     // Admin change password
@@ -64,6 +67,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin'], 'namespace' 
 
 Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'),'verified'])->group(function () {
     Route::view('/dashboard', 'dashboard')->name('dashboard');
+
+    
 
     Route::get('/password-change', 'App\Http\Controllers\UserController@changePass')->name('password.change');
     Route::put('/password-update/{user}', 'App\Http\Controllers\UserController@updatePass')->name('password.change.update');

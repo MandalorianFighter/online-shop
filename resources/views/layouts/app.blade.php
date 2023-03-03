@@ -254,7 +254,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</div>
 </div>
 
-<script src="{{ asset('frontend/js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ asset('frontend/js/jquery.min.js') }}"></script>
 <script src="{{ asset('frontend/styles/bootstrap4/popper.js') }}"></script>
 <script src="{{ asset('frontend/styles/bootstrap4/bootstrap.min.js') }}"></script>
 <script src="{{ asset('frontend/plugins/greensock/TweenMax.min.js') }}"></script>
@@ -288,7 +288,30 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                   break;
           }
         @endif
-     </script>  
+     </script> 
+	 
+<script type="text/javascript">
+  $(document).on('click', '#wishlist', function(e) {
+	e.preventDefault();
+	var prod_id = $(this).data('id');
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('wishlist.add') }}',
+        data: {
+          _token: '{{ csrf_token() }}',
+          id: prod_id
+        },
+        success: function(response){
+          var data = $.parseJSON(response);
+		  if(data.type == 'success'){
+			toastr.success(data.message);
+		  } else {
+			toastr.warning(data.message);
+		  }
+        }
+    });
+  });
+</script>
 </body>
 
 </html>
