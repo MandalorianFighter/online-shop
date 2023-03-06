@@ -33,7 +33,7 @@
               @foreach ($products as $key => $product)
                 <tr>
                   <td>{{ $product->code }}</td>
-                  <td>{{ $product->product_name }}</td>
+                  <td title="{{ $product->product_name }}">{{ $product->limitName() }}</td>
                   <td><img src="{{ $product->getFirstMediaUrl('products/imageOne', 'thumb') }}" alt="{{ $product->name }} logo" height="70em" max-width="100%"></td>
                   <td>{{ $product->category->category_name }}</td>
                   <td>{{ $product->brand->brand_name }}</td>

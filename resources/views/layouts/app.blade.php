@@ -312,6 +312,29 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     });
   });
 </script>
+
+<script type="text/javascript">
+  $(document).on('click', '.add-cart', function(e) {
+	e.preventDefault();
+	var prod_id = $(this).data('id');
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('cart.add') }}',
+        data: {
+          _token: '{{ csrf_token() }}',
+          id: prod_id
+        },
+        success: function(response){
+          var data = $.parseJSON(response);
+		  if(data.type == 'success'){
+			toastr.success(data.message);
+		  } else {
+			toastr.warning(data.message);
+		  }
+        }
+    });
+  });
+</script>
 </body>
 
 </html>

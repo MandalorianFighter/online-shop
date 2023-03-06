@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('wishlist', App\Http\Controllers\WishlistController::class);
-Route::post('/wishlist/add-product', 'App\Http\Controllers\WishlistController@addProduct')->name('wishlist.add');
+Route::post('/add-product/wishlist', 'App\Http\Controllers\WishlistController@wishlistAdd')->name('wishlist.add');
+Route::post('/add-product/card', 'App\Http\Controllers\CartController@cartAdd')->name('cart.add');
+Route::get('/check', 'App\Http\Controllers\CartController@check');
 
 Route::get('/', 'App\Http\Controllers\HomeController@indexCategories')->name('home');
 

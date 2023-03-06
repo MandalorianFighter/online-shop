@@ -46,7 +46,7 @@
 
     <!-- datatable css -->
     <link href="{{ asset('backend/lib/highlightjs/github.css') }}" rel="stylesheet">
-    <link href="{{ asset('backend/lib/datatables/jquery.dataTables.css') }}" rel="stylesheet">
+    <link href="{{ asset('backend/lib/datatables/jquery.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/lib/select2/css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/lib/summernote/summernote-bs4.css') }}" rel="stylesheet">
 
@@ -336,7 +336,7 @@
     <script src="{{ asset('backend/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js') }}"></script>
 
     <script src="{{ asset('backend/lib/highlightjs/highlight.pack.js') }}"></script>
-    <script src="{{ asset('backend/lib/datatables/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('backend/lib/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('backend/lib/datatables-responsive/dataTables.responsive.js') }}"></script>
     <script src="{{ asset('backend/lib/select2/js/select2.min.js') }}"></script>
 
@@ -471,35 +471,7 @@
     });
   });
 </script>
-<!-- <script type="text/javascript">
-  $(document).on('click', '#btn-status', function(e) {
-    var status = $(this).prop('title') == 'Active' ? 1 : 0;
-    var row = $(e.target).parents('tr');
-    var prod_id = row.find('#btns').data('id');
-    
-    $.ajax({
-        type: 'POST',
-        url: '{{ route('change.status') }}',
-        data: {
-          _token: '{{ csrf_token() }}',
-          status: status,
-          id: prod_id
-        },
-        success: function(response){
-          var data = $.parseJSON(response);
-          
-          toastr.warning(data.message);
-          if(data.status == true) {
-            $(this).attr('class', 'btn btn-sm btn-danger').title('Inactive').html('<i class="fa fa-thumbs-down"></i>');
-            row.find('#status').html('').append('<span class="badge badge-success">Active</span>');
-          } else {
-            $(this).attr('class', 'btn btn-sm btn-info').title('Active').html('<i class="fa fa-thumbs-up"></i>');
-            row.find('#status').html('').append('<span class="badge badge-danger">Inactive</span>');
-          }
-        }
-    });
-  });
-</script> -->
+
 <script type="text/javascript">
     async function loadSubcat($this) {
             //Make an Ajax request to a Laravel route
