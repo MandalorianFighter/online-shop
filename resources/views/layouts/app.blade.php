@@ -15,13 +15,12 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/main_styles.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/responsive.css') }}">
 
+
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 </head>
 
 <body>
-	@php
-	$categories = DB::table('categories')->get();
-	@endphp
+	
 
 <div class="super_container">
 	
@@ -118,13 +117,18 @@
 					<div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
 						<div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
 							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
+							@guest
+
+
+							@else
 								<div class="wishlist_icon"><img src="{{ asset('frontend/images/heart.png') }}" alt=""></div>
 								<div class="wishlist_content">
 									<div class="wishlist_text"><a href="#">Wishlist</a></div>
-									<div class="wishlist_count">115</div>
+									<div class="wishlist_count">{{ $wishlist->count() }}</div>
 								</div>
-							</div>
+							@endguest
 
+							</div>
 							<!-- Cart -->
 							<div class="cart">
 								<div class="cart_container d-flex flex-row align-items-center justify-content-end">
@@ -147,6 +151,9 @@
 		<!-- Main Navigation -->
 
 	<!-- Characteristics -->
+	@include('layouts.menu-bar')
+
+	</header>
 
 @yield('content')
 
@@ -256,7 +263,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 <script src="{{ asset('frontend/js/jquery.min.js') }}"></script>
 <script src="{{ asset('frontend/styles/bootstrap4/popper.js') }}"></script>
-<script src="{{ asset('frontend/styles/bootstrap4/bootstrap.min.js') }}"></script>
+<script src="{{ asset('frontend/styles/bootstrap4/bootstrap.js') }}"></script>
 <script src="{{ asset('frontend/plugins/greensock/TweenMax.min.js') }}"></script>
 <script src="{{ asset('frontend/plugins/greensock/TimelineMax.min.js') }}"></script>
 <script src="{{ asset('frontend/plugins/scrollmagic/ScrollMagic.min.js') }}"></script>
@@ -266,6 +273,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="{{ asset('frontend/plugins/slick-1.8.0/slick.js') }}"></script>
 <script src="{{ asset('frontend/plugins/easing/easing.js') }}"></script>
 <script src="{{ asset('frontend/js/custom.js') }}"></script>
+
+<script src="{{ asset('frontend/js/product_custom.js') }}"></script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 

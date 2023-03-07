@@ -1912,10 +1912,7 @@ select option
 {
 	color: red;
 }
-#product_fav.active i
-{
-	color: #cccccc;
-}
+
 .product_item:hover .product_fav
 {
 	visibility: visible;

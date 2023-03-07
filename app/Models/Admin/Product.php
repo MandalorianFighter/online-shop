@@ -15,6 +15,7 @@ class Product extends Model implements HasMedia
     use InteractsWithMedia;
 
     const LIMIT = 16;
+    const DET_LIMIT = 500;
 
     protected $fillable = [
         'category_id',
@@ -64,6 +65,11 @@ class Product extends Model implements HasMedia
     public function limitName()
     {
         return Str::limit($this->product_name, Product::LIMIT);
+    }
+
+    public function limitDetails()
+    {
+        return Str::limit($this->product_details, Product::DET_LIMIT);
     }
 
     public static function last()

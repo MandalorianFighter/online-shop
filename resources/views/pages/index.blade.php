@@ -2,7 +2,30 @@
 
 @section('content')
 
-@include('layouts.menu-bar')
+<!-- Banner -->
+
+<div class="banner">
+		<div class="banner_background" style="background-image:url({{ asset('frontend/images/banner_background.jpg') }})"></div>
+		<div class="container fill_height">
+			<div class="row fill_height">
+				<div class="banner_product_image"><img src="{{ $slider->getFirstMediaUrl('products/imageOne') }}" class="main_banner float-end" alt=""></div>
+				<div class="col-lg-5 offset-lg-4 fill_height">
+					<div class="banner_content">
+						<h1 class="banner_text">{{ $slider->product_name }}</h1>
+						<div class="banner_price">
+							@if(!$slider->discount_price) 
+							${{ $slider->selling_price }}
+							@else
+						<span>${{ $slider->selling_price }}</span>${{ $slider->discount_price }}
+							@endif
+						</div>
+						<div class="banner_product_name">{{ $slider->brand->brand_name }}</div>
+						<div class="button banner_button"><a href="#">Shop Now</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 <div class="characteristics">
 		<div class="container">
@@ -160,7 +183,7 @@
 												@else
 												<div class="product_price discount">${{ $item->discount_price }}<span>${{ $item->selling_price }}</span></div>
 												@endif
-												<div class="product_name"><div><a href="product.html" title="{{ $item->product_name }}">{{ $item->limitName() }}</a></div></div>
+												<div class="product_name"><div><a href="{{ route('product.details', $item) }}" title="{{ $item->product_name }}">{{ $item->limitName() }}</a></div></div>
 												<div class="product_extras">
 													<div class="product_color">
 														<input type="radio" checked name="product_color" style="background:#b19c83">
@@ -213,7 +236,7 @@
 														<input type="radio" name="product_color" style="background:#000000">
 														<input type="radio" name="product_color" style="background:#999999">
 													</div>
-													<button class="product_cart_button active">Add to Cart</button>
+													<button class="product_cart_button active add-cart" data-id="{{ $item->id }}">Add to Cart</button>
 												</div>
 											</div>
 											<a id="wishlist" data-id="{{ $item->id }}">
@@ -256,7 +279,7 @@
 														<input type="radio" name="product_color" style="background:#000000">
 														<input type="radio" name="product_color" style="background:#999999">
 													</div>
-													<button class="product_cart_button active">Add to Cart</button>
+													<button class="product_cart_button active add-cart" data-id="{{ $item->id }}">Add to Cart</button>
 												</div>
 											</div>
 											<a id="wishlist" data-id="{{ $item->id }}">
@@ -404,7 +427,7 @@
 																<input type="radio" name="product_color" style="background:#000000">
 																<input type="radio" name="product_color" style="background:#999999">
 															</div>
-															<button class="product_cart_button active">Add to Cart</button>
+															<button class="product_cart_button active add-cart" data-id="{{ $item->id }}">Add to Cart</button>
 														</div>
 													</div>
 													
@@ -452,7 +475,7 @@
 																<input type="radio" name="product_color" style="background:#000000">
 																<input type="radio" name="product_color" style="background:#999999">
 															</div>
-															<button class="product_cart_button active">Add to Cart</button>
+															<button class="product_cart_button active add-cart" data-id="{{ $item->id }}">Add to Cart</button>
 														</div>
 													</div>
 													

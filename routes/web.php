@@ -13,10 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('wishlist', App\Http\Controllers\WishlistController::class);
-Route::post('/add-product/wishlist', 'App\Http\Controllers\WishlistController@wishlistAdd')->name('wishlist.add');
-Route::post('/add-product/card', 'App\Http\Controllers\CartController@cartAdd')->name('cart.add');
-Route::get('/check', 'App\Http\Controllers\CartController@check');
+
 
 Route::get('/', 'App\Http\Controllers\HomeController@indexCategories')->name('home');
 
@@ -70,9 +67,21 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin'], 'namespace' 
 Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'),'verified'])->group(function () {
     Route::view('/dashboard', 'dashboard')->name('dashboard');
 
-    
-
     Route::get('/password-change', 'App\Http\Controllers\UserController@changePass')->name('password.change');
     Route::put('/password-update/{user}', 'App\Http\Controllers\UserController@updatePass')->name('password.change.update');
     Route::get('/user/logout', 'App\Http\Controllers\UserController@logout')->name('user.logout');
 });
+
+// Frontend Routes
+
+// Add Wishlist 
+Route::resource('wishlist', App\Http\Controllers\WishlistController::class);
+Route::post('/add-product/wishlist', 'App\Http\Controllers\WishlistController@wishlistAdd')->name('wishlist.add');
+
+// Add Product to Cart
+Route::post('/add-product/card', 'App\Http\Controllers\CartController@cartAdd')->name('cart.add');
+Route::get('/check', 'App\Http\Controllers\CartController@check');
+
+
+Route::get('/products/details/{product}', 'App\Http\Controllers\ProductController@productDetails')->name('product.details');
+Route::post('/products/add-cart/{product}', 'App\Http\Controllers\ProductController@productAddCart')->name('product.add-cart');

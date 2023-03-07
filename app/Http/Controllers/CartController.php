@@ -19,7 +19,11 @@ class CartController extends Controller
             'qty' => 1,
             'price' => $product->selling_price,
             'weight' => 1,
-            'options' => ['image' => $product->getFirstMediaUrl('products/imageOne') ],
+            'options' => [
+                'color' => '',
+                'size' => '',
+                'image' => $product->getFirstMediaUrl('products/imageOne')
+            ],
         ];
 
         if($product->discount_price) {
