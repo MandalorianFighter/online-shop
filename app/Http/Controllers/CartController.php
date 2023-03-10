@@ -7,6 +7,7 @@ use App\Http\Requests\Cart\UpdateCartRequest;
 use App\Http\Requests\Cart\UpdateCartItemRequest;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\Admin\Product;
+use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
@@ -36,25 +37,58 @@ class CartController extends Controller
      * @param  \App\Http\Requests\Cart\StoreCartRequest  $request
      * @return \Illuminate\Http\Response
      */
+    // public function store(StoreCartRequest $request)
+    // {
+    //     $prodId = $request->id;
+    //     $product = Product::find($prodId);   
+        
+    //     $colors = explode(',', $product->color);
+    //     $product_colors = array_combine($colors, $colors);
+    //     $sizes = explode(',', $product->size);
+    //     $product_sizes = array_combine($sizes, $sizes);
+
+    //     $data = [
+    //         'id' => $product->id,
+    //         'name' => $product->product_name,
+    //         'qty' => 1,
+    //         'price' => $product->selling_price,
+    //         'weight' => 1,
+    //         'options' => [
+    //             'colors' => $product_colors ?? [],
+    //             'sizes' => $product_sizes ?? [],
+    //             'image' => $product->getFirstMediaUrl('products/imageOne', 'thumb')
+    //         ],
+    //     ];
+
+    //     if($product->discount_price) {
+    //         $data['price'] = $product->discount_price;
+    //     }
+
+    //     Cart::add($data);
+
+    //     $response = [
+    //         'message' => 'Product is Added to Cart!',
+    //         'count' => Cart::count(),
+    //         'subtotal' => Cart::subtotal()
+    //     ];
+        
+    //     return json_encode($response);
+    // }
+
     public function store(StoreCartRequest $request)
     {
-        $prodId = $request->id;
-        $product = Product::find($prodId);   
-        
-        $colors = explode(',', $product->color);
-        $product_colors = array_combine($colors, $colors);
-        $sizes = explode(',', $product->size);
-        $product_sizes = array_combine($sizes, $sizes);
+        $prodId = $request->prod_id;
+        $product = Product::find($prodId); 
 
         $data = [
             'id' => $product->id,
             'name' => $product->product_name,
-            'qty' => 1,
+            'qty' => $request->qty,
             'price' => $product->selling_price,
             'weight' => 1,
             'options' => [
-                'colors' => $product_colors ?? [],
-                'sizes' => $product_sizes ?? [],
+                'color' => $request->color,
+                'size' => $request->size,
                 'image' => $product->getFirstMediaUrl('products/imageOne', 'thumb')
             ],
         ];
@@ -65,13 +99,12 @@ class CartController extends Controller
 
         Cart::add($data);
 
-        $response = [
-            'message' => 'Product is Added to Cart!',
-            'count' => Cart::count(),
-            'subtotal' => Cart::subtotal()
-        ];
-        
-        return json_encode($response);
+        $notification = array(
+            'message' => 'Product Successfully Added!',
+            'alert-type' => 'success',
+        );
+
+        return redirect()->back()->with($notification);
     }
 
     /**
@@ -86,6 +119,21 @@ class CartController extends Controller
         return view('pages.cart', compact('cart'));
     }
 
+    public function viewProduct(Request $request)
+    {
+        $product = Product::find($request->id);
+        $colors = explode(',', $product->color);
+        $product_colors = array_combine($colors, $colors);
+        $sizes = explode(',', $product->size);
+        $product_sizes = array_combine($sizes, $sizes);
+        return response()->json([
+            'product' => $product,
+            'imageOne' => $product->getFirstMediaUrl('products/imageOne', 'thumb-mid'),  
+            'colors' => $product_colors,
+            'sizes' => $product_sizes,
+        ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -96,7 +144,6 @@ class CartController extends Controller
     {
         //
     }
-
     
     public function updateItem(UpdateCartItemRequest $request)
     {

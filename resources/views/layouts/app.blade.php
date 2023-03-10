@@ -322,7 +322,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   });
 </script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   $('.add-cart').click(function(e) {
 	e.preventDefault();
 	var prod_id = $(this).data('id');
@@ -341,7 +341,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         }
     });
   });
-</script>
+</script> -->
 <script type="text/javascript">
 	$('.qty-change').click(function(e) {
 		e.preventDefault();
@@ -371,6 +371,68 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	});
 </script>
 <script type="text/javascript">
+	$('.delete-cart-item').click(function(e) {
+		e.preventDefault();
+		var item = $(e.target).parents('.cart-form');
+		var prod_id = item.find('.prod_id').val();
+		$.ajax({
+        type: 'POST',
+        url: '{{ route('cart-item.delete') }}',
+        data: {
+          _token: '{{ csrf_token() }}',
+          id: prod_id
+        },
+        success: function(response){
+        	var data = $.parseJSON(response);
+			item.remove(); // remove product item from cart
+
+			$('.cart_count span').text(data.count);
+			$('.cart_price').text('$' + data.subtotal);
+			$('.order_total_amount').text('$' + data.total);
+			toastr.warning(data.message);
+        }
+    });
+	});
+</script>
+
+<script type="text/javascript">
+	function productView(id) {
+		$.ajax({
+        type: 'POST',
+        url: '{{ route('cart-product.view') }}',
+        data: {
+          _token: '{{ csrf_token() }}',
+          id: id
+        },
+        success: function(data){	
+			$("#pName").text(data.product.product_name);
+			$("#pImage").attr('src', data.imageOne);
+
+			$("#pCode").text(data.product.code);
+			$("#pCat").text(data.product.category.category_name);
+			$("#pSub").text(data.product.subcategory.subcategory_name);
+			$("#pBrand").text(data.product.brand.brand_name);
+
+			$("#prod_id").val(data.product.id);
+
+			$('#color').empty();
+			$.each(data.colors, function(key, value) {
+				$('#color').append(new Option(value, key));
+			});
+
+			$('#size').empty();
+			$.each(data.sizes, function(key, value) {
+				$('#size').append(new Option(value, key));
+			});
+        }
+    });
+	}
+
+
+
+
+
+
 	$('.delete-cart-item').click(function(e) {
 		e.preventDefault();
 		var item = $(e.target).parents('.cart-form');

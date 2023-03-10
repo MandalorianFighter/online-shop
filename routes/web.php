@@ -85,7 +85,7 @@ Route::get('/check', 'App\Http\Controllers\CartController@check');
 Route::get('/cart/show', 'App\Http\Controllers\CartController@show')->name('cart.show');
 Route::post('/cart/update-product', 'App\Http\Controllers\CartController@updateItem')->name('cart-item.update');
 Route::post('/cart/delete-product', 'App\Http\Controllers\CartController@destroyItem')->name('cart-item.delete');
-
+Route::post('/cart/view-product', 'App\Http\Controllers\CartController@viewProduct')->name('cart-product.view');
 
 
 Route::get('/products/details/{product}', 'App\Http\Controllers\ProductController@productDetails')->name('product.details');

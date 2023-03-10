@@ -184,13 +184,22 @@
 												<div class="product_price discount">${{ $item->discount_price }}<span>${{ $item->selling_price }}</span></div>
 												@endif
 												<div class="product_name"><div><a href="{{ route('product.details', $item) }}" title="{{ $item->product_name }}">{{ $item->limitName() }}</a></div></div>
-												<div class="product_extras">
+												<!-- <div class="product_extras">
 													<div class="product_color">
 														<input type="radio" checked name="product_color" style="background:#b19c83">
 														<input type="radio" name="product_color" style="background:#000000">
 														<input type="radio" name="product_color" style="background:#999999">
 													</div>
 													<button class="product_cart_button add-cart" data-id="{{ $item->id }}">Add to Cart</button>
+												</div> -->
+
+												<div class="product_extras">
+													<div class="product_color">
+														<input type="radio" checked name="product_color" style="background:#b19c83">
+														<input type="radio" name="product_color" style="background:#000000">
+														<input type="radio" name="product_color" style="background:#999999">
+													</div>
+													<button class="product_cart_button add-cart" id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#cartModal" onclick="productView(this.id)">Add to Cart</button>
 												</div>
 											</div>
 											
@@ -1613,6 +1622,70 @@
 			</div>
 		</div>
 	</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="cartModalLabel">Product Quick View</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+
+			<div class="col-md-4">
+				<div class="card">
+					<img src="" alt="" id="pImage">
+					<div class="card-body">
+						<h5 class="card-title text-center" id="pName">Product Name</h5>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<ul class="list-group">
+					<li class="list-group-item py-3">Product Code: <span id="pCode"></span></li>
+					<li class="list-group-item py-3">Category: <span id="pCat"></span></li>
+					<li class="list-group-item py-3">Subcategory: <span id="pSub"></span></li>
+					<li class="list-group-item py-3">Brand: <span id="pBrand"></span></li>
+					<li class="list-group-item py-3">Stock: <span class="badge text-bg-success">Available</span></li>
+				</ul>
+			</div>
+
+			<div class="col-md-4">
+			{{ Form::open(['route' => 'cart.add']) }}
+			{{ Form::hidden('prod_id', $item->rowId, ['id' => 'prod_id']) }}
+				<div class="mb-3 py-2">
+					{{ Form::label('color', 'Color', ['class' => 'form-control-label']) }}
+					{{ Form::select('color', [], null, ['class' => 'form-control', 'id' => 'color']) }}
+				</div>
+
+				<div class="mb-3 py-2">
+					{{ Form::label('size', 'Size', ['class' => 'form-control-label']) }}
+					{{ Form::select('size', [], null, ['class' => 'form-control', 'id' => 'size']) }}
+				</div>
+
+				<div class="mb-3 py-2">
+					{{ Form::label('qty', 'Quantity', ['class' => 'form-control-label']) }}
+					{{ Form::number('qty', 1, ['class' => 'form-control', 'id' => 'qty', 'min' => 1]) }}
+				</div>
+				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+				{{ Form::submit('Add to Cart', ['class' => 'btn btn-primary']) }}
+				</div>
+			{{ Form::close() }}
+			</div>
+
+		</div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
 
     @endsection
 	

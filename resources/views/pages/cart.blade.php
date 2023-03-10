@@ -26,20 +26,16 @@
 											<div class="cart_item_text">{{ $item->name }}</div>
 										</div>
 									
-                                        @if($item->options->colors)
+                                        @if($item->options->color)
 										<div class="cart_item_color cart_info_col">
 											<div class="cart_item_title">Color</div>
-											<div class="cart_item_text mb-3">
-											{{ Form::select('color', is_array($item->options->colors) ? $item->options->colors : [$item->options->colors], ['class' => 'item-color']) }}
-											</div>
+											<div class="cart_item_text">{{ $item->options->color }}</div>
 										</div>
                                         @endif
-                                        @if($item->options->sizes)
+                                        @if($item->options->size)
                                         <div class="cart_item_color cart_info_col">
 											<div class="cart_item_title">Size</div>
-											<div class="cart_item_text mb-3">
-											{{ Form::select('size', is_array($item->options->sizes) ? $item->options->sizes : [$item->options->sizes], ['class' => 'item-size']) }}
-											</div>
+											<div class="cart_item_text">{{ $item->options->size }}</div>
 										</div>
                                         @endif
 										<div class="cart_item_quantity cart_info_col">

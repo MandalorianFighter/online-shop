@@ -51,7 +51,7 @@
               <div class="col-lg-6">
                 <div class="form-group">
                   {!! Html::decode(Form::label('quantity', 'Discount Price: <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
-                  {{ Form::number('discount_price', null, ['class' => 'form-control', 'placeholder' => 'Enter Product Discount']) }}
+                  {{ Form::number('discount_price', null, ['class' => 'form-control', 'min' => 1, 'placeholder' => 'Enter Product Discount']) }}
                 </div>
               </div><!-- col-4 -->
               <div class="col-lg-4">
