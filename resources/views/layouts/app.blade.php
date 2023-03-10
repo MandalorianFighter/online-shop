@@ -134,11 +134,11 @@
 								<div class="cart_container d-flex flex-row align-items-center justify-content-end">
 									<div class="cart_icon">
 										<img src="{{ asset('frontend/images/cart.png') }}" alt="">
-										<div class="cart_count"><span>10</span></div>
+										<div class="cart_count"><span>{{ Cart::count() }}</span></div>
 									</div>
 									<div class="cart_content">
-										<div class="cart_text"><a href="#">Cart</a></div>
-										<div class="cart_price">$85</div>
+										<div class="cart_text"><a href="{{ route('cart.show') }}">Cart</a></div>
+										<div class="cart_price">${{ Cart::subtotal() }}</div>
 									</div>
 								</div>
 							</div>
@@ -300,7 +300,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
      </script> 
 	 
 <script type="text/javascript">
-  $(document).on('click', '#wishlist', function(e) {
+  $('#wishlist').click(function(e) {
 	e.preventDefault();
 	var prod_id = $(this).data('id');
     $.ajax({
@@ -323,7 +323,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </script>
 
 <script type="text/javascript">
-  $(document).on('click', '.add-cart', function(e) {
+  $('.add-cart').click(function(e) {
 	e.preventDefault();
 	var prod_id = $(this).data('id');
     $.ajax({
@@ -334,15 +334,65 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
           id: prod_id
         },
         success: function(response){
-          var data = $.parseJSON(response);
-		  if(data.type == 'success'){
+			var data = $.parseJSON(response);
+			$('.cart_count span').text(data.count);
+			$('.cart_price').text('$' + data.subtotal);
 			toastr.success(data.message);
-		  } else {
-			toastr.warning(data.message);
-		  }
         }
     });
   });
+</script>
+<script type="text/javascript">
+	$('.qty-change').click(function(e) {
+		e.preventDefault();
+		var item = $(e.target).parents('.cart-form');
+		var prod_id = item.find('.prod_id').val();
+		var qty = item.find('.item-qty').val();
+		$.ajax({
+        type: 'POST',
+        url: '{{ route('cart-item.update') }}',
+        data: {
+          _token: '{{ csrf_token() }}',
+          id: prod_id,
+		  qty: qty
+        },
+        success: function(response){
+        	var data = $.parseJSON(response);
+
+			item.find('.item-qty').val(data.qty);
+			item.find('.item_total').text('$' + data.itemTotal);
+			$('.cart_count span').text(data.count);
+			$('.cart_price').text('$' + data.subtotal);
+			$('.order_total_amount').text('$' + data.total);
+			
+			toastr.success(data.message);
+        }
+    });
+	});
+</script>
+<script type="text/javascript">
+	$('.delete-cart-item').click(function(e) {
+		e.preventDefault();
+		var item = $(e.target).parents('.cart-form');
+		var prod_id = item.find('.prod_id').val();
+		$.ajax({
+        type: 'POST',
+        url: '{{ route('cart-item.delete') }}',
+        data: {
+          _token: '{{ csrf_token() }}',
+          id: prod_id
+        },
+        success: function(response){
+        	var data = $.parseJSON(response);
+			item.remove(); // remove product item from cart
+
+			$('.cart_count span').text(data.count);
+			$('.cart_price').text('$' + data.subtotal);
+			$('.order_total_amount').text('$' + data.total);
+			toastr.warning(data.message);
+        }
+    });
+	});
 </script>
 </body>
 

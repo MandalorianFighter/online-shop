@@ -79,8 +79,13 @@ Route::resource('wishlist', App\Http\Controllers\WishlistController::class);
 Route::post('/add-product/wishlist', 'App\Http\Controllers\WishlistController@wishlistAdd')->name('wishlist.add');
 
 // Add Product to Cart
-Route::post('/add-product/card', 'App\Http\Controllers\CartController@cartAdd')->name('cart.add');
+Route::post('/cart/add-product', 'App\Http\Controllers\CartController@store')->name('cart.add');
 Route::get('/check', 'App\Http\Controllers\CartController@check');
+
+Route::get('/cart/show', 'App\Http\Controllers\CartController@show')->name('cart.show');
+Route::post('/cart/update-product', 'App\Http\Controllers\CartController@updateItem')->name('cart-item.update');
+Route::post('/cart/delete-product', 'App\Http\Controllers\CartController@destroyItem')->name('cart-item.delete');
+
 
 
 Route::get('/products/details/{product}', 'App\Http\Controllers\ProductController@productDetails')->name('product.details');

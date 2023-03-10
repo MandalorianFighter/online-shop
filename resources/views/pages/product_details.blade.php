@@ -43,7 +43,7 @@
                                         <div class="col-lg-4">
                                             <div class="mb-3">
                                             {{ Form::label('color', 'Color', ['class' => 'form-control-label']) }}
-                                            {{ Form::select('color', $product_colors, null, ['class' => 'form-select', 'placeholder' => 'Pick a color', 'required']) }}
+                                            {{ Form::select('color', $product_colors, null, ['class' => 'form-select input-lg', 'placeholder' => 'Pick a color', 'required']) }}
                                             </div>
                                         </div>
                                         @endif
@@ -51,7 +51,7 @@
                                         <div class="col-lg-4">
                                             <div class="mb-3">
                                             {{ Form::label('size', 'Size', ['class' => 'form-control-label']) }}
-                                            {{ Form::select('size', $product_sizes, null, ['class' => 'form-select', 'placeholder' => 'Pick a size', 'required']) }}
+                                            {{ Form::select('size', $product_sizes, null, ['class' => 'form-select input-lg', 'placeholder' => 'Pick a size', 'required']) }}
                                             </div>
                                         </div>
                                         @endif
