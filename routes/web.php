@@ -70,6 +70,9 @@ Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'),'verifie
     Route::get('/password-change', 'App\Http\Controllers\UserController@changePass')->name('password.change');
     Route::put('/password-update/{user}', 'App\Http\Controllers\UserController@updatePass')->name('password.change.update');
     Route::get('/user/logout', 'App\Http\Controllers\UserController@logout')->name('user.logout');
+
+    Route::get('/user/checkout', 'App\Http\Controllers\CartController@checkout')->name('user.checkout');
+    Route::get('/user/wishlist', 'App\Http\Controllers\CartController@wishlist')->name('user.wishlist');
 });
 
 // Frontend Routes
@@ -79,14 +82,18 @@ Route::resource('wishlist', App\Http\Controllers\WishlistController::class);
 Route::post('/add-product/wishlist', 'App\Http\Controllers\WishlistController@wishlistAdd')->name('wishlist.add');
 
 // Add Product to Cart
-Route::post('/cart/add-product', 'App\Http\Controllers\CartController@store')->name('cart.add');
+Route::get('/cart/show', 'App\Http\Controllers\CartController@show')->name('cart.show');
+Route::post('/cart/product/add', 'App\Http\Controllers\CartController@store')->name('cart-product.add');
+
+// Cart Product Ajax
+Route::post('/cart/product/update', 'App\Http\Controllers\CartController@updateItem')->name('cart-item.update');
+Route::post('/cart/product/delete', 'App\Http\Controllers\CartController@destroyItem')->name('cart-item.delete');
+Route::post('/cart/product/view', 'App\Http\Controllers\CartController@viewProduct')->name('cart-product.view');
+
 Route::get('/check', 'App\Http\Controllers\CartController@check');
 
-Route::get('/cart/show', 'App\Http\Controllers\CartController@show')->name('cart.show');
-Route::post('/cart/update-product', 'App\Http\Controllers\CartController@updateItem')->name('cart-item.update');
-Route::post('/cart/delete-product', 'App\Http\Controllers\CartController@destroyItem')->name('cart-item.delete');
-Route::post('/cart/view-product', 'App\Http\Controllers\CartController@viewProduct')->name('cart-product.view');
 
 
+// Frontend Product
 Route::get('/products/details/{product}', 'App\Http\Controllers\ProductController@productDetails')->name('product.details');
 Route::post('/products/add-cart/{product}', 'App\Http\Controllers\ProductController@productAddCart')->name('product.add-cart');

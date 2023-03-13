@@ -1656,7 +1656,7 @@
 			</div>
 
 			<div class="col-md-4">
-			{{ Form::open(['route' => 'cart.add']) }}
+			{{ Form::open(['route' => 'cart-product.add']) }}
 			{{ Form::hidden('prod_id', $item->rowId, ['id' => 'prod_id']) }}
 				<div class="mb-3 py-2">
 					{{ Form::label('color', 'Color', ['class' => 'form-control-label']) }}
@@ -1686,6 +1686,5 @@
   </div>
 </div>
 
-
-    @endsection
+@endsection
 	

@@ -60,8 +60,8 @@
 									<li>
 										<a href="{{ route('dashboard') }}"><div class="user_icon"><img src="{{ asset('frontend/images/user.svg') }}" alt=""></div> Profile<i class="fas fa-chevron-down"></i></a>
 										<ul>
-											<li><a href="#">Wishlist</a></li>
-											<li><a href="#">Checkout</a></li>
+											<li><a href="{{ route('user.wishlist') }}">Wishlist</a></li>
+											<li><a href="{{ route('user.checkout') }}">Checkout</a></li>
 											<li><a href="#">Others</a></li>
 										</ul>
 									</li>
@@ -123,7 +123,7 @@
 							@else
 								<div class="wishlist_icon"><img src="{{ asset('frontend/images/heart.png') }}" alt=""></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="#">Wishlist</a></div>
+									<div class="wishlist_text"><a href="{{ route('user.wishlist') }}">Wishlist</a></div>
 									<div class="wishlist_count">{{ $wishlist->count() }}</div>
 								</div>
 							@endguest
@@ -322,26 +322,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   });
 </script>
 
-<!-- <script type="text/javascript">
-  $('.add-cart').click(function(e) {
-	e.preventDefault();
-	var prod_id = $(this).data('id');
-    $.ajax({
-        type: 'POST',
-        url: '{{ route('cart.add') }}',
-        data: {
-          _token: '{{ csrf_token() }}',
-          id: prod_id
-        },
-        success: function(response){
-			var data = $.parseJSON(response);
-			$('.cart_count span').text(data.count);
-			$('.cart_price').text('$' + data.subtotal);
-			toastr.success(data.message);
-        }
-    });
-  });
-</script> -->
+
 <script type="text/javascript">
 	$('.qty-change').click(function(e) {
 		e.preventDefault();

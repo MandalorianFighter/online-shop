@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin;
 
+use App\Models\Wishlist;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -55,6 +56,11 @@ class Product extends Model implements HasMedia
     public function brand()
     {
         return $this->belongsTo(Brand::class);
+    }
+
+    public function wishlist()
+    {
+        return $this->belongsTo(Wishlist::class);
     }
 
     public function getDiscount()
