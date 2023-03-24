@@ -10,6 +10,7 @@ use App\Models\Admin\Brand;
 use App\Models\Admin\Category;
 use App\Models\Admin\Product;
 use App\Models\Admin\Subcategory;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -32,8 +33,12 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::pluck('category_name','id');
-        $subcategories = Subcategory::pluck('subcategory_name','id');
+        $categories = Category::translatedIn(app()->getLocale())->get();
+        $categories = $categories->pluck('category_name','id');
+
+        $subcategories = Subcategory::translatedIn(app()->getLocale())->get();
+        $subcategories = $subcategories->pluck('subcategory_name','id');
+        
         $brands = Brand::pluck('brand_name','id');
         return view('admin.product.create', compact('categories', 'subcategories', 'brands'));
     }
@@ -61,7 +66,7 @@ class ProductController extends Controller
         }
 
         $notification = array(
-            'message' => 'Product Is Added Successfully!',
+            'message' => __('Product Is Added Successfully!'),
             'alert-type' => 'success',
         );
 
@@ -88,8 +93,12 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $categories = Category::pluck('category_name','id');
-        $subcategories = Subcategory::pluck('subcategory_name','id');
+        $categories = Category::translatedIn(app()->getLocale())->get();
+        $categories = $categories->pluck('category_name','id');
+
+        $subcategories = $product->category->subcategories;
+        $subcategories = $subcategories->pluck('subcategory_name','id');
+
         $brands = Brand::pluck('brand_name','id');
         
         return view('admin.product.edit', compact('product', 'categories', 'subcategories', 'brands'));
@@ -107,7 +116,7 @@ class ProductController extends Controller
         $product->update($request->validated());
 
         $notification = array(
-            'message' => 'Product Is Updated Successfully!',
+            'message' => __('Product Is Updated Successfully!'),
             'alert-type' => 'success',
         );
 
@@ -134,7 +143,7 @@ class ProductController extends Controller
         }
 
         $notification = array(
-            'message' => 'Product Images Are Updated Successfully!',
+            'message' => __('Product Images Are Updated Successfully!'),
             'alert-type' => 'success',
         );
 
@@ -149,9 +158,11 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        $wish = Wishlist::where('prod_id', $product->id)->get();
+        $wish->delete();
         $product->delete();
         $notification = array(
-            'message' => 'Product Is Deleted Successfully!',
+            'message' => __('Product Is Deleted Successfully!'),
             'alert-type' => 'success',
         );
 
@@ -160,7 +171,8 @@ class ProductController extends Controller
 
     public function getSubcat(Request $request) 
     {
-        $data = Subcategory::where('category_id', $request->id)->pluck('subcategory_name', 'id');
+        $subcategories = Subcategory::where('category_id', $request->id)->translatedIn(app()->getLocale())->get();
+        $data = $subcategories->pluck('subcategory_name', 'id');
         return json_encode($data);
     }
 
@@ -171,7 +183,7 @@ class ProductController extends Controller
         $product->update();
 
         $data = [
-            'message' => 'Status Updated!',
+            'message' => __('Status Updated!'),
             'status' => $product->status,
         ];
 

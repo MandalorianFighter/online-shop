@@ -20,7 +20,7 @@
 							@endif
 						</div>
 						<div class="banner_product_name">{{ $slider->brand->brand_name }}</div>
-						<div class="button banner_button"><a href="#">Shop Now</a></div>
+						<div class="button banner_button"><a href="{{ route('product.details', $slider) }}">{{ __('Shop Now') }}</a></div>
 					</div>
 				</div>
 			</div>
@@ -37,8 +37,8 @@
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
 						<div class="char_icon"><img src="{{ asset('frontend/images/char_1.png') }}" alt=""></div>
 						<div class="char_content">
-							<div class="char_title">Free Delivery</div>
-							<div class="char_subtitle">from $50</div>
+							<div class="char_title">{{ __('Free Delivery') }}</div>
+							<div class="char_subtitle">{{ __('from $50') }}</div>
 						</div>
 					</div>
 				</div>
@@ -49,8 +49,8 @@
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
 						<div class="char_icon"><img src="{{ asset('frontend/images/char_2.png') }}" alt=""></div>
 						<div class="char_content">
-							<div class="char_title">Free Delivery</div>
-							<div class="char_subtitle">from $50</div>
+							<div class="char_title">{{ __('Free Delivery') }}</div>
+							<div class="char_subtitle">{{ __('from $50') }}</div>
 						</div>
 					</div>
 				</div>
@@ -61,8 +61,8 @@
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
 						<div class="char_icon"><img src="{{ asset('frontend/images/char_3.png') }}" alt=""></div>
 						<div class="char_content">
-							<div class="char_title">Free Delivery</div>
-							<div class="char_subtitle">from $50</div>
+							<div class="char_title">{{ __('Free Delivery') }}</div>
+							<div class="char_subtitle">{{ __('from $50') }}</div>
 						</div>
 					</div>
 				</div>
@@ -73,8 +73,8 @@
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
 						<div class="char_icon"><img src="{{ asset('frontend/images/char_4.png') }}" alt=""></div>
 						<div class="char_content">
-							<div class="char_title">Free Delivery</div>
-							<div class="char_subtitle">from $50</div>
+							<div class="char_title">{{ __('Free Delivery') }}</div>
+							<div class="char_subtitle">{{ __('from $50') }}</div>
 						</div>
 					</div>
 				</div>
@@ -92,7 +92,7 @@
 					<!-- Deals -->
 
 					<div class="deals">
-						<div class="deals_title">Deals of the Week</div>
+						<div class="deals_title">{{ __('Deals of the Week') }}</div>
 						<div class="deals_slider_container">
 							
 							<!-- Deals Slider -->
@@ -115,29 +115,29 @@
 										</div>
 										<div class="available">
 											<div class="available_line d-flex flex-row justify-content-start">
-												<div class="available_title">Available: <span>{{ $item->quantity }}</span></div>
-												<div class="sold_title ms-auto">Already sold: <span>28</span></div>
+												<div class="available_title">{{ __('Available: ') }}<span>{{ $item->quantity }}</span></div>
+												<div class="sold_title ms-auto">{{ __('Already sold: ') }}<span>28</span></div>
 											</div>
 											<div class="available_bar"><span style="width:17%"></span></div>
 										</div>
 										<div class="deals_timer d-flex flex-row align-items-center justify-content-start">
 											<div class="deals_timer_title_container">
-												<div class="deals_timer_title">Hurry Up</div>
-												<div class="deals_timer_subtitle">Offer ends in:</div>
+												<div class="deals_timer_title">{{ __('Hurry Up') }}</div>
+												<div class="deals_timer_subtitle">{{ __('Offer ends in:') }}</div>
 											</div>
 											<div class="deals_timer_content ms-auto">
 												<div class="deals_timer_box clearfix" data-target-time="">
 													<div class="deals_timer_unit">
 														<div id="deals_timer1_hr" class="deals_timer_hr"></div>
-														<span>hours</span>
+														<span>{{ __('hours') }}</span>
 													</div>
 													<div class="deals_timer_unit">
 														<div id="deals_timer1_min" class="deals_timer_min"></div>
-														<span>mins</span>
+														<span>{{ __('mins') }}</span>
 													</div>
 													<div class="deals_timer_unit">
 														<div id="deals_timer1_sec" class="deals_timer_sec"></div>
-														<span>secs</span>
+														<span>{{ __('secs') }}</span>
 													</div>
 												</div>
 											</div>
@@ -160,9 +160,9 @@
 						<div class="tabbed_container">
 							<div class="tabs">
 								<ul class="clearfix">
-									<li class="active">Featured</li>
-									<li>Trend</li>
-									<li>Best Rated</li>
+									<li class="active">{{ __('Featured') }}</li>
+									<li>{{ __('Trend') }}</li>
+									<li>{{ __('Best Rated') }}</li>
 								</ul>
 								<div class="tabs_line"><span></span></div>
 							</div>
@@ -199,7 +199,7 @@
 														<input type="radio" name="product_color" style="background:#000000">
 														<input type="radio" name="product_color" style="background:#999999">
 													</div>
-													<button class="product_cart_button add-cart" id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#cartModal" onclick="productView(this.id)">Add to Cart</button>
+													<button class="product_cart_button add-cart" id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#cartModal" onclick="productView(this.id)">{{ __('Add to Cart') }}</button>
 												</div>
 											</div>
 											
@@ -238,14 +238,14 @@
 												@else
 												<div class="product_price discount">${{ $item->discount_price }}<span>${{ $item->selling_price }}</span></div>
 												@endif
-												<div class="product_name"><div><a href="product.html" title="{{ $item->product_name }}">{{ $item->limitName() }}</a></div></div>
+												<div class="product_name"><div><a href="{{ route('product.details', $item) }}" title="{{ $item->product_name }}">{{ $item->limitName() }}</a></div></div>
 												<div class="product_extras">
 													<div class="product_color">
 														<input type="radio" checked name="product_color" style="background:#b19c83">
 														<input type="radio" name="product_color" style="background:#000000">
 														<input type="radio" name="product_color" style="background:#999999">
 													</div>
-													<button class="product_cart_button active add-cart" data-id="{{ $item->id }}">Add to Cart</button>
+													<button class="product_cart_button add-cart" id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#cartModal" onclick="productView(this.id)">{{ __('Add to Cart') }}</button>
 												</div>
 											</div>
 											<a id="wishlist" data-id="{{ $item->id }}">
@@ -281,14 +281,14 @@
 												@else
 												<div class="product_price discount">${{ $item->discount_price }}<span>${{ $item->selling_price }}</span></div>
 												@endif
-												<div class="product_name"><div><a href="product.html" title="{{ $item->product_name }}">{{ $item->limitName() }}</a></div></div>
+												<div class="product_name"><div><a href="{{ route('product.details', $item) }}" title="{{ $item->product_name }}">{{ $item->limitName() }}</a></div></div>
 												<div class="product_extras">
 													<div class="product_color">
 														<input type="radio" checked name="product_color" style="background:#b19c83">
 														<input type="radio" name="product_color" style="background:#000000">
 														<input type="radio" name="product_color" style="background:#999999">
 													</div>
-													<button class="product_cart_button active add-cart" data-id="{{ $item->id }}">Add to Cart</button>
+													<button class="product_cart_button add-cart" id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#cartModal" onclick="productView(this.id)">{{ __('Add to Cart') }}</button>
 												</div>
 											</div>
 											<a id="wishlist" data-id="{{ $item->id }}">
@@ -323,12 +323,12 @@
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="popular_categories_content">
-						<div class="popular_categories_title">Popular Categories</div>
+						<div class="popular_categories_title">{{ __('Popular Categories') }}</div>
 						<div class="popular_categories_slider_nav">
 							<div class="popular_categories_prev popular_categories_nav"><i class="fas fa-angle-left ms-auto"></i></div>
 							<div class="popular_categories_next popular_categories_nav"><i class="fas fa-angle-right ms-auto"></i></div>
 						</div>
-						<div class="popular_categories_link"><a href="#">full catalog</a></div>
+						<div class="popular_categories_link"><a href="#">{{ __('full catalog') }}</a></div>
 					</div>
 				</div>
 				
@@ -377,7 +377,7 @@
 										<div class="banner_2_title">{{ $item->product_name }}</div>
 										<div class="banner_2_text"><h4>{{ $item->brand->brand_name }}</h4> <h2>${{ $item->selling_price }}</h2></div>
 										<div class="rating_r rating_r_4 banner_2_rating"><i></i><i></i><i></i><i></i><i></i></div>
-										<div class="button banner_2_button"><a href="#">Explore</a></div>
+										<div class="button banner_2_button"><a href="{{ route('product.details', $item) }}">{{ __('Explore') }}</a></div>
 									</div>
 									
 								</div>
@@ -403,7 +403,7 @@
 				<div class="col">
 					<div class="tabbed_container">
 						<div class="tabs clearfix tabs-right">
-							<div class="new_arrivals_title">Hot New Arrivals</div>
+							<div class="new_arrivals_title">{{ __('Hot New Arrivals') }}</div>
 							<ul class="clearfix">
 								<li class="active">{{ $firstCategory->category_name }}</li>
 								<li>{{ $secondCategory->category_name }}</li>
@@ -429,14 +429,14 @@
 														@else
 														<div class="product_price discount">${{ $item->discount_price }}<span>${{ $item->selling_price }}</span></div>
 														@endif
-														<div class="product_name"><div><a href="product.html" title="{{ $item->product_name }}">{{ $item->limitName() }}</a></div></div>
+														<div class="product_name"><div><a href="{{ route('product.details', $item) }}" title="{{ $item->product_name }}">{{ $item->limitName() }}</a></div></div>
 														<div class="product_extras">
 															<div class="product_color">
 																<input type="radio" checked name="product_color" style="background:#b19c83">
 																<input type="radio" name="product_color" style="background:#000000">
 																<input type="radio" name="product_color" style="background:#999999">
 															</div>
-															<button class="product_cart_button active add-cart" data-id="{{ $item->id }}">Add to Cart</button>
+															<button class="product_cart_button add-cart" id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#cartModal" onclick="productView(this.id)">{{ __('Add to Cart') }}</button>
 														</div>
 													</div>
 													
@@ -477,14 +477,14 @@
 														@else
 														<div class="product_price discount">${{ $item->discount_price }}<span>${{ $item->selling_price }}</span></div>
 														@endif
-														<div class="product_name"><div><a href="product.html" title="{{ $item->product_name }}">{{ $item->limitName() }}</a></div></div>
+														<div class="product_name"><div><a href="{{ route('product.details', $item) }}" title="{{ $item->product_name }}">{{ $item->limitName() }}</a></div></div>
 														<div class="product_extras">
 															<div class="product_color">
 																<input type="radio" checked name="product_color" style="background:#b19c83">
 																<input type="radio" name="product_color" style="background:#000000">
 																<input type="radio" name="product_color" style="background:#999999">
 															</div>
-															<button class="product_cart_button active add-cart" data-id="{{ $item->id }}">Add to Cart</button>
+															<button class="product_cart_button add-cart" id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#cartModal" onclick="productView(this.id)">{{ __('Add to Cart') }}</button>
 														</div>
 													</div>
 													
@@ -528,11 +528,11 @@
 				<div class="col">
 					<div class="tabbed_container">
 						<div class="tabs clearfix tabs-right">
-							<div class="new_arrivals_title">Hot Best Sellers</div>
+							<div class="new_arrivals_title">{{ __('Hot Best Sellers') }}</div>
 							<ul class="clearfix">
-								<li class="active">Top 20</li>
-								<li>Audio & Video</li>
-								<li>Laptops & Computers</li>
+								<li class="active">{{ __('Top 20') }}</li>
+								<li>{{ __('Audio & Video') }}</li>
+								<li>{{ __('Laptops & Computers') }}</li>
 							</ul>
 							<div class="tabs_line"><span></span></div>
 						</div>
@@ -1279,7 +1279,7 @@
 				<!-- Trends Content -->
 				<div class="col-lg-3">
 					<div class="trends_container">
-						<h2 class="trends_title">BuyOne & GetOne</h2>
+						<h2 class="trends_title">{{__('BuyOne & GetOne')}}</h2>
 						<div class="trends_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing Donec et.</p></div>
 						<div class="trends_slider_nav">
 							<div class="trends_prev trends_nav"><i class="fas fa-angle-left ms-auto"></i></div>
@@ -1342,8 +1342,8 @@
 				<div class="col">
 					
 					<div class="reviews_title_container">
-						<h3 class="reviews_title">Latest Reviews</h3>
-						<div class="reviews_all ms-auto"><a href="#">view all <span>reviews</span></a></div>
+						<h3 class="reviews_title">{{ __('Latest Reviews') }}</h3>
+						<div class="reviews_all ms-auto"><a href="#">{{ __('view all') }} <span>{{ __('reviews') }}</span></a></div>
 					</div>
 
 					<div class="reviews_slider_container">
@@ -1456,7 +1456,7 @@
 			<div class="row">
 				<div class="col">
 					<div class="viewed_title_container">
-						<h3 class="viewed_title">Recently Viewed</h3>
+						<h3 class="viewed_title">{{ __('Recently Viewed') }}</h3>
 						<div class="viewed_nav_container">
 							<div class="viewed_nav viewed_prev"><i class="fas fa-chevron-left"></i></div>
 							<div class="viewed_nav viewed_next"><i class="fas fa-chevron-right"></i></div>
@@ -1607,15 +1607,15 @@
 					<div class="newsletter_container d-flex flex-lg-row flex-column align-items-lg-center align-items-center justify-content-lg-start justify-content-center">
 						<div class="newsletter_title_container">
 							<div class="newsletter_icon"><img src="{{ asset('frontend/images/send.png') }}" alt=""></div>
-							<div class="newsletter_title">Sign up for Newsletter</div>
-							<div class="newsletter_text"><p>...and receive %20 coupon for first shopping.</p></div>
+							<div class="newsletter_title">{{ __('Sign up for Newsletter') }}</div>
+							<div class="newsletter_text"><p>{{ __('...and receive %20 coupon for first shopping.') }}</p></div>
 						</div>
 						<div class="newsletter_content clearfix">
 							{{ Form::open(['route' => 'newsletters.store', 'class' => 'newsletter_form']) }}
-							{{ Form::email('email', null, ['class' => 'newsletter_input', 'required', 'placeholder' => 'Enter your email address']) }}
-							{{ Form::submit('Subscribe', ['class' => 'newsletter_button']) }}
+							{{ Form::email('email', null, ['class' => 'newsletter_input', 'required', 'placeholder' => __('Enter your email address')]) }}
+							{{ Form::submit(__('Subscribe'), ['class' => 'newsletter_button']) }}
 							{{ Form::close() }}
-							<div class="newsletter_unsubscribe_link"><a href="#">unsubscribe</a></div>
+							<div class="newsletter_unsubscribe_link"><a href="#">{{ __('unsubscribe') }}</a></div>
 						</div>
 					</div>
 				</div>
@@ -1629,7 +1629,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="cartModalLabel">Product Quick View</h1>
+        <h1 class="modal-title fs-5" id="cartModalLabel">{{ __('Product Quick View') }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -1639,7 +1639,7 @@
 				<div class="card">
 					<img src="" alt="" id="pImage">
 					<div class="card-body">
-						<h5 class="card-title text-center" id="pName">Product Name</h5>
+						<h5 class="card-title text-center" id="pName">{{ __('Product Name') }}</h5>
 
 					</div>
 				</div>
@@ -1647,37 +1647,37 @@
 
 			<div class="col-md-4">
 				<ul class="list-group">
-					<li class="list-group-item py-3">Product Code: <span id="pCode"></span></li>
-					<li class="list-group-item py-3">Category: <span id="pCat"></span></li>
-					<li class="list-group-item py-3">Subcategory: <span id="pSub"></span></li>
-					<li class="list-group-item py-3">Brand: <span id="pBrand"></span></li>
-					<li class="list-group-item py-3">Stock: <span class="badge text-bg-success">Available</span></li>
+					<li class="list-group-item py-3">{{ __('Product Code') }}: <span id="pCode"></span></li>
+					<li class="list-group-item py-3">{{ __('Category') }}: <span id="pCat"></span></li>
+					<li class="list-group-item py-3">{{ __('Subcategory') }}: <span id="pSub"></span></li>
+					<li class="list-group-item py-3">{{ __('Brand') }}: <span id="pBrand"></span></li>
+					<li class="list-group-item py-3">{{ __('Stock') }}: <span class="badge text-bg-success">{{ __('Available') }}</span></li>
 				</ul>
 			</div>
-
+			@isset($item)
 			<div class="col-md-4">
 			{{ Form::open(['route' => 'cart-product.add']) }}
 			{{ Form::hidden('prod_id', $item->rowId, ['id' => 'prod_id']) }}
 				<div class="mb-3 py-2">
-					{{ Form::label('color', 'Color', ['class' => 'form-control-label']) }}
+					{{ Form::label('color', __('Color'), ['class' => 'form-control-label']) }}
 					{{ Form::select('color', [], null, ['class' => 'form-control', 'id' => 'color']) }}
 				</div>
 
 				<div class="mb-3 py-2">
-					{{ Form::label('size', 'Size', ['class' => 'form-control-label']) }}
+					{{ Form::label('size', __('Size'), ['class' => 'form-control-label']) }}
 					{{ Form::select('size', [], null, ['class' => 'form-control', 'id' => 'size']) }}
 				</div>
 
 				<div class="mb-3 py-2">
-					{{ Form::label('qty', 'Quantity', ['class' => 'form-control-label']) }}
+					{{ Form::label('qty', __('Quantity'), ['class' => 'form-control-label']) }}
 					{{ Form::number('qty', 1, ['class' => 'form-control', 'id' => 'qty', 'min' => 1]) }}
 				</div>
 				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-				{{ Form::submit('Add to Cart', ['class' => 'btn btn-primary']) }}
+				{{ Form::submit(__('Add to Cart'), ['class' => 'btn btn-primary']) }}
 				</div>
 			{{ Form::close() }}
 			</div>
-
+			@endisset
 		</div>
       </div>
       <div class="modal-footer">

@@ -23,8 +23,13 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'category_name' => 'required|max:255|unique:categories,category_name,' . $this->category->id,
+        $rules = [
+            'en.category_name' => 'required|max:255|unique:categories,en.category_name,' . $this->category->id,
         ];
+
+        foreach(config('translatable.locales') as $lang => $locale) {
+            $rules[$locale . '.category_name'] = 'string|max:255';
+        }
+        return $rules;
     }
 }

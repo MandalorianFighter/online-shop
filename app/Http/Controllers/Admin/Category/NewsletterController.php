@@ -31,7 +31,7 @@ class NewsletterController extends Controller
         Newsletter::create($request->validated());
 
         $notification = array(
-            'message' => 'Thanks For Subscribing!',
+            'message' => __('Thanks For Subscribing!'),
             'alert-type' => 'success',
         );
 
@@ -48,7 +48,7 @@ class NewsletterController extends Controller
     {
         $newsletter->delete();
         $notification = array(
-            'message' => 'Subscriber Is Deleted Successfully!',
+            'message' => __('Subscriber Is Deleted Successfully!'),
             'alert-type' => 'success',
         );
 

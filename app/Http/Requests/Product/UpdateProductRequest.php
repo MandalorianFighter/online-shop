@@ -23,17 +23,17 @@ class UpdateProductRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
+            'en.product_name' => 'required|min:2',
+            'en.product_details' => 'required|min:100|max:1000',
+            'en.color' => 'required',
             'category_id' => 'required',
             'subcategory_id' => 'nullable',
             'brand_id' => 'nullable',
-            'product_name' => 'required|min:2|max:256',
             'code' => 'required|max:256|unique:products,code,' . $this->product->id,
             'quantity' => 'required',
-            'color' => 'required',
             'size' => 'required',
             'selling_price' => 'required',
-            'product_details' => 'required|min:100|max:750',
             'discount_price' => 'nullable',
             'video_link' => 'nullable',
             'main_slider'=> 'nullable',
@@ -45,5 +45,12 @@ class UpdateProductRequest extends FormRequest
             'trend' => 'nullable',
             'status' => 'nullable',
         ];
+
+        foreach(config('translatable.locales') as $lang => $locale) {
+            $rules[$locale . '.product_name'] = 'string';
+            $rules[$locale . '.product_details'] = 'nullable';
+            $rules[$locale . '.color'] = 'string';
+        }
+        return $rules;
     }
 }

@@ -97,17 +97,18 @@ class WishlistController extends Controller
 
         if(Auth::check()) {
             if($check) {
-                $data['message'] = 'Product is Already in Your Wishlist!';
+                $data['message'] = __('Product is Already in Your Wishlist!');
             } else {
                 Wishlist::create([
                     'user_id' => $userId,
                     'product_id' => $prodId,
                 ]);
-                $data['message'] = 'Product is Added to Wishlist!';
+                $data['count'] = Wishlist::where('user_id', $userId)->count();
+                $data['message'] = __('Product is Added to Wishlist!');
                 $data['type'] = 'success';
             }    
         } else {
-            $data['message'] = 'Please, <a href="/login">Login</a> at First!';
+            $data['message'] = __('Please, <a href="/login">Login</a> at First!');
         }
         
         return json_encode($data);

@@ -40,29 +40,30 @@
 							<div class="top_bar_menu">
 								<ul class="standard_dropdown top_bar_dropdown">
 									<li>
-										<a href="#">English<i class="fas fa-chevron-down"></i></a>
+										<a href="#">{{ strtoupper(app()->getLocale()) }}<i class="fas fa-chevron-down"></i></a>
+										
 										<ul>
-											<li><a href="#">Italian</a></li>
-											<li><a href="#">Spanish</a></li>
-											<li><a href="#">Japanese</a></li>
+											@foreach(config('translatable.locales') as $langName => $langLocale)
+											<li><a href="{{ url()->current() }}?lang={{ $langLocale }}">{{ $langName }}</a></li>
+											@endforeach
 										</ul>
 									</li>
-									
+								
 								</ul>
 							</div>
 							<div class="top_bar_user">
 							@guest
 								<div class="user_icon"><img src="{{ asset('frontend/images/user.svg') }}" alt=""></div>
-								<div><a href="{{ route('login') }}">Register/Login</a></div>
+								<div><a href="{{ route('login') }}">{{ __('Register/Login') }}</a></div>
 							@else
 							
 							<ul class="standard_dropdown top_bar_dropdown">
 									<li>
-										<a href="{{ route('dashboard') }}"><div class="user_icon"><img src="{{ asset('frontend/images/user.svg') }}" alt=""></div> Profile<i class="fas fa-chevron-down"></i></a>
+										<a href="{{ route('dashboard') }}"><div class="user_icon"><img src="{{ asset('frontend/images/user.svg') }}" alt=""></div>{{ __('Profile') }}<i class="fas fa-chevron-down"></i></a>
 										<ul>
-											<li><a href="{{ route('user.wishlist') }}">Wishlist</a></li>
-											<li><a href="{{ route('user.checkout') }}">Checkout</a></li>
-											<li><a href="#">Others</a></li>
+											<li><a href="{{ route('user.wishlist') }}">{{ __('Wishlist') }}</a></li>
+											<li><a href="{{ route('user.checkout') }}">{{ __('Checkout') }}</a></li>
+											<li><a href="#">{{ __('Others') }}</a></li>
 										</ul>
 									</li>
 								</ul>
@@ -94,10 +95,10 @@
 							<div class="header_search_content">
 								<div class="header_search_form_container">
 									<form action="#" class="header_search_form clearfix">
-										<input type="search" required="required" class="header_search_input" placeholder="Search for products...">
+										<input type="search" required="required" class="header_search_input" placeholder="{{ __('Search for products...') }}">
 										<div class="custom_dropdown">
 											<div class="custom_dropdown_list">
-												<span class="custom_dropdown_placeholder clc">All Categories</span>
+												<span class="custom_dropdown_placeholder clc">{{ __('All Categories') }}</span>
 												<i class="fas fa-chevron-down"></i>
 												<ul class="custom_list clc">
 													@foreach($categories as $category)
@@ -123,7 +124,7 @@
 							@else
 								<div class="wishlist_icon"><img src="{{ asset('frontend/images/heart.png') }}" alt=""></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="{{ route('user.wishlist') }}">Wishlist</a></div>
+									<div class="wishlist_text"><a href="{{ route('user.wishlist') }}">{{ __('Wishlist') }}</a></div>
 									<div class="wishlist_count">{{ $wishlist->count() }}</div>
 								</div>
 							@endguest
@@ -137,7 +138,7 @@
 										<div class="cart_count"><span>{{ Cart::count() }}</span></div>
 									</div>
 									<div class="cart_content">
-										<div class="cart_text"><a href="{{ route('cart.show') }}">Cart</a></div>
+										<div class="cart_text"><a href="{{ route('cart.show') }}">{{ __('Cart') }}</a></div>
 										<div class="cart_price">${{ Cart::subtotal() }}</div>
 									</div>
 								</div>
@@ -168,11 +169,11 @@
 						<div class="logo_container">
 							<div class="logo"><a href="#">OneTech</a></div>
 						</div>
-						<div class="footer_title">Got Question? Call Us 24/7</div>
+						<div class="footer_title">{{ __('Got Question? Call Us 24/7') }}</div>
 						<div class="footer_phone">+38 068 005 3570</div>
 						<div class="footer_contact_text">
-							<p>17 Princess Road, London</p>
-							<p>Grester London NW18JR, UK</p>
+							<p>{{ __('17 Princess Road, London') }}</p>
+							<p>{{ __('Grester London NW18JR, UK') }}</p>
 						</div>
 						<div class="footer_social">
 							<ul>
@@ -188,17 +189,17 @@
 
 				<div class="col-lg-2 offset-lg-2">
 					<div class="footer_column">
-						<div class="footer_title">Find it Fast</div>
+						<div class="footer_title">{{ __('Find it Fast') }}</div>
 						<ul class="footer_list">
-							<li><a href="#">Computers & Laptops</a></li>
-							<li><a href="#">Cameras & Photos</a></li>
-							<li><a href="#">Hardware</a></li>
-							<li><a href="#">Smartphones & Tablets</a></li>
-							<li><a href="#">TV & Audio</a></li>
+							<li><a href="#">{{ __('Computers & Laptops') }}</a></li>
+							<li><a href="#">{{ __('Cameras & Photos') }}</a></li>
+							<li><a href="#">{{ __('Hardware') }}</a></li>
+							<li><a href="#">{{ __('Smartphones & Tablets') }}</a></li>
+							<li><a href="#">{{ __('TV & Audio') }}</a></li>
 						</ul>
-						<div class="footer_subtitle">Gadgets</div>
+						<div class="footer_subtitle">{{ __('Gadgets') }}</div>
 						<ul class="footer_list">
-							<li><a href="#">Car Electronics</a></li>
+							<li><a href="#">{{ __('Car Electronics') }}</a></li>
 						</ul>
 					</div>
 				</div>
@@ -206,26 +207,26 @@
 				<div class="col-lg-2">
 					<div class="footer_column">
 						<ul class="footer_list footer_list_2">
-							<li><a href="#">Video Games & Consoles</a></li>
-							<li><a href="#">Accessories</a></li>
-							<li><a href="#">Cameras & Photos</a></li>
-							<li><a href="#">Hardware</a></li>
-							<li><a href="#">Computers & Laptops</a></li>
+							<li><a href="#">{{ __('Video Games & Consoles') }}</a></li>
+							<li><a href="#">{{ __('Accessories') }}</a></li>
+							<li><a href="#">{{ __('Cameras & Photos') }}</a></li>
+							<li><a href="#">{{ __('Hardware') }}</a></li>
+							<li><a href="#">{{ __('Computers & Laptops') }}</a></li>
 						</ul>
 					</div>
 				</div>
 
 				<div class="col-lg-2">
 					<div class="footer_column">
-						<div class="footer_title">Customer Care</div>
+						<div class="footer_title">{{ __('Customer Care') }}</div>
 						<ul class="footer_list">
-							<li><a href="#">My Account</a></li>
-							<li><a href="#">Order Tracking</a></li>
-							<li><a href="#">Wish List</a></li>
-							<li><a href="#">Customer Services</a></li>
-							<li><a href="#">Returns / Exchange</a></li>
-							<li><a href="#">FAQs</a></li>
-							<li><a href="#">Product Support</a></li>
+							<li><a href="#">{{ __('My Account') }}</a></li>
+							<li><a href="#">{{ __('Order Tracking') }}</a></li>
+							<li><a href="#">{{ __('Wish List') }}</a></li>
+							<li><a href="#">{{ __('Customer Services') }}</a></li>
+							<li><a href="#">{{ __('Returns / Exchange') }}</a></li>
+							<li><a href="#">{{ __('FAQs') }}</a></li>
+							<li><a href="#">{{ __('Product Support') }}</a></li>
 						</ul>
 					</div>
 				</div>
@@ -300,7 +301,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
      </script> 
 	 
 <script type="text/javascript">
-  $('#wishlist').click(function(e) {
+  $(document).on('click', '#wishlist', function(e) {
 	e.preventDefault();
 	var prod_id = $(this).data('id');
     $.ajax({
@@ -312,7 +313,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         },
         success: function(response){
           var data = $.parseJSON(response);
+		  console.log(data);
 		  if(data.type == 'success'){
+			$('.wishlist_count').text(data.count);
 			toastr.success(data.message);
 		  } else {
 			toastr.warning(data.message);
@@ -408,30 +411,87 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         }
     });
 	}
+</script>
 
 
-
-
-
-
-	$('.delete-cart-item').click(function(e) {
+<script type="text/javascript">
+	$('.qty-check').click(function(e) {
 		e.preventDefault();
-		var item = $(e.target).parents('.cart-form');
+		var item = $(e.target).parents('.check-form');
+		var prod_id = item.find('.prod_id').val();
+		var qty = item.find('.item-qty').val();
+		$.ajax({
+        type: 'POST',
+        url: '{{ route('check-item.update') }}',
+        data: {
+          _token: '{{ csrf_token() }}',
+          id: prod_id,
+		  qty: qty
+        },
+        success: function(response){
+        	var data = $.parseJSON(response);
+
+			@if(Session::missing('coupon'))
+			item.find('.item-qty').val(data.qty);
+			item.find('.item_total').text('$' + data.itemTotal);
+			$('.cart_count span').text(data.count);
+			$('.cart_price').text('$' + data.subtotal);
+			$('.subtotal-sp').text('$' + data.subtotalSp);
+			$('.total-sp').text('$' + data.totalSp);
+			toastr.success(data.message);
+			@else
+			toastr.warning(data.message);
+			@endif
+        }
+    });
+	});
+</script>
+
+<script type="text/javascript">
+	$('.delete-cart-check').click(function(e) {
+		e.preventDefault();
+		var item = $(e.target).parents('.check-form');
 		var prod_id = item.find('.prod_id').val();
 		$.ajax({
         type: 'POST',
-        url: '{{ route('cart-item.delete') }}',
+        url: '{{ route('check-item.delete') }}',
         data: {
           _token: '{{ csrf_token() }}',
           id: prod_id
         },
         success: function(response){
         	var data = $.parseJSON(response);
+
+			@if(Session::missing('coupon'))
 			item.remove(); // remove product item from cart
 
 			$('.cart_count span').text(data.count);
 			$('.cart_price').text('$' + data.subtotal);
-			$('.order_total_amount').text('$' + data.total);
+			$('.subtotal-sp').text('$' + data.subtotalSp);
+			$('.total-sp').text(data.subtotal == 0 ? '$0.00' : '$' + data.totalSp);
+			@endif
+			toastr.warning(data.message);
+        }
+    });
+	});
+</script>
+<script type="text/javascript">
+	$('.delete-wish-item').click(function(e) {
+		e.preventDefault();
+		var item = $(e.target).parents('.wish-form');
+		var wish_id = item.find('.wish_id').val();
+		$.ajax({
+        type: 'POST',
+        url: '{{ route('wish-item.delete') }}',
+        data: {
+          _token: '{{ csrf_token() }}',
+          id: wish_id
+        },
+        success: function(response){
+        	var data = $.parseJSON(response);
+			item.remove(); // remove product item from cart
+
+			$('.wishlist_count').text(data.count);
 			toastr.warning(data.message);
         }
     });

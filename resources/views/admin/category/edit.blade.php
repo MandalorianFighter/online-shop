@@ -7,12 +7,12 @@
 
       <div class="sl-pagebody">
         <div class="sl-page-title">
-          <h5>Category Update</h5>
+          <h5>{{ __('Category Update') }}</h5>
         </div><!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40">
-          <h6 class="card-body-title">Category Update
-          <a href="{{ route('categories.index') }}" class="btn btn-secondary pd-x-20" style="float:right;">Back</a>
+          <h6 class="card-body-title">{{ __('Category Update') }}
+          <a href="{{ route('categories.index') }}" class="btn btn-secondary pd-x-20" style="float:right;">{{ __('Back') }}</a>
           </h6>
 
           <div class="table-wrapper">
@@ -29,14 +29,16 @@
 
               {{ Form::model($category, ['route' => ['categories.update', $category], 'method' => 'PUT']) }}
               <div class="modal-body pd-20">
+                @foreach(config('translatable.locales') as $lang => $locale)
                 <div class="mb-3">
-                  {{ Form::label('category_name', null, ['class' => 'form-label']) }}
-                  {{ Form::text('category_name', $category->category_name, ['class' => 'form-control']) }}
+                  {{ Form::label($locale."[category_name]", __('Category Name') ." ($lang)", ['class' => 'form-label']) }}
+                  {{ Form::text($locale."[category_name]", $category->translate($locale)->category_name, ['class' => 'form-control']) }}
                 </div>
+                @endforeach   
               </div><!-- modal-body -->
 
               <div class="modal-footer">
-                {{ Form::submit('Update', ['class' => 'btn btn-info pd-x-20']) }}
+                {{ Form::submit(__('Update'), ['class' => 'btn btn-info pd-x-20']) }}
               </div>
               {{ Form::close() }}
 

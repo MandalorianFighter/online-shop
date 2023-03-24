@@ -31,7 +31,7 @@ class BlogCategoryController extends Controller
         BlogCategory::create($request->validated());
 
         $notification = array(
-            'message' => 'Blog Category Is Added Successfully!',
+            'message' => __('Blog Category Is Added Successfully!'),
             'alert-type' => 'success',
         );
 
@@ -61,7 +61,7 @@ class BlogCategoryController extends Controller
         $blogCategory->update($request->validated());
 
         $notification = array(
-            'message' => 'Blog Category Is Updated Successfully!',
+            'message' => __('Blog Category Is Updated Successfully!'),
             'alert-type' => 'success',
         );
 
@@ -78,7 +78,7 @@ class BlogCategoryController extends Controller
     {
         $blogCategory->delete();
         $notification = array(
-            'message' => 'Blog Category Is Deleted Successfully!',
+            'message' => __('Blog Category Is Deleted Successfully!'),
             'alert-type' => 'success',
         );
 

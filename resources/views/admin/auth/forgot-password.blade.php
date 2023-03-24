@@ -8,8 +8,8 @@
         
         {{ Form::open(['route' => 'admin.password.email']) }}
         <div class="form-group text-secondary">
-          {{ Form::label('email', 'Email', ['class' => 'form-label']) }}
-          {{ Form::email('email', old('email'), ['class' => 'form-control'. ($errors->has('email') ? ' is-invalid' : null), 'autocomplete' => 'email', 'placeholder' => 'Email Address', 'autofocus', 'required']) }}
+          {{ Form::label('email', __('Email'), ['class' => 'form-label']) }}
+          {{ Form::email('email', old('email'), ['class' => 'form-control'. ($errors->has('email') ? ' is-invalid' : null), 'autocomplete' => 'email', 'placeholder' => __('Email Address'), 'autofocus', 'required']) }}
           @error('email')
           <span class="invalid-feedback">
               <strong>{{ $message }}</strong>
@@ -22,7 +22,7 @@
             </div>
         @endif
         <hr>
-        {{ Form::submit('Email Password Reset Link', ['class' => 'btn btn-info btn-block']) }}
+        {{ Form::submit(__('Email Password Reset Link'), ['class' => 'btn btn-info btn-block']) }}
         {{ Form::close() }}
 
       </div><!-- login-wrapper -->

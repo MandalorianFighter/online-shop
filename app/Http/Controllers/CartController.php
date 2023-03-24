@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Cart\StoreCartRequest;
 use App\Http\Requests\Cart\UpdateCartRequest;
 use App\Http\Requests\Cart\UpdateCartItemRequest;
+use App\Models\Admin\Coupon;
+use App\Models\Setting;
+use App\Models\Wishlist;
 use Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\Admin\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
@@ -64,7 +68,7 @@ class CartController extends Controller
         Cart::add($data);
 
         $notification = array(
-            'message' => 'Product Successfully Added!',
+            'message' => __('Product Successfully Added!'),
             'alert-type' => 'success',
         );
 
@@ -118,7 +122,7 @@ class CartController extends Controller
         $item = Cart::get($rowId);
 
         $response = [
-            'message' => 'Product Order is Specified!',
+            'message' => __('Product Order is Specified!'),
             'qty' => $qty,
             'itemTotal' => $item->subtotal,
             'total' => Cart::total(),
@@ -146,7 +150,7 @@ class CartController extends Controller
         Cart::remove($rowId);
 
         $response = [
-            'message' => 'Product is Removed from Cart!',
+            'message' => __('Product is Removed from Cart!'),
             'total' => Cart::total(),
             'count' => Cart::count(),
             'subtotal' => Cart::subtotal()
@@ -159,14 +163,15 @@ class CartController extends Controller
     {
         if(!Auth::guard('web')->check()) {
             $notification = array(
-                'message' => 'Please, Login First!',
+                'message' => __('Please, Login First!'),
                 'alert-type' => 'warning',
             );
             return redirect()->route('login')->with($notification);
         }
 
         $cart = Cart::content();
-        return view('pages.checkout', compact('cart'));
+        $settings = Setting::first();
+        return view('pages.checkout', compact('cart', 'settings'));
     }
 
     public function wishlist()
@@ -178,6 +183,117 @@ class CartController extends Controller
 
         // return response()->json($wishProducts);
         return view('pages.wishlist', compact('wishProducts'));
+    }
+
+    public function coupon(Request $request)
+    {
+        $coupon = $request->coupon;
+
+        $check = Coupon::where('coupon', $coupon)->first();
+        if($check) {
+            Session::put('coupon',[
+                'name' => $check->coupon,
+                'discount' => $check->discount,
+                'balance' => Cart::subtotal() - $check->discount,
+            ]);
+            $notification = array(
+                'message' => __('Coupon Successfully Applied!'),
+                'alert-type' => 'success',
+            );
+    
+            return redirect()->back()->with($notification);
+        }
+        $notification = array(
+            'message' => __('Invalid Coupon!'),
+            'alert-type' => 'warning',
+        );
+
+        return redirect()->back()->with($notification);
+
+        // return response()->json($wishProducts);
+        
+    }
+
+    public function couponRemove()
+    {
+        Session::forget('coupon');
+        
+        $notification = array(
+            'message' => __('Coupon is Removed!'),
+            'alert-type' => 'warning',
+        );
+
+        return redirect()->back()->with($notification);
+
+        // return response()->json($wishProducts);
+        
+    }
+
+    public function updateCheck(Request $request)
+    {
+        if(Session::has('coupon')) {
+            $response = [
+                'message' => __('Please, Specify Item Checkout Before Adding a Coupon!'),
+            ];
+            return json_encode($response);
+        }
+        $rowId = $request->id;
+        $qty = $request->qty;
+        $settings = Setting::first();
+
+        Cart::update($rowId, $qty);
+        $item = Cart::get($rowId);
+
+        $response = [
+            'message' => __('Product Checkout is Specified!'),
+            'qty' => $qty,
+            'itemTotal' => $item->subtotal,
+            'total' => Cart::total(),
+            'count' => Cart::count(),
+            'subtotal' => Cart::subtotal(),
+            'subtotalSp' => Cart::total(),
+            'totalSp' => Cart::total() + $settings->shipping_charge + $settings->vat,
+        ];
+
+        return json_encode($response);
+    }
+
+    public function destroyCheck(Request $request)
+    {
+        if(Session::has('coupon')) {
+            $response = [
+                'message' => __('Please, Remove Item Before Adding a Coupon!'),
+            ];
+            return json_encode($response);
+        }
+        $rowId = $request->id;
+        Cart::remove($rowId);
+        $settings = Setting::first();
+
+        $response = [
+            'message' => __('Product is Removed from Checkout!'),
+            'total' => Cart::total(),
+            'count' => Cart::count(),
+            'subtotal' => Cart::subtotal(),
+            'subtotalSp' => Cart::total(),
+            'totalSp' => Cart::total() + $settings->shipping_charge + $settings->vat,
+        ];
+
+        return json_encode($response);
+    }
+
+    public function destroyWish(Request $request)
+    {
+        $wishItem = Wishlist::find($request->id);
+        $wishItem->delete();
+        $count = Wishlist::where('user_id', Auth::id())->count();
+
+        $response = [
+            'message' => __('Product is Removed from Wishlist!'),
+            'count' => $count
+        ];
+        
+        return json_encode($response);
     }
 
     public function check()

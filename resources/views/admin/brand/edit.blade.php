@@ -7,12 +7,12 @@
 
       <div class="sl-pagebody">
         <div class="sl-page-title">
-          <h5>Brand Update</h5>
+          <h5>{{ __('Brand Update') }}</h5>
         </div><!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40">
-          <h6 class="card-body-title">Brand Update
-          <a href="{{ route('brands.index') }}" class="btn btn-secondary pd-x-20" style="float:right;">Back</a>
+          <h6 class="card-body-title">{{ __('Brand Update') }}
+          <a href="{{ route('brands.index') }}" class="btn btn-secondary pd-x-20" style="float:right;">{{ __('Back') }}</a>
           </h6>
 
           <div class="table-wrapper">
@@ -30,21 +30,21 @@
               {{ Form::model($brand, ['route' => ['brands.update', $brand], 'method' => 'PUT', 'files' => true]) }}
               <div class="modal-body pd-20">
                 <div class="mb-3">
-                  {{ Form::label('brand_name', null, ['class' => 'form-label']) }}
+                  {{ Form::label('brand_name', __('Brand Name'), ['class' => 'form-label']) }}
                   {{ Form::text('brand_name', $brand->brand_name, ['class' => 'form-control']) }}
                 </div>
                 <div class="mb-3">
-                  {{ Form::label('brand_logo', null, ['class' => 'form-label']) }}
+                  {{ Form::label('brand_logo', __('Brand Logo'), ['class' => 'form-label']) }}
                   {{ Form::file('brand_logo', ['class' => 'form-control']) }}
                 </div>
                 <div class="mb-3">
-                  {{ Form::label('old_brand_logo', null, ['class' => 'form-label']) }}
+                  {{ Form::label('old_brand_logo', __('Old Brand Logo'), ['class' => 'form-label']) }}
                   <img id="old_brand_logo" src="{{ $brand->getFirstMediaUrl('brands') }}" alt="logo"  height="70em" max-width="100%">
                 </div>
               </div><!-- modal-body -->
 
               <div class="modal-footer">
-                {{ Form::submit('Update', ['class' => 'btn btn-info pd-x-20']) }}
+                {{ Form::submit(__('Update'), ['class' => 'btn btn-info pd-x-20']) }}
               </div>
               {{ Form::close() }}
 

@@ -23,9 +23,13 @@ class UpdateBlogCategoryRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'category_name_eng' => 'required|max:255',
-            'category_name_ukr' => 'required|max:255',
+        $rules = [
+            'en.category_name' => 'required',
         ];
+
+        foreach(config('translatable.locales') as $lang => $locale) {
+            $rules[$locale . '.category_name'] = 'string';
+        }
+        return $rules;
     }
 }

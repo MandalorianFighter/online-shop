@@ -7,12 +7,12 @@
 
       <div class="sl-pagebody">
         <div class="sl-page-title">
-          <h5>Brand List</h5>
+          <h5>{{ __('Brand List') }}</h5>
         </div><!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40">
-          <h6 class="card-body-title">Brand List
-          <a href="" class="btn btn-sm btn-warning" style="float:right;" data-toggle="modal" data-target="#modaldemo3">Add New</a>
+          <h6 class="card-body-title">{{ __('Brand List') }}
+          <a href="" class="btn btn-sm btn-warning" style="float:right;" data-bs-toggle="modal" data-bs-target="#modaldemo3">{{ __('Add New') }}</a>
           </h6>
 
           <div class="table-wrapper">
@@ -20,9 +20,9 @@
               <thead>
                 <tr>
                   <th class="wd-15p">ID</th>
-                  <th class="wd-15p">Brand Name</th>
-                  <th class="wd-15p">Brand Logo</th>
-                  <th class="wd-20p">Action</th>
+                  <th class="wd-15p">{{ __('Brand Name') }}</th>
+                  <th class="wd-15p">{{ __('Brand Logo') }}</th>
+                  <th class="wd-20p">{{ __('Action') }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -32,9 +32,9 @@
                   <td>{{ $brand->brand_name }}</td>
                   <td><img src="{{ $brand->getFirstMediaUrl('brands') }}" alt="{{ $brand->brand_name }} logo" height="70em" max-width="100%"></td>
                   <td>
-                    <a href="{{ route('brands.edit', $brand) }}" class="btn btn-sm btn-info">Edit</a>
+                    <a href="{{ route('brands.edit', $brand) }}" class="btn btn-sm btn-info">{{ __('Edit') }}</a>
                     {{ Form::model($brand, ['route' => ['brands.destroy', $brand], 'method' => 'DELETE', 'style' => 'display:inline-block;']) }}
-                    {{ Form::submit('Delete', ['class' => 'btn btn-sm btn-danger', 'id' => 'delete']) }}
+                    {{ Form::submit(__('Delete'), ['class' => 'btn btn-sm btn-danger', 'id' => 'delete']) }}
                     {{ Form::close() }}
                   </td>
                 </tr>
@@ -53,8 +53,8 @@
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content tx-size-sm">
               <div class="modal-header pd-x-20">
-                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Add Brand</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">{{ __('Add Brand') }}</h6>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -72,18 +72,18 @@
               {{ Form::open(['route' => 'brands.store', 'files' => true]) }}
               <div class="modal-body pd-20">
                 <div class="mb-3">
-                  {{ Form::label('brand_name', null, ['class' => 'form-label']) }}
-                  {{ Form::text('brand_name', null, ['class' => 'form-control', 'placeholder' => 'Brand']) }}
+                  {{ Form::label('brand_name', __('Brand Name'), ['class' => 'form-label']) }}
+                  {{ Form::text('brand_name', null, ['class' => 'form-control', 'placeholder' => __('Brand')]) }}
                 </div>
                 <div class="mb-3">
-                  {{ Form::label('brand_logo', null, ['class' => 'form-label']) }}
-                  {{ Form::file('brand_logo', ['class' => 'form-control', 'placeholder' => 'Brand Logo']) }}
+                  {{ Form::label('brand_logo', __('Brand Logo'), ['class' => 'form-label']) }}
+                  {{ Form::file('brand_logo', ['class' => 'form-control', 'placeholder' => __('Brand Logo')]) }}
                 </div>
               </div><!-- modal-body -->
 
               <div class="modal-footer">
-                {{ Form::submit('Submit', ['class' => 'btn btn-info pd-x-20']) }}
-                {{ Form::button('Close', ['class' => 'btn btn-secondary pd-x-20', 'data-dismiss' => 'modal']) }}
+                {{ Form::submit(__('Submit'), ['class' => 'btn btn-info pd-x-20']) }}
+                {{ Form::button(__('Close'), ['class' => 'btn btn-secondary pd-x-20', 'data-bs-dismiss' => 'modal']) }}
               </div>
               {{ Form::close() }}
             </div>

@@ -7,12 +7,12 @@
 
       <div class="sl-pagebody">
         <div class="sl-page-title">
-          <h5>Coupon Update</h5>
+          <h5>{{ __('Coupon Update') }}</h5>
         </div><!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40">
-          <h6 class="card-body-title">Coupon Update
-          <a href="{{ route('coupons.index') }}" class="btn btn-secondary pd-x-20" style="float:right;">Back</a>
+          <h6 class="card-body-title">{{ __('Coupon Update') }}
+          <a href="{{ route('coupons.index') }}" class="btn btn-secondary pd-x-20" style="float:right;">{{ __('Back') }}</a>
           </h6>
 
           <div class="table-wrapper">
@@ -30,18 +30,18 @@
               {{ Form::model($coupon, ['route' => ['coupons.update', $coupon], 'method' => 'PUT']) }}
               <div class="modal-body pd-20">
                 <div class="mb-3">
-                  {{ Form::label('coupon', 'Coupon Code', ['class' => 'form-label']) }}
+                  {{ Form::label('coupon', __('Coupon Code'), ['class' => 'form-label']) }}
                   {{ Form::text('coupon', $coupon->coupon, ['class' => 'form-control']) }}
                 </div>
 
                 <div class="mb-3">
-                  {{ Form::label('discount', 'Coupon Discount (%)', ['class' => 'form-label']) }}
+                  {{ Form::label('discount', __('Coupon Discount (%)'), ['class' => 'form-label']) }}
                   {{ Form::text('discount', $coupon->discount, ['class' => 'form-control']) }}
                 </div>
               </div><!-- modal-body -->
 
               <div class="modal-footer">
-                {{ Form::submit('Update', ['class' => 'btn btn-info pd-x-20']) }}
+                {{ Form::submit(__('Update'), ['class' => 'btn btn-info pd-x-20']) }}
               </div>
               {{ Form::close() }}
 

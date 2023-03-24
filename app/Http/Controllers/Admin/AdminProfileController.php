@@ -51,7 +51,7 @@ class AdminProfileController extends Controller
         $admin->save();
 
         $notification = array(
-            'message' => 'Admin Profile Is Updated Successfully!',
+            'message' => __('Admin Profile Is Updated Successfully!'),
             'alert-type' => 'success',
         );
 
@@ -80,14 +80,14 @@ class AdminProfileController extends Controller
             Auth::logout();
 
             $notification = array(
-                'message' => 'Password Is Changed Successfully!',
+                'message' => __('Password Is Changed Successfully!'),
                 'alert-type' => 'success',
             );
 
             return redirect()->route('admin.login.form')->with($notification);
         } else {
             $notification = array(
-                'message' => 'Current Password Is Invalid.',
+                'message' => __('Current Password Is Invalid.'),
                 'alert-type' => 'error',
             );
 
@@ -98,11 +98,8 @@ class AdminProfileController extends Controller
     {
         Auth::guard('admin')->logout();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
         $notification = array(
-            'message' => 'Successfully Logout',
+            'message' => __('Successfully Logout!'),
             'alert-type' => 'success'
         );
 

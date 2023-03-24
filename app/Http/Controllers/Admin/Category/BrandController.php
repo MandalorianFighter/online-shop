@@ -35,7 +35,7 @@ class BrandController extends Controller
         $brand->attachLogo($request->file('brand_logo'));
 
         $notification = array(
-            'message' => 'Brand Is Added Successfully!',
+            'message' => __('Brand Is Added Successfully!'),
             'alert-type' => 'success',
         );
 
@@ -71,7 +71,7 @@ class BrandController extends Controller
         }
 
         $notification = array(
-            'message' => 'Brand Is Updated Successfully!',
+            'message' => __('Brand Is Updated Successfully!'),
             'alert-type' => 'success',
         );
 
@@ -88,7 +88,7 @@ class BrandController extends Controller
     {
         $brand->delete();
         $notification = array(
-            'message' => 'Brand Is Deleted Successfully!',
+            'message' => __('Brand Is Deleted Successfully!'),
             'alert-type' => 'success',
         );
 

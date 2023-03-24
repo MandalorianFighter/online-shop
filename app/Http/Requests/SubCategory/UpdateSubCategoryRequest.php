@@ -23,9 +23,14 @@ class UpdateSubCategoryRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'subcategory_name' => 'required|max:255|unique:subcategories,subcategory_name,' . $this->subcategory->id,
+        $rules = [
+            'en.subcategory_name' => 'required|max:255|unique:subcategories,en.subcategory_name,' . $this->subcategory->id,
             'category_id' => 'required',
         ];
+
+        foreach(config('translatable.locales') as $lang => $locale) {
+            $rules[$locale . '.subcategory_name'] = 'string|max:255';
+        }
+        return $rules;
     }
 }

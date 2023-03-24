@@ -7,14 +7,14 @@
 
       <div class="sl-pagebody">
         <div class="sl-page-title">
-          <h5>Subscriber List</h5>
+          <h5>{{ __('Subscriber List') }}</h5>
         </div><!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40">
-          <h6 class="card-body-title">Subscriber List
+          <h6 class="card-body-title">{{ __('Subscriber List') }}
           <!-- <a href="" class="btn btn-sm btn-warning" style="float:right;" data-toggle="modal" data-target="#modaldemo3">Add New</a> -->
           {{ Form::open(['route' => ['newsletters.store'], 'method' => 'POST', 'style' => 'display:inline-block; float:right;']) }}
-          {{ Form::submit('Delete Chosen', ['class' => 'btn btn-sm btn-warning', 'id' => 'delete']) }}
+          {{ Form::submit(__('Delete Chosen'), ['class' => 'btn btn-sm btn-warning', 'id' => 'delete']) }}
           {{ Form::close() }}
           </h6>
 
@@ -23,9 +23,9 @@
               <thead>
                 <tr>
                   <th class="wd-15p">ID</th>
-                  <th class="wd-15p">Email</th>
-                  <th class="wd-15p">Subscribing Time</th>
-                  <th class="wd-20p">Action</th>
+                  <th class="wd-15p">{{ __('Email') }}</th>
+                  <th class="wd-15p">{{ __('Subscribing Time') }}</th>
+                  <th class="wd-20p">{{ __('Action') }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -36,7 +36,7 @@
                   <td>{{ \Carbon\Carbon::parse($subscriber->created_at)->diffForHumans() }}</td>
                   <td>
                     {{ Form::model($subscriber, ['route' => ['newsletters.destroy', $subscriber], 'method' => 'DELETE', 'style' => 'display:inline-block;']) }}
-                    {{ Form::submit('Delete', ['class' => 'btn btn-sm btn-danger', 'id' => 'delete']) }}
+                    {{ Form::submit(__('Delete'), ['class' => 'btn btn-sm btn-danger', 'id' => 'delete']) }}
                     {{ Form::close() }}
                   </td>
                 </tr>
@@ -55,7 +55,7 @@
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content tx-size-sm">
               <div class="modal-header pd-x-20">
-                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Add Category</h6>
+                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">{{ __('Add Category') }}</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -74,14 +74,14 @@
               {{ Form::open(['route' => 'newsletters.store']) }}
               <div class="modal-body pd-20">
                 <div class="mb-3">
-                  {{ Form::label('email', null, ['class' => 'form-label']) }}
-                  {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) }}
+                  {{ Form::label('email', __('Email'), ['class' => 'form-label']) }}
+                  {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => __('Email')]) }}
                 </div>
               </div><!-- modal-body -->
 
               <div class="modal-footer">
-                {{ Form::submit('Submit', ['class' => 'btn btn-info pd-x-20']) }}
-                {{ Form::button('Close', ['class' => 'btn btn-secondary pd-x-20', 'data-dismiss' => 'modal']) }}
+                {{ Form::submit(__('Submit'), ['class' => 'btn btn-info pd-x-20']) }}
+                {{ Form::button(__('Close'), ['class' => 'btn btn-secondary pd-x-20', 'data-bs-dismiss' => 'modal']) }}
               </div>
               {{ Form::close() }}
             </div>

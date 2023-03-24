@@ -18,8 +18,8 @@
                             </div>
                         @endif
                         <div class="mb-3 text-secondary">
-                        {{ Form::label('email', 'Email', ['class' => 'form-label']) }}
-                        {{ Form::email('email', old('email'), ['class' => 'form-control'. ($errors->has('email') ? ' is-invalid' : null), 'autocomplete' => 'email', 'placeholder' => 'Email Address', 'autofocus', 'required']) }}
+                        {{ Form::label('email', __('Email'), ['class' => 'form-label']) }}
+                        {{ Form::email('email', old('email'), ['class' => 'form-control'. ($errors->has('email') ? ' is-invalid' : null), 'autocomplete' => 'email', 'placeholder' => __('Email Address'), 'autofocus', 'required']) }}
                         @error('email')
                         <span class="invalid-feedback">
                             <strong>{{ $message }}</strong>
@@ -27,7 +27,7 @@
                         @enderror
                         </div>
                         <hr>
-                        {{ Form::submit('Email Password Reset Link', ['class' => 'btn btn-primary btn-block']) }}
+                        {{ Form::submit(__('Email Password Reset Link'), ['class' => 'btn btn-primary btn-block']) }}
                         {{ Form::close() }}
                         
                     </div>

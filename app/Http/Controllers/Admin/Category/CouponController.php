@@ -31,7 +31,7 @@ class CouponController extends Controller
         Coupon::create($request->validated());
 
         $notification = array(
-            'message' => 'Coupon Is Added Successfully!',
+            'message' => __('Coupon Is Added Successfully!'),
             'alert-type' => 'success',
         );
 
@@ -61,7 +61,7 @@ class CouponController extends Controller
         $coupon->update($request->validated());
 
         $notification = array(
-            'message' => 'Coupon Is Updated Successfully!',
+            'message' => __('Coupon Is Updated Successfully!'),
             'alert-type' => 'success',
         );
 
@@ -78,7 +78,7 @@ class CouponController extends Controller
     {
         $coupon->delete();
         $notification = array(
-            'message' => 'Coupon Is Deleted Successfully!',
+            'message' => __('Coupon Is Deleted Successfully!'),
             'alert-type' => 'success',
         );
 

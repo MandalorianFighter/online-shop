@@ -1995,7 +1995,7 @@
       (options.title ?
       '    <div class="modal-header">' +
       '      <h4 class="modal-title">' + options.title + '</h4>' +
-      '      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+      '      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
       '    </div>' : ''
       ),
       '    <div class="modal-body">' + options.body + '</div>',
@@ -2008,14 +2008,15 @@
   });
 
   var popover = renderer.create([
-    '<div class="note-popover popover in">',
-    '  <div class="arrow"/>',
-    '  <div class="popover-content note-children-container"/>',
+    '<div class="note-popover popover bs-popover-auto show">',
+    '  <div class="popover-arrow"/>',
+    '  <div class="popover-body note-popover-content note-children-container"/>',
     '</div>'
   ].join(''), function ($node, options) {
     var direction = typeof options.direction !== 'undefined' ? options.direction : 'bottom';
 
-    $node.addClass(direction);
+    // $node.addClass(direction);
+    $node.attr('data-popper-placement', direction);
 
     if (options.hideArrow) {
       $node.find('.arrow').hide();
@@ -2062,7 +2063,16 @@
 
     button: function ($node, options) {
       return renderer.create('<button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1">', function ($node, options) {
-        if (options && options.tooltip && self.options.tooltip) {
+        if (options && options.data && options.data.toggle === 'dropdown') {
+          $node.removeAttr('data-toggle');
+          $node.attr('data-bs-toggle', 'dropdown');
+          if (options && options.tooltip) {
+            $node.attr({
+              title: options.tooltip,
+              'aria-label': options.tooltip,
+            });
+          }
+        } else if (options && options.tooltip) {
           $node.attr({
             title: options.tooltip
           }).tooltip({
@@ -6020,7 +6030,7 @@
           }),
           ui.dropdownCheck({
             className: 'dropdown-fontname',
-            checkClassName: options.icons.menuCheck,
+            checkClassName: options.icons,
             items: options.fontNames.filter(self.isFontInstalled),
             template: function (item) {
               return '<span style="font-family:' + item + '">' + item + '</span>';
@@ -6042,7 +6052,7 @@
           }),
           ui.dropdownCheck({
             className: 'dropdown-fontsize',
-            checkClassName: options.icons.menuCheck,
+            checkClassName: options.iconss,
             items: options.fontSizes,
             click: context.createInvokeHandlerAndUpdateState('editor.fontSize')
           })

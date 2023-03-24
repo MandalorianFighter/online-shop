@@ -73,6 +73,9 @@ Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'),'verifie
 
     Route::get('/user/checkout', 'App\Http\Controllers\CartController@checkout')->name('user.checkout');
     Route::get('/user/wishlist', 'App\Http\Controllers\CartController@wishlist')->name('user.wishlist');
+
+    Route::post('/user/coupon', 'App\Http\Controllers\CartController@coupon')->name('apply.coupon');
+    Route::get('/user/coupon/remove', 'App\Http\Controllers\CartController@couponRemove')->name('remove.coupon');
 });
 
 // Frontend Routes
@@ -92,8 +95,18 @@ Route::post('/cart/product/view', 'App\Http\Controllers\CartController@viewProdu
 
 Route::get('/check', 'App\Http\Controllers\CartController@check');
 
+// Check Product Ajax
+Route::post('/checkout/product/update', 'App\Http\Controllers\CartController@updateCheck')->name('check-item.update');
+Route::post('/checkout/product/delete', 'App\Http\Controllers\CartController@destroyCheck')->name('check-item.delete');
+
+Route::post('/wishlist/product/delete', 'App\Http\Controllers\CartController@destroyWish')->name('wish-item.delete');
 
 
 // Frontend Product
 Route::get('/products/details/{product}', 'App\Http\Controllers\ProductController@productDetails')->name('product.details');
 Route::post('/products/add-cart/{product}', 'App\Http\Controllers\ProductController@productAddCart')->name('product.add-cart');
+
+// Blog Post Routes
+
+Route::get('/blog/posts', 'App\Http\Controllers\BlogController@index')->name('blog.post');
+Route::get('/blog/posts/show/{post}', 'App\Http\Controllers\BlogController@show')->name('blog.post.show');

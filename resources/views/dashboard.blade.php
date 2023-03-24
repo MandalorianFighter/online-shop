@@ -44,12 +44,12 @@
                         <h5 class="card-title text-center">{{ auth()->user()->name }}</h5>
                     </div>
                     <ul class="list-group list-group-flash">
-                        <li class="list-group-item"><a href="{{ route('password.change') }}">Change Password</a></li>
+                        <li class="list-group-item"><a href="{{ route('password.change') }}">{{ __('Change Password') }}</a></li>
                         <li class="list-group-item">line one</li>
                         <li class="list-group-item">line one</li>
                     </ul>
                     <div class="card-body d-grid gap-2">
-                    <a href="{{ route('user.logout') }}" class="btn btn-sm btn-light">Logout</a>
+                    <a href="{{ route('user.logout') }}" class="btn btn-sm btn-light">{{ __('Logout') }}</a>
                     </div>
                 </div>
             </div>

@@ -83,7 +83,7 @@ class ProductController extends Controller
         Cart::add($data);
         
         $notification = array(
-            'message' => 'Product Successfully Added!',
+            'message' => __('Product Successfully Added!'),
             'alert-type' => 'success',
         );
 

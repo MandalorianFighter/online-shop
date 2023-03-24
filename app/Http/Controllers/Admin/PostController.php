@@ -17,7 +17,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::translatedIn(app()->getLocale())
+            ->latest()
+            ->get();
+
         return view('admin.blog.index', compact('posts'));
     }
 
@@ -28,7 +31,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        $blogCategories = BlogCategory::pluck('category_name_eng','id');
+        $blogCategories = BlogCategory::translatedIn(app()->getLocale())->get();
+        $blogCategories = $blogCategories->pluck('category_name','id');
         return view('admin.blog.create', compact('blogCategories'));
     }
 
@@ -40,12 +44,12 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        $post = Post::create($request->except('post_image'));
-
+        $post = Post::create($request->validated());
+        
         $post->attachImage($request->file('post_image'));
 
         $notification = array(
-            'message' => 'Post Is Added Successfully!',
+            'message' => __('Post Is Added Successfully!'),
             'alert-type' => 'success',
         );
 
@@ -60,7 +64,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        $blogCategories = BlogCategory::pluck('category_name_eng','id');
+        $blogCategories = BlogCategory::translatedIn(app()->getLocale())->get();
+        $blogCategories = $blogCategories->pluck('category_name','id');
         return view('admin.blog.edit', compact('post', 'blogCategories'));
     }
 
@@ -73,14 +78,14 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        $post->update($request->except('post_image'));
+        $post->update($request->validated());
 
         if ($request->hasFile('post_image')) {
             $post->updateImage($request->file('post_image'));
         }
 
         $notification = array(
-            'message' => 'Post Is Updated Successfully!',
+            'message' => __('Post Is Updated Successfully!'),
             'alert-type' => 'success',
         );
 
@@ -97,7 +102,7 @@ class PostController extends Controller
     {
         $post->delete();
         $notification = array(
-            'message' => 'Post Is Deleted Successfully!',
+            'message' => __('Post Is Deleted Successfully!'),
             'alert-type' => 'success',
         );
 

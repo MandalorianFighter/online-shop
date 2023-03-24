@@ -17,8 +17,9 @@ class SubCategoryController extends Controller
      */
     public function index()
     {
-        $subcategories = Subcategory::with('category:id,category_name')->get(); // we need an 'id' field also to find proper category row
-        $categories = Category::pluck('category_name','id');
+        $subcategories = Subcategory::with('category')->get();
+        $categories = Category::translatedIn(app()->getLocale())->get();
+        $categories = $categories->pluck('category_name','id');
         return view('admin.subcategory.index', compact('subcategories', 'categories'));
     }
 
@@ -33,7 +34,7 @@ class SubCategoryController extends Controller
         Subcategory::create($request->validated());
 
         $notification = array(
-            'message' => 'SubCategory Is Added Successfully!',
+            'message' => __('SubCategory Is Added Successfully!'),
             'alert-type' => 'success',
         );
 
@@ -48,7 +49,8 @@ class SubCategoryController extends Controller
      */
     public function edit(Subcategory $subcategory)
     {
-        $categories = Category::pluck('category_name','id');
+        $categories = Category::translatedIn(app()->getLocale())->get();
+        $categories = $categories->pluck('category_name','id');
         return view('admin.subcategory.edit', compact('subcategory', 'categories'));
     }
 
@@ -64,7 +66,7 @@ class SubCategoryController extends Controller
         $subcategory->update($request->validated());
 
         $notification = array(
-            'message' => 'SubCategory Is Updated Successfully!',
+            'message' => __('SubCategory Is Updated Successfully!'),
             'alert-type' => 'success',
         );
 
@@ -81,7 +83,7 @@ class SubCategoryController extends Controller
     {
         $subcategory->delete();
         $notification = array(
-            'message' => 'SubCategory Is Deleted Successfully!',
+            'message' => __('SubCategory Is Deleted Successfully!'),
             'alert-type' => 'success',
         );
 

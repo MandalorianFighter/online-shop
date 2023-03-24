@@ -23,13 +23,17 @@ class UpdatePostRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'post_title_eng' => 'required',
-            'post_title_ukr' => 'required',
+        $rules = [
+            'en.title' => 'required',
+            'en.full_text' => 'required',
             'category_id' => 'required',
-            'details_eng' => 'required',
-            'details_ukr' => 'required',
             'post_image' => 'nullable|image|max:5120|mimes:jpeg,jpg,png',
         ];
+
+        foreach(config('translatable.locales') as $lang => $locale) {
+            $rules[$locale . '.title'] = 'string';
+            $rules[$locale . '.full_text'] = 'string';
+        }
+        return $rules;
     }
 }

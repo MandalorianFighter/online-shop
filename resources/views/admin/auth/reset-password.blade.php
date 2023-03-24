@@ -11,8 +11,8 @@
         {{ Form::hidden('token', $request->route('token')) }}
         
         <div class="mb-3 text-secondary">
-          {{ Form::label('email', 'Email', ['class' => 'form-label']) }}
-          {{ Form::email('email', old('email', $request->email), ['class' => 'form-control'. ($errors->has('email') ? ' is-invalid' : null), 'placeholder' => 'Email Address', 'autofocus', 'required']) }}
+          {{ Form::label('email', __('Email'), ['class' => 'form-label']) }}
+          {{ Form::email('email', old('email', $request->email), ['class' => 'form-control'. ($errors->has('email') ? ' is-invalid' : null), 'placeholder' => __('Email Address'), 'autofocus', 'required']) }}
           @error('email')
           <span class="invalid-feedback">
               <strong>{{ $message }}</strong>
@@ -21,8 +21,8 @@
         </div><!-- form-group -->
 
         <div class="mb-3 text-secondary">
-          {{ Form::label('password', 'Password', ['class' => 'form-label']) }}
-          {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password', 'required']) }}
+          {{ Form::label('password', __('Password'), ['class' => 'form-label']) }}
+          {{ Form::password('password', ['class' => 'form-control', 'placeholder' => __('Password'), 'required']) }}
           @error('password')
           <span class="invalid-feedback">
               <strong>{{ $message }}</strong>
@@ -31,8 +31,8 @@
         </div><!-- form-group -->
 
         <div class="mb-3 text-secondary">
-          {{ Form::label('password_confirmation', 'Confirm Password', ['class' => 'form-label']) }}
-          {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => 'Confirm Password', 'required']) }}
+          {{ Form::label('password_confirmation', __('Confirm Password'), ['class' => 'form-label']) }}
+          {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => __('Confirm Password'), 'required']) }}
           @error('password_confirmation')
           <span class="invalid-feedback">
               <strong>{{ $message }}</strong>
@@ -41,7 +41,7 @@
         </div><!-- form-group -->
         
         <hr>
-        {{ Form::submit('Reset Password', ['class' => 'btn btn-info btn-block']) }}
+        {{ Form::submit(__('Reset Password'), ['class' => 'btn btn-info btn-block']) }}
         {{ Form::close() }}
 
       </div><!-- login-wrapper -->

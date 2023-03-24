@@ -10,7 +10,7 @@
         
         {{ Form::open(['route' => 'admin.login']) }}
         <div class="form-group">
-          {{ Form::email('email', old('email'), ['class' => 'form-control'. ($errors->has('email') ? ' is-invalid' : null), 'autocomplete' => false, 'placeholder' => 'Email Address', 'autofocus', 'required']) }}
+          {{ Form::email('email', old('email'), ['class' => 'form-control'. ($errors->has('email') ? ' is-invalid' : null), 'autocomplete' => false, 'placeholder' => __('Email Address'), 'autofocus', 'required']) }}
           @error('email')
           <span class="invalid-feedback">
               <strong>{{ $message }}</strong>
@@ -18,7 +18,7 @@
           @enderror
         </div><!-- form-group -->
         <div class="form-group">
-        {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password', 'autocomplete' => false, 'required']) }}
+        {{ Form::password('password', ['class' => 'form-control', 'placeholder' => __('Password'), 'autocomplete' => false, 'required']) }}
         @error('password')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -26,9 +26,9 @@
         @enderror
         </div><!-- form-group -->
         <hr>
-        <a href="{{ route('admin.password.request') }}" class="tx-info tx-12 d-block mg-t-10">Forgot password?</a>
+        <a href="{{ route('admin.password.request') }}" class="tx-info tx-12 d-block mg-t-10">{{ __('Forgot password?') }}</a>
         <hr>
-        {{ Form::submit('Sign In', ['class' => 'btn btn-info btn-block']) }}
+        {{ Form::submit(__('Sign In'), ['class' => 'btn btn-info btn-block']) }}
         {{ Form::close() }}
 
       </div><!-- login-wrapper -->

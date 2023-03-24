@@ -9,26 +9,28 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Support\Str;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Astrotomic\Translatable\Translatable;
 
-class Product extends Model implements HasMedia
+class Product extends Model implements HasMedia, TranslatableContract
 {
-    use HasFactory;
-    use InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, Translatable;
 
     const LIMIT = 16;
     const DET_LIMIT = 500;
+
+    public $translatedAttributes = ['product_name', 'product_details', 'color'];
+
+    protected $guarded = ['id'];
 
     protected $fillable = [
         'category_id',
         'subcategory_id',
         'brand_id',
-        'product_name',
         'code',
         'quantity',
-        'color',
         'size',
         'selling_price',
-        'product_details',
         'discount_price',
         'video_link',
         'main_slider',
@@ -41,7 +43,7 @@ class Product extends Model implements HasMedia
         'status',
     ];
 
-    protected $with = ['category:id,category_name', 'subcategory:id,subcategory_name', 'brand:id,brand_name'];
+    protected $with = ['category', 'subcategory', 'brand:id,brand_name'];
 
     public function category()
     {
@@ -62,6 +64,11 @@ class Product extends Model implements HasMedia
     {
         return $this->belongsTo(Wishlist::class);
     }
+
+    public function translate(?string $locale = null, bool $withFallback = false): ?Model 
+    { 
+        return $this->getTranslation($locale, $withFallback); 
+    } 
 
     public function getDiscount()
     {

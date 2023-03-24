@@ -7,12 +7,12 @@
 
       <div class="sl-pagebody">
         <div class="sl-page-title">
-          <h5>SubCategory Update</h5>
+          <h5>{{ __('SubCategory Update') }}</h5>
         </div><!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40">
-          <h6 class="card-body-title">SubCategory Update
-          <a href="{{ route('subcategories.index') }}" class="btn btn-secondary pd-x-20" style="float:right;">Back</a>
+          <h6 class="card-body-title">{{ __('SubCategory Update') }}
+          <a href="{{ route('subcategories.index') }}" class="btn btn-secondary pd-x-20" style="float:right;">{{ __('Back') }}</a>
           </h6>
 
           <div class="table-wrapper">
@@ -29,19 +29,21 @@
 
               {{ Form::model($subcategory, ['route' => ['subcategories.update', $subcategory], 'method' => 'PUT']) }}
               <div class="modal-body pd-20">
+              @foreach(config('translatable.locales') as $lang => $locale)
                 <div class="mb-3">
-                  {{ Form::label('subcategory_name', 'SubCategory Name', ['class' => 'form-label']) }}
-                  {{ Form::text('subcategory_name', $subcategory->subcategory_name, ['class' => 'form-control']) }}
+                  {{ Form::label($locale."[subcategory_name]", __('SubCategory Name') ." ($lang)", ['class' => 'form-label']) }}
+                  {{ Form::text($locale."[subcategory_name]", $subcategory->translate($locale), ['class' => 'form-control']) }}
                 </div>
+                @endforeach
 
                 <div class="mb-3">
-                  {{ Form::label('category_id', 'Category Name', ['class' => 'form-label']) }}
+                  {{ Form::label('category_id', __('Category Name'), ['class' => 'form-label']) }}
                   {{ Form::select('category_id', $categories, null, ['class' => 'form-control']) }}
                 </div>
               </div><!-- modal-body -->
 
               <div class="modal-footer">
-                {{ Form::submit('Update', ['class' => 'btn btn-info pd-x-20']) }}
+                {{ Form::submit(__('Update'), ['class' => 'btn btn-info pd-x-20']) }}
               </div>
               {{ Form::close() }}
 

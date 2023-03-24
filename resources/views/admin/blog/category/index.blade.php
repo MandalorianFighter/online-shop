@@ -7,12 +7,12 @@
 
       <div class="sl-pagebody">
         <div class="sl-page-title">
-          <h5>Blog Category List</h5>
+          <h5>{{ __('Blog Category List') }}</h5>
         </div><!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40">
-          <h6 class="card-body-title">Blog Category List
-          <a href="" class="btn btn-sm btn-warning" style="float:right;" data-toggle="modal" data-target="#modaldemo3">Add New</a>
+          <h6 class="card-body-title">{{ __('Blog Category List') }}
+          <a href="" class="btn btn-sm btn-warning" style="float:right;" data-bs-toggle="modal" data-bs-target="#modaldemo3">{{ __('Add New') }}</a>
           </h6>
 
           <div class="table-wrapper">
@@ -20,21 +20,23 @@
               <thead>
                 <tr>
                   <th class="wd-15p">ID</th>
-                  <th class="wd-15p">Category Name (Eng)</th>
-                  <th class="wd-15p">Category Name (Ukr)</th>
-                  <th class="wd-20p">Action</th>
+                  @foreach(config('translatable.locales') as $lang => $locale)
+                  <th class="wd-15p">{{ __('Category Name') }} ({{$locale}})</th>
+                  @endforeach
+                  <th class="wd-20p">{{ __('Action') }}</th>
                 </tr>
               </thead>
               <tbody>
               @foreach ($categories as $key => $category)
                 <tr>
                   <td>{{ $key + 1 }}</td>
-                  <td>{{ $category->category_name_eng }}</td>
-                  <td>{{ $category->category_name_ukr }}</td>
+                  @foreach(config('translatable.locales') as $lang => $locale)
+                  <td>{{ $category->translate($locale)->category_name }}</td>
+                  @endforeach
                   <td>
-                    <a href="{{ route('blog-categories.edit', $category) }}" class="btn btn-sm btn-info">Edit</a>
+                    <a href="{{ route('blog-categories.edit', $category) }}" class="btn btn-sm btn-info">{{ __('Edit') }}</a>
                     {{ Form::model($category, ['route' => ['blog-categories.destroy', $category], 'method' => 'DELETE', 'style' => 'display:inline-block;']) }}
-                    {{ Form::submit('Delete', ['class' => 'btn btn-sm btn-danger', 'id' => 'delete']) }}
+                    {{ Form::submit(__('Delete'), ['class' => 'btn btn-sm btn-danger', 'id' => 'delete']) }}
                     {{ Form::close() }}
                   </td>
                 </tr>
@@ -53,8 +55,8 @@
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content tx-size-sm">
               <div class="modal-header pd-x-20">
-                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Add Category</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">{{ __('Add Category') }}</h6>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -71,20 +73,17 @@
 
               {{ Form::open(['route' => 'blog-categories.store']) }}
               <div class="modal-body pd-20">
+              @foreach(config('translatable.locales') as $lang => $locale)
                 <div class="mb-3">
-                  {{ Form::label('category_name_eng', 'Category Name (Eng)', ['class' => 'form-label']) }}
-                  {{ Form::text('category_name_eng', null, ['class' => 'form-control', 'placeholder' => 'Category Name (Eng)']) }}
+                  {{ Form::label($locale."[category_name]", __('Category Name') ." ($lang)", ['class' => 'form-label']) }}
+                  {{ Form::text($locale."[category_name]", null, ['class' => 'form-control', 'placeholder' => __('Category Name') ." ($lang)"]) }}
                 </div>
-                            
-                <div class="mb-3">
-                  {{ Form::label('category_name_ukr', 'Category Name (Ukr)', ['class' => 'form-label']) }}
-                  {{ Form::text('category_name_ukr', null, ['class' => 'form-control', 'placeholder' => 'Category Name (Ukr)']) }}
-                </div>
+                @endforeach              
               </div><!-- modal-body -->
 
               <div class="modal-footer">
-                {{ Form::submit('Submit', ['class' => 'btn btn-info pd-x-20']) }}
-                {{ Form::button('Close', ['class' => 'btn btn-secondary pd-x-20', 'data-dismiss' => 'modal']) }}
+                {{ Form::submit(__('Submit'), ['class' => 'btn btn-info pd-x-20']) }}
+                {{ Form::button(__('Close'), ['class' => 'btn btn-secondary pd-x-20', 'data-bs-dismiss' => 'modal']) }}
               </div>
               {{ Form::close() }}
             </div>

@@ -4,15 +4,16 @@ namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Astrotomic\Translatable\Translatable;
 
-class Category extends Model
+class Category extends Model implements TranslatableContract
 {
-    use HasFactory;
+    use HasFactory, Translatable;
 
-    protected $fillable = [
-        'category_name',
-    ];
+    public $translatedAttributes = ['category_name'];
 
+    protected $guarded = ['id'];
 
     /**
      * Get the subcategories for the category.
@@ -26,4 +27,9 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function translate(?string $locale = null, bool $withFallback = false): ?Model 
+    { 
+        return $this->getTranslation($locale, $withFallback); 
+    } 
 }

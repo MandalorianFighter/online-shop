@@ -67,67 +67,67 @@
         <a href="{{ route('admin.dashboard') }}" class="sl-menu-link active">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
-            <span class="menu-item-label">Dashboard</span>
+            <span class="menu-item-label">{{ __('Dashboard') }}</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
 
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
             <i class="menu-item-icon ion-ios-pie-outline tx-20"></i>
-            <span class="menu-item-label">Category</span>
+            <span class="menu-item-label">{{ __('Category') }}</span>
             <i class="menu-item-arrow fa fa-angle-down"></i>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="{{ route('categories.index') }}" class="nav-link">Category</a></li>
-          <li class="nav-item"><a href="{{ route('subcategories.index') }}" class="nav-link">SubCategory</a></li>
-          <li class="nav-item"><a href="{{ route('brands.index') }}" class="nav-link">Brand</a></li>
+          <li class="nav-item"><a href="{{ route('categories.index') }}" class="nav-link">{{ __('Category') }}</a></li>
+          <li class="nav-item"><a href="{{ route('subcategories.index') }}" class="nav-link">{{ __('SubCategory') }}</a></li>
+          <li class="nav-item"><a href="{{ route('brands.index') }}" class="nav-link">{{ __('Brand') }}</a></li>
         </ul>
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-gear-outline tx-24"></i>
-            <span class="menu-item-label">Coupons</span>
+            <span class="menu-item-label">{{ __('Coupons') }}</span>
             <i class="menu-item-arrow fa fa-angle-down"></i>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="{{ route('coupons.index') }}" class="nav-link">Coupon</a></li>
+          <li class="nav-item"><a href="{{ route('coupons.index') }}" class="nav-link">{{ __('Coupon') }}</a></li>
         </ul>
         
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
-            <span class="menu-item-label">Products</span>
+            <span class="menu-item-label">{{ __('Products') }}</span>
             <i class="menu-item-arrow fa fa-angle-down"></i>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="{{ route('products.create') }}" class="nav-link">Add Product</a></li>
-          <li class="nav-item"><a href="{{ route('products.index') }}" class="nav-link">All Products</a></li>
+          <li class="nav-item"><a href="{{ route('products.create') }}" class="nav-link">{{ __('Add Product') }}</a></li>
+          <li class="nav-item"><a href="{{ route('products.index') }}" class="nav-link">{{ __('All Products') }}</a></li>
         </ul>
 
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
-            <span class="menu-item-label">Blog</span>
+            <span class="menu-item-label">{{ __('Blog') }}</span>
             <i class="menu-item-arrow fa fa-angle-down"></i>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-        <li class="nav-item"><a href="{{ route('blog-categories.index') }}" class="nav-link">Blog Categories</a></li>
-          <li class="nav-item"><a href="{{ route('posts.create') }}" class="nav-link">Add Post</a></li>
-          <li class="nav-item"><a href="{{ route('posts.index') }}" class="nav-link">Posts List</a></li>
+        <li class="nav-item"><a href="{{ route('blog-categories.index') }}" class="nav-link">{{ __('Blog Categories') }}</a></li>
+          <li class="nav-item"><a href="{{ route('posts.create') }}" class="nav-link">{{ __('Add Post') }}</a></li>
+          <li class="nav-item"><a href="{{ route('posts.index') }}" class="nav-link">{{ __('Posts List') }}</a></li>
         </ul>
 
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-filing-outline tx-24"></i>
-            <span class="menu-item-label">Others</span>
+            <span class="menu-item-label">{{ __('Others') }}</span>
             <i class="menu-item-arrow fa fa-angle-down"></i>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="{{ route('newsletters.index') }}" class="nav-link">Newsletters</a></li>
+          <li class="nav-item"><a href="{{ route('newsletters.index') }}" class="nav-link">{{ __('Newsletters') }}</a></li>
         </ul>
       </div><!-- sl-sideleft-menu -->
 
@@ -150,9 +150,9 @@
             </a>
             <div class="dropdown-menu dropdown-menu-header wd-200">
               <ul class="list-unstyled user-profile-nav">
-                <li><a class="dropdown-item" href=""><i class="icon ion-ios-person-outline"></i> Edit Profile</a></li>
-                <li><a class="dropdown-item" href="{{ route('admin.password.change') }}"><i class="icon ion-ios-gear-outline"></i> Settings</a></li>
-                <li><a class="dropdown-item" href="{{ route('admin.logout') }}"><i class="icon ion-power"></i> Sign Out</a></li>
+                <li><a class="dropdown-item" href=""><i class="icon ion-ios-person-outline"></i> {{ __('Edit Profile') }}</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.password.change') }}"><i class="icon ion-ios-gear-outline"></i> {{ __('Settings') }}</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.logout') }}"><i class="icon ion-power"></i> {{ __('Sign Out') }}</a></li>
               </ul>
             </div><!-- dropdown-menu -->
           </div><!-- dropdown -->
@@ -347,7 +347,7 @@
         $('#datatable1').DataTable({
           responsive: true,
           language: {
-            searchPlaceholder: 'Search...',
+            searchPlaceholder: '{{__('Search...')}}',
             sSearch: '',
             lengthMenu: '_MENU_ items/page',
           },
@@ -372,25 +372,29 @@
     <script src="{{ asset('backend/lib/flot-spline/jquery.flot.spline.js') }}"></script>
 
     <script src="{{ asset('backend/lib/medium-editor/medium-editor.js') }}"></script>
-    <script src="{{ asset('backend/lib/summernote/summernote-bs4.min.js') }}"></script>
+    <script src="{{ asset('backend/lib/summernote/summernote-bs4.js') }}"></script>
 
     <script>
-      $(function(){
+      $(document).ready(function() {
         'use strict';
 
         // Inline editor
-        var editor = new MediumEditor('.editable');
+        // var editor = new MediumEditor('.editable');
 
         // Summernote editor
-        $('#summernote').summernote({
-          height: 150,
-          tooltip: false
-        })
+        // $('#summernote').summernote({
+        //   height: 150,
+        //   tooltip: false
+        // })
 
-        $('#summernote1').summernote({
-          height: 150,
-          tooltip: false
-        })
+        $('.summernote').each(function(i, obj) { 
+          $(obj).summernote({
+            height: 150,
+            tooltip: false,
+          });
+          
+        });
+       
       });
     </script>
 
@@ -426,10 +430,10 @@
      <script>  
       $(document).on("click", "#delete", function(e){
           e.preventDefault();
-          var form = e.target.form;
+          var form = this.form;
           swal({
-            title: "Are you sure, you want to delete?",
-            text: "Once Delete, This will be Permanently Delete!",
+            title: "{{__('Are you sure, you want to delete?')}}",
+            text: "{{__('Once Delete, This will be Permanently Delete!')}}",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -438,7 +442,7 @@
             if (willDelete) {
               form.submit();
             } else {
-              swal("Safe Data!");
+              swal("{{__('Data is Safe!')}}");
             }
           });
         });
@@ -463,9 +467,9 @@
           toastr.warning(data.message);
           var row = $(e.target).parents('tr');
           if(data.status == true) {
-            row.find('#status').html('').append('<span class="badge badge-success">Active</span>');
+            row.find('#status').html('').append('<span class="badge badge-success">{{__('Active')}}</span>');
           } else {
-            row.find('#status').html('').append('<span class="badge badge-danger">Inactive</span>');
+            row.find('#status').html('').append('<span class="badge badge-danger">{{__('Inactive')}}</span>');
           }
         }
     });
@@ -488,7 +492,7 @@
                   if(data.error) {
                     $.notify(data.message, "warning");
                   } else {
-                    $("#subcat").html('').append(new Option('Pick a subcategory...', 0));
+                    $("#subcat").html('').append('<option value="0">{{__('Pick a subcategory...')}}</option>');
                     $.each(data, function(key, value) {
                         $("#subcat").append(new Option(value, key));
                     });

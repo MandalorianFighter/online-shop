@@ -2008,14 +2008,15 @@
   });
 
   var popover = renderer.create([
-    '<div class="note-popover popover in">',
-    '  <div class="arrow"/>',
-    '  <div class="popover-content note-children-container"/>',
+    '<div class="note-popover popover bs-popover-auto show">',
+    '  <div class="popover-arrow"/>',
+    '  <div class="popover-body note-popover-content note-children-container"/>',
     '</div>'
   ].join(''), function ($node, options) {
     var direction = typeof options.direction !== 'undefined' ? options.direction : 'bottom';
 
-    $node.addClass(direction);
+    // $node.addClass(direction);
+      $node.attr('data-popper-placement', direction);
 
     if (options.hideArrow) {
       $node.find('.arrow').hide();

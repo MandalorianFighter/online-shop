@@ -7,26 +7,26 @@
 
       <div class="sl-pagebody">
         <div class="sl-page-title">
-          <h5>Product List</h5>
+          <h5>{{ __('Product List') }}</h5>
         </div><!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40">
-          <h6 class="card-body-title">Product List
-          <a href="{{ route('products.create') }}" class="btn btn-sm btn-warning" style="float:right;">Add New</a>
+          <h6 class="card-body-title">{{ __('Product List') }}
+          <a href="{{ route('products.create') }}" class="btn btn-sm btn-warning" style="float:right;">{{ __('Add New') }}</a>
           </h6>
 
           <div class="table-wrapper">
             <table id="datatable1" class="table display responsive nowrap">
               <thead>
                 <tr>
-                  <th class="wd-15p">Product Code</th>
-                  <th class="wd-15p">Product Name</th>
-                  <th class="wd-15p">Image</th>
-                  <th class="wd-20p">Category</th>
-                  <th class="wd-15p">Brand</th>
-                  <th class="wd-15p">Quantity</th>
-                  <th class="wd-15p">Status</th>
-                  <th class="wd-20p">Action</th>
+                  <th class="wd-15p">{{ __('Product Code') }}</th>
+                  <th class="wd-15p">{{ __('Product Name') }}</th>
+                  <th class="wd-15p">{{ __('Image') }}</th>
+                  <th class="wd-20p">{{ __('Category') }}</th>
+                  <th class="wd-15p">{{ __('Brand') }}</th>
+                  <th class="wd-15p">{{ __('Quantity') }}</th>
+                  <th class="wd-15p">{{ __('Status') }}</th>
+                  <th class="wd-20p">{{ __('Action') }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -40,15 +40,15 @@
                   <td>{{ $product->quantity }}</td>
                   <td id="status">
                     @if($product->status == true)
-                    <span class="badge badge-success">Active</span>
+                    <span class="badge badge-success">{{ __('Active') }}</span>
                     @else
-                    <span class="badge badge-danger">Inactive</span>
+                    <span class="badge badge-danger">{{ __('Inactive') }}</span>
                     @endif
                   </td>
                   <td data-id="{{ $product->id }}">
                     <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-warning" title="Edit"><i class="fa fa-edit"></i></a>
                     {{ Form::model($product, ['route' => ['products.destroy', $product], 'method' => 'DELETE', 'style' => 'display:inline-block;']) }}
-                    {{ Form::button('<i class="fa fa-trash"></i>', ['class' => 'btn btn-sm btn-danger', 'id' => 'delete', 'title' => 'Delete', 'type' => 'submit']) }}
+                    {{ Form::button('<i class="fa fa-trash"></i>', ['class' => 'btn btn-sm btn-danger', 'id' => 'delete', 'title' => __('Delete'), 'type' => 'submit']) }}
                     {{ Form::close() }}
                     <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-info" title="Show"><i class="fa fa-eye"></i></a>
                     <!-- @if($product->status == true) 

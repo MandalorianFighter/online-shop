@@ -7,21 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Astrotomic\Translatable\Translatable;
 
-class Post extends Model implements HasMedia
+
+class Post extends Model implements HasMedia, TranslatableContract
 {
-    use HasFactory;
-    use InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, Translatable;
 
-    protected $fillable = [
-        'post_title_eng',
-        'post_title_ukr',
-        'category_id',
-        'details_eng',
-        'details_ukr',
-    ];
+    public $translatedAttributes = ['title', 'full_text'];
 
-    protected $with = ['category:id,category_name_eng,category_name_ukr'];
+    protected $guarded = ['id'];
+    protected $fillable = ['author', 'category_id'];
+    
+    protected $with = ['category'];
 
     /**
      * Get the category that owns the post.
@@ -30,6 +29,11 @@ class Post extends Model implements HasMedia
     {
         return $this->belongsTo(BlogCategory::class);
     }
+
+    public function translate(?string $locale = null, bool $withFallback = false): ?Model 
+    { 
+        return $this->getTranslation($locale, $withFallback); 
+    } 
 
     public static function last()
     {
@@ -45,7 +49,8 @@ class Post extends Model implements HasMedia
     {
         $this->addMediaConversion('thumb')
               ->height(200)
-              ->sharpen(10)
+              ->width(200)
+              ->quality(90)
               ->nonQueued();
     }
 

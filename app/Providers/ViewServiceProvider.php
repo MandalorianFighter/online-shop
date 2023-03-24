@@ -29,7 +29,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         Facades\View::composer('layouts.app', function (View $view) {
-            $view->with(['categories' => Category::all(), 'wishlist' => Wishlist::where('user_id', Auth::id())->get()]);
+            $view->with(['categories' => Category::translatedIn(app()->getLocale())->get(), 'wishlist' => Wishlist::where('user_id', Auth::id())->get()]);
         });
     }
 }

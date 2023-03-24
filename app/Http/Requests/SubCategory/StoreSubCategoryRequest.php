@@ -23,9 +23,14 @@ class StoreSubCategoryRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'subcategory_name' => 'required|max:255|unique:subcategories',
+        $rules = [
+            'en.subcategory_name' => 'required|max:255|unique:subcategories',
             'category_id' => 'required',
         ];
+
+        foreach(config('translatable.locales') as $lang => $locale) {
+            $rules[$locale . '.subcategory_name'] = 'string|max:255';
+        }
+        return $rules;
     }
 }

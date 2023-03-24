@@ -32,7 +32,7 @@ class CategoryController extends Controller
         Category::create($request->validated());
 
         $notification = array(
-            'message' => 'Category Is Added Successfully!',
+            'message' => __('Category Is Added Successfully!'),
             'alert-type' => 'success',
         );
 
@@ -62,7 +62,7 @@ class CategoryController extends Controller
         $category->update($request->validated());
 
         $notification = array(
-            'message' => 'Category Is Updated Successfully!',
+            'message' => __('Category Is Updated Successfully!'),
             'alert-type' => 'success',
         );
 
@@ -79,7 +79,7 @@ class CategoryController extends Controller
     {
         $category->delete();
         $notification = array(
-            'message' => 'Category Is Deleted Successfully!',
+            'message' => __('Category Is Deleted Successfully!'),
             'alert-type' => 'success',
         );
 
