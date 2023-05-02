@@ -85,6 +85,25 @@ class Product extends Model implements HasMedia, TranslatableContract
         return Str::limit($this->product_details, Product::DET_LIMIT);
     }
 
+    public function scopeSearch($query, $searchTerm) 
+    {
+        if (!$searchTerm) {
+            return $query;
+        }
+
+        $search = '%'.trim($searchTerm).'%';
+        $query->where(function ($query) use ($search) {
+            $query->where('product_name', 'like', $search)
+            ->orWhereHas('category.translations', function($query) use ($search) {
+                $query->where('category_name', 'like', $search);
+            })
+            ->orWhereHas('brand', function($query) use ($search) {
+                $query->where('brand_name', 'like', $search);
+            });
+        });
+        
+    }
+
     public static function last()
     {
         return static::all()->last();

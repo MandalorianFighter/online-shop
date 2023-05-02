@@ -10,7 +10,9 @@
           <h5>{{ __('Product List') }}</h5>
         </div><!-- sl-page-title -->
 
-        <div class="card pd-20 pd-sm-40">
+        <livewire:product-table />
+
+        <!-- <div class="card pd-20 pd-sm-40">
           <h6 class="card-body-title">{{ __('Product List') }}
           <a href="{{ route('products.create') }}" class="btn btn-sm btn-warning" style="float:right;">{{ __('Add New') }}</a>
           </h6>
@@ -51,20 +53,16 @@
                     {{ Form::button('<i class="fa fa-trash"></i>', ['class' => 'btn btn-sm btn-danger', 'id' => 'delete', 'title' => __('Delete'), 'type' => 'submit']) }}
                     {{ Form::close() }}
                     <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-info" title="Show"><i class="fa fa-eye"></i></a>
-                    <!-- @if($product->status == true) 
-                    <a href="" class="btn btn-sm btn-danger" id="btn-status" title="Inactive"><i class='fa fa-thumbs-down'></i></a>
-                    @else
-                    <a href="" class="btn btn-sm btn-info" id="btn-status" title="Active"><i class='fa fa-thumbs-up'></i></a>
-                    @endif  -->
+                    
                     <input type="checkbox" data-toggle="toggle" class="toggle-status" data-id="{{ $product->id }}" data-on="<i class='fa fa-thumbs-down'></i>" data-off="<i class='fa fa-thumbs-up'></i>" data-onstyle="danger" data-offstyle="success" data-size="small" {{ $product->status == true ? "checked" : "" }}>
                   </td>
                 </tr>
               @endforeach
               </tbody>
             </table>
-          </div><!-- table-wrapper -->
-        </div><!-- card -->
-
+          </div> // table-wrapper 
+        </div>card -->
+      </div>
     </div><!-- sl-mainpanel -->
     <!-- ########## END: MAIN PANEL ########## -->
 

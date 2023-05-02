@@ -47,7 +47,7 @@
               <div class="col-lg-12">
                 <div class="form-group">
                   {!! Html::decode(Form::label($locale."[color]", __('Product Color') ." ($lang)" . ': <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
-                  {{ Form::text($locale."[color]", $product->translate($locale)->color, ['class' => 'form-control', 'placeholder' => __('Enter Product Color') ." ($lang)", 'id' => 'color', 'data-role' => 'tagsinput']) }}
+                  {{ Form::text($locale."[color]", $product->translate($locale)->color, ['class' => 'form-control', 'id' => 'color', 'data-role' => 'tagsinput']) }}
                 </div>
               </div><!-- col-4 -->
               </div>

@@ -19,6 +19,8 @@ Route::get('/', 'App\Http\Controllers\HomeController@indexCategories')->name('ho
 
 Route::view('/email/verify', 'auth.verify-email')->middleware('auth:web')->name('verification.notice');
 
+Route::post('newsletters/sign-up', 'App\Http\Controllers\Admin\Category\NewsletterController@store')->name('newsletters.store');
+
 // Admin routes
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config('jetstream.auth_session'),'verified'], 'namespace' => 'App\Http\Controllers\Admin'], function () {   
@@ -29,7 +31,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config
     Route::resource('brands', Category\BrandController::class)->except(['create', 'show']);
     Route::resource('subcategories', Category\SubCategoryController::class)->except(['create', 'show']);
     Route::resource('coupons', Category\CouponController::class)->except(['create', 'show']);
-    Route::resource('newsletters', Category\NewsletterController::class)->only(['index', 'store', 'destroy']);
+    Route::resource('newsletters', Category\NewsletterController::class)->only(['index']);
     Route::resource('products', ProductController::class);
     Route::post('/subcategories/defined', 'ProductController@getSubcat')->name('get.subcategories');
     Route::post('/product/status', 'ProductController@changeStatus')->name('change.status');

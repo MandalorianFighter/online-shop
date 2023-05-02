@@ -134,77 +134,92 @@
 
             <div class="col-lg-4">
             <label class="">
+              <div class="d-inline col-2">
               @if($product->main_slider == 1)
               <span class="badge badge-success">{{ __('Active') }}</span>
               @else
               <span class="badge badge-danger">{{ __('Inactive') }}</span>
               @endif
+              </div>
+              
               <span>{{ __('Main Slider') }}</span>
             </label>
             </div><!-- col-4 -->
 
             <div class="col-lg-4">
             <label class="">
-            @if($product->hot_deal == 1)
+            <div class="d-inline col-2">
+              @if($product->hot_deal == 1)
               <span class="badge badge-success">{{ __('Active') }}</span>
               @else
               <span class="badge badge-danger">{{ __('Inactive') }}</span>
               @endif
+            </div>
               <span>{{ __('Hot Deal') }}</span>
             </label>
             </div><!-- col-4 -->
 
             <div class="col-lg-4">
             <label class="">
+            <div class="d-inline col-2">
               @if($product->best_rated == 1)
               <span class="badge badge-success">{{ __('Active') }}</span>
               @else
               <span class="badge badge-danger">{{ __('Inactive') }}</span>
               @endif
+            </div>
               <span>{{ __('Best Rated') }}</span>
             </label>
             </div><!-- col-4 -->
 
             <div class="col-lg-4">
             <label class="">
+            <div class="d-inline col-2">
               @if($product->trend == 1)
               <span class="badge badge-success">{{ __('Active') }}</span>
               @else
               <span class="badge badge-danger">{{ __('Inactive') }}</span>
               @endif
+            </div>
               <span>{{ __('Trend Product') }}</span>
             </label>
             </div><!-- col-4 -->
 
             <div class="col-lg-4">
             <label class="">
+            <div class="d-inline col-2">
               @if($product->mid_slider == 1)
               <span class="badge badge-success">{{ __('Active') }}</span>
               @else
               <span class="badge badge-danger">{{ __('Inactive') }}</span>
               @endif
+            </div>
               <span>{{ __('Mid Slider') }}</span>
             </label>
             </div><!-- col-4 -->
 
             <div class="col-lg-4">
             <label class="">
+            <div class="d-inline col-2">
               @if($product->hot_new == 1)
               <span class="badge badge-success">{{ __('Active') }}</span>
               @else
               <span class="badge badge-danger">{{ __('Inactive') }}</span>
               @endif
+            </div>
               <span>{{ __('Hot New') }}</span>
             </label>
             </div><!-- col-4 -->
 
             <div class="col-lg-4">
             <label class="">
+            <div class="d-inline col-2">
               @if($product->buyone_getone == 1)
               <span class="badge badge-success">{{ __('Active') }}</span>
               @else
               <span class="badge badge-danger">{{ __('Inactive') }}</span>
               @endif
+            </div>
               <span>{{ __('BuyOne & GetOne') }}</span>
             </label>
             </div><!-- col-4 -->

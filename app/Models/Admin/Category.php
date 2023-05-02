@@ -32,4 +32,13 @@ class Category extends Model implements TranslatableContract
     { 
         return $this->getTranslation($locale, $withFallback); 
     } 
+
+    public function scopeSearch($query, $search)
+    {
+        if (!$search) {
+            return $query;
+        }
+        
+        return $query->whereTranslation('category_name', 'like', '%' . trim($search) . '%');
+    }
 }

@@ -110,10 +110,12 @@
               <div class="col-lg-4">
                 <div class="form-group">
                   {!! Html::decode(Form::label('image_one', __('Image One (Main Thumbnail)') . ': <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
-                  <label class="custom-file">
+                  <div>
+                    <label class="custom-file">
                   {{ Form::file('image_one', ['class' => 'custom-file-input', 'id' => 'file', 'onChange' => 'readURL(this);', 'required']) }}
                     <span class="custom-file-control"></span>
                   </label>
+                  </div>
                 </div>
                 <div>
                 <img src="#" id="one" class="invisible">
@@ -123,10 +125,12 @@
               <div class="col-lg-4">
                 <div class="form-group">
                   {!! Html::decode(Form::label('image_two', __('Image Two') . ': <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
-                  <label class="custom-file">
-                  {{ Form::file('image_two', ['class' => 'custom-file-input', 'id' => 'file', 'onChange' => 'readURL2(this);', 'required']) }}
+                  <div>
+                    <label class="custom-file">
+                    {{ Form::file('image_two', ['class' => 'custom-file-input', 'id' => 'file', 'onChange' => 'readURL2(this);', 'required']) }}
                     <span class="custom-file-control"></span>
                   </label>
+                  </div>
                 </div>
                 <div>
                 <img src="#" id="two" class="invisible">
@@ -136,10 +140,12 @@
               <div class="col-lg-4">
                 <div class="form-group">
                   {!! Html::decode(Form::label('image_three', __('Image Three') . ': <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
-                  <label class="custom-file">
-                  {{ Form::file('image_three', ['class' => 'custom-file-input', 'id' => 'file', 'onChange' => 'readURL3(this);', 'required']) }}
-                    <span class="custom-file-control"></span>
-                  </label>
+                  <div>
+                    <label class="custom-file">
+                    {{ Form::file('image_three', ['class' => 'custom-file-input', 'id' => 'file', 'onChange' => 'readURL3(this);', 'required']) }}
+                      <span class="custom-file-control"></span>
+                    </label>
+                  </div>
                 </div>
                 <div>
                 <img src="#" id="three" class="invisible">

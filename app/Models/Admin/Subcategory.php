@@ -34,4 +34,18 @@ class Subcategory extends Model implements TranslatableContract
     { 
         return $this->getTranslation($locale, $withFallback); 
     } 
+
+        public function scopeSearch($query, $search)
+    {
+        if (!$search) {
+            return $query;
+        }
+
+        return $query->where(function ($query) use ($search) {
+            $query->whereTranslationLike('subcategory_name', '%'.trim($search).'%')
+                ->orWhereHas('category.translations', function($query) use ($search) {
+                    $query->where('category_name', 'like', '%'.trim($search).'%');
+                });
+        });
+    }
 }

@@ -38,7 +38,7 @@
                   {{ Form::file('brand_logo', ['class' => 'form-control']) }}
                 </div>
                 <div class="mb-3">
-                  {{ Form::label('old_brand_logo', __('Old Brand Logo'), ['class' => 'form-label']) }}
+                  {{ Form::label('old_brand_logo', __('Current Brand Logo'), ['class' => 'form-label']) }}
                   <img id="old_brand_logo" src="{{ $brand->getFirstMediaUrl('brands') }}" alt="logo"  height="70em" max-width="100%">
                 </div>
               </div><!-- modal-body -->

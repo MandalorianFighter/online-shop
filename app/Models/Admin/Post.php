@@ -75,4 +75,20 @@ class Post extends Model implements HasMedia, TranslatableContract
             ->usingFileName(time().'.'.$image->extension())
             ->toMediaCollection('posts');        
     }
+
+    public function scopeSearch($query, $searchTerm) 
+    {
+        if (!$searchTerm) {
+            return $query;
+        }
+
+        $search = '%'.trim($searchTerm).'%';
+        $query->where(function ($query) use ($search) {
+            $query->where('title', 'like', $search)
+            ->orWhereHas('blog_category.translations', function($query) use ($search) {
+                $query->where('category_name', 'like', $search);
+            });
+        });
+        
+    }
 }

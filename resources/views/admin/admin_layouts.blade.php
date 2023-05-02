@@ -52,6 +52,7 @@
 
     <!-- Starlight CSS -->
     <link rel="stylesheet" href="{{ asset('backend/css/starlight.css') }}">
+    @livewireStyles
   </head>
 
   <body>
@@ -347,7 +348,7 @@
         $('#datatable1').DataTable({
           responsive: true,
           language: {
-            searchPlaceholder: '{{__('Search...')}}',
+            searchPlaceholder: '{{__('Search')}}...',
             sSearch: '',
             lengthMenu: '_MENU_ items/page',
           },
@@ -425,7 +426,14 @@
                   break;
           }
         @endif
-     </script>  
+    </script>
+     
+    <script>
+      window.addEventListener('alert', event => { 
+             toastr[event.detail.type](event.detail.message, 
+             event.detail.title ?? '')
+            });
+    </script>
 
      <script>  
       $(document).on("click", "#delete", function(e){
@@ -545,5 +553,6 @@
     }
   }
 </script>
+@livewireScripts
   </body>
 </html>

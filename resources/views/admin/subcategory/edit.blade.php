@@ -32,7 +32,7 @@
               @foreach(config('translatable.locales') as $lang => $locale)
                 <div class="mb-3">
                   {{ Form::label($locale."[subcategory_name]", __('SubCategory Name') ." ($lang)", ['class' => 'form-label']) }}
-                  {{ Form::text($locale."[subcategory_name]", $subcategory->translate($locale), ['class' => 'form-control']) }}
+                  {{ Form::text($locale."[subcategory_name]", $subcategory->translate($locale)->subcategory_name, ['class' => 'form-control']) }}
                 </div>
                 @endforeach
 

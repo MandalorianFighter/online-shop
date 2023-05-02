@@ -10,7 +10,9 @@
           <h5>{{ __('Post List') }}</h5>
         </div><!-- sl-page-title -->
 
-        <div class="card pd-20 pd-sm-40">
+        <livewire:post-table />
+
+        <!-- <div class="card pd-20 pd-sm-40">
           <h6 class="card-body-title">{{ __('Post List') }}
           <a href="{{ route('posts.create') }}" class="btn btn-sm btn-warning" style="float:right;">{{ __('Add New Post') }}</a>
           </h6>
@@ -41,8 +43,8 @@
               @endforeach
               </tbody>
             </table>
-          </div><!-- table-wrapper -->
-        </div><!-- card -->
+          </div>
+        </div>card -->
 
     </div><!-- sl-mainpanel -->
     <!-- ########## END: MAIN PANEL ########## -->

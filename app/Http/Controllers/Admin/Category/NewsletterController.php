@@ -37,21 +37,4 @@ class NewsletterController extends Controller
 
         return redirect()->back()->with($notification);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Admin\Newsletter  $newsletter
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Newsletter $newsletter)
-    {
-        $newsletter->delete();
-        $notification = array(
-            'message' => __('Subscriber Is Deleted Successfully!'),
-            'alert-type' => 'success',
-        );
-
-        return redirect()->back()->with($notification);
-    }
 }

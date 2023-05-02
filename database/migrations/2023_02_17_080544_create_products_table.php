@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('brand_id')->nullable();
             $table->string('product_name');
             $table->string('code');
-            $table->string('quantity');
+            $table->integer('quantity');
             $table->text('product_details');
             $table->string('color');
             $table->string('size');
