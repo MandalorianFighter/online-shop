@@ -1,3 +1,8 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
+
+
+.empty-table {
+    text-align: center;
+}

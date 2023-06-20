@@ -133,15 +133,16 @@ class CartController extends Controller
         return json_encode($response);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Admin\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Product $product)
+    public function destroy()
     {
-        //
+        Cart::destroy();
+
+        $notification = array(
+            'message' => __('Shopping Cart is Empty!'),
+            'alert-type' => 'success',
+        );
+
+        return redirect()->back()->with($notification);
     }
 
     public function destroyItem(UpdateCartRequest $request)
@@ -150,28 +151,46 @@ class CartController extends Controller
         Cart::remove($rowId);
 
         $response = [
-            'message' => __('Product is Removed from Cart!'),
-            'total' => Cart::total(),
-            'count' => Cart::count(),
-            'subtotal' => Cart::subtotal()
-        ];
+        'message' => __('Product is Removed from Cart!'),
+        'total' => Cart::total(),
+        'count' => Cart::count(),
+        'subtotal' => Cart::subtotal(),
+        'empty' => __('Shopping Cart is Empty'),
+            ];
         
         return json_encode($response);
     }
 
     public function checkout()
     {
-        if(!Auth::guard('web')->check()) {
+        if(Cart::count()) {
+            $cart = Cart::content();
+            $settings = Setting::first();
+            return view('pages.checkout', compact('cart', 'settings'));
+        } else {
             $notification = array(
-                'message' => __('Please, Login First!'),
+                'message' => __('Shopping Cart is Empty!'),
                 'alert-type' => 'warning',
             );
-            return redirect()->route('login')->with($notification);
+    
+            return redirect()->route('home')->with($notification);
         }
+    }
 
-        $cart = Cart::content();
-        $settings = Setting::first();
-        return view('pages.checkout', compact('cart', 'settings'));
+    public function payment()
+    {
+        if(Cart::count()) {
+            $cart = Cart::content();
+            $settings = Setting::first();
+            return view('pages.payment', compact('cart', 'settings'));
+        } else {
+            $notification = array(
+                'message' => __('Shopping Cart is Empty!'),
+                'alert-type' => 'warning',
+            );
+
+            return redirect()->route('home')->with($notification);
+        }
     }
 
     public function wishlist()
@@ -277,6 +296,7 @@ class CartController extends Controller
             'subtotal' => Cart::subtotal(),
             'subtotalSp' => Cart::total(),
             'totalSp' => Cart::total() + $settings->shipping_charge + $settings->vat,
+            'empty' => __('Shopping Cart is Empty'), 
         ];
 
         return json_encode($response);
@@ -290,7 +310,8 @@ class CartController extends Controller
 
         $response = [
             'message' => __('Product is Removed from Wishlist!'),
-            'count' => $count
+            'count' => $count,
+            'empty' => __('No items have been added to the wishlist yet'), 
         ];
         
         return json_encode($response);

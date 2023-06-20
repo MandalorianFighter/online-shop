@@ -1,8 +1,16 @@
-<x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
+@extends('layouts.app')
+
+@section('content')
+<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/contact_styles.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/contact_responsive.css') }}">
+
+
+<div class="contact_form">
+		<div class="container">
+			<div class="row d-flex justify-content-center">
+				<div class="col-lg-5 offset-lg-1 sign-form">
+					<div class="contact_form_container">
+						<div class="contact_form_title text-center">{{ __('Email Verify') }}</div>
 
         <div class="mb-4 text-sm text-gray-600">
             {{ __('Before continuing, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
@@ -19,27 +27,32 @@
                 @csrf
 
                 <div>
-                    <x-jet-button type="submit">
-                        {{ __('Resend Verification Email') }}
-                    </x-jet-button>
+                <button type="submit" class="btn btn-primary btn-block">{{ __('Resend Verification Email') }}</button>
                 </div>
             </form>
 
+            <hr>
             <div>
-                <a
+                <p>
+                    <a
                     href="{{ route('profile.show') }}"
                     class="underline text-sm text-gray-600 hover:text-gray-900"
                 >
                     {{ __('Edit Profile') }}</a>
-
+                </p>
+                
                 <form method="POST" action="{{ route('logout') }}" class="inline">
                     @csrf
 
-                    <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 ml-2">
-                        {{ __('Log Out') }}
-                    </button>
+                    <button type="submit" class="btn btn-danger">{{ __('Log Out') }}</button>
                 </form>
             </div>
         </div>
-    </x-jet-authentication-card>
-</x-guest-layout>
+
+            </div>
+        </div>
+            </div>
+        </div>        
+    </div>
+
+@endsection

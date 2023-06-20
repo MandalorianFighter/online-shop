@@ -55,7 +55,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach ($subcategories as $key => $subcategory)
+        @forelse ($subcategories as $key => $subcategory)
         <tr>
             <td>{{ $subcategory->id }}</td>
             <td>{{ $subcategory->subcategory_name }}</td>
@@ -67,7 +67,11 @@
             </div>
             </td>
         </tr>
-        @endforeach
+        @empty
+        <tr>      
+          <td colspan="4" class="empty-table">No Subcategories Found.</td>
+        </tr>
+        @endforelse
         </tbody>
     </table>
     </div><!-- table-wrapper -->

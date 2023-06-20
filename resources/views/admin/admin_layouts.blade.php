@@ -52,6 +52,7 @@
 
     <!-- Starlight CSS -->
     <link rel="stylesheet" href="{{ asset('backend/css/starlight.css') }}">
+    @vite('resources/js/app.js')
     @livewireStyles
   </head>
 
@@ -117,7 +118,7 @@
         <ul class="sl-menu-sub nav flex-column">
         <li class="nav-item"><a href="{{ route('blog-categories.index') }}" class="nav-link">{{ __('Blog Categories') }}</a></li>
           <li class="nav-item"><a href="{{ route('posts.create') }}" class="nav-link">{{ __('Add Post') }}</a></li>
-          <li class="nav-item"><a href="{{ route('posts.index') }}" class="nav-link">{{ __('Posts List') }}</a></li>
+          <li class="nav-item"><a href="{{ route('posts.index') }}" class="nav-link">{{ __('Articles List') }}</a></li>
         </ul>
 
         <a href="#" class="sl-menu-link">
@@ -509,6 +510,9 @@
             });
         }
 </script>
+
+
+
 <script type="text/javascript">
   function readURL(input){
     if (input.files && input.files[0]) {

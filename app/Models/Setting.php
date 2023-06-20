@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Setting extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'vat',
+        'shipping_charge',
+        'shop_name',
+        'email',
+        'phone',
+        'address',
+    ];
 }

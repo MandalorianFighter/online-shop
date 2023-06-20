@@ -374,6 +374,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			$('.cart_price').text('$' + data.subtotal);
 			$('.order_total_amount').text('$' + data.total);
 			toastr.warning(data.message);
+			if(!data.count) {
+				$('.cart_list').html('<li class="cart_item clearfix cart-form"><b class="order_total_title">' + data.empty + '.</b></li>');
+			}
         }
     });
 	});
@@ -471,6 +474,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			$('.total-sp').text(data.subtotal == 0 ? '$0.00' : '$' + data.totalSp);
 			@endif
 			toastr.warning(data.message);
+			if(!data.count) {
+				$('.cart_list').html('<li class="cart_item clearfix cart-form"><b class="order_total_title">' + data.empty + '.</b></li>');
+			}
         }
     });
 	});
@@ -493,6 +499,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 			$('.wishlist_count').text(data.count);
 			toastr.warning(data.message);
+			if(!data.count) {
+				$('.cart_list').html('<li class="cart_item clearfix cart-form"><b class="order_total_title">' + data.empty + '.</b></li>');
+			}
         }
     });
 	});

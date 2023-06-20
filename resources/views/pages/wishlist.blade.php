@@ -25,19 +25,6 @@
 											<div class="cart_item_title">{{ __('Name') }}</div>
 											<div class="cart_item_text">{{ $item->product->product_name }}</div>
 										</div>
-									
-                                        <!-- @if($item->product->color)
-										<div class="cart_item_color cart_info_col col-3">
-											<div class="cart_item_title">Color</div>
-											<div class="cart_item_text">{{ $item->product->color }}</div>
-										</div>
-                                        @endif
-                                        @if($item->product->size)
-                                        <div class="cart_item_color cart_info_col col">
-											<div class="cart_item_title">Size</div>
-											<div class="cart_item_text">{{ $item->product->size }}</div>
-										</div>
-                                        @endif -->
 				
 										<div class="cart_item_price cart_info_col col-3">
 											<div class="cart_item_title">{{ __('Price') }}</div>
@@ -55,7 +42,7 @@
 									</div>
 								</li>
 							@empty
-							<li class="cart_item clearfix wish-form"><h4>{{ __('Wishlist is Empty') }}</h4></li>
+							<li class="cart_item clearfix wish-form"><b class="order_total_title">{{ __('No items have been added to the wishlist yet') }}.</b></li>
 							@endforelse
 							</ul>
                         

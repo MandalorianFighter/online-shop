@@ -15,7 +15,7 @@
 						<div class="cart_items">
 							<ul class="cart_list">
 
-                            @foreach($cart as $item)
+                            @forelse($cart as $item)
 								
 								<li class="cart_item clearfix cart-form">
 									{{ Form::hidden('prod_id', $item->rowId, ['class' => 'prod_id']) }}
@@ -62,8 +62,9 @@
 										
 									</div>
 								</li>
-								
-                            @endforeach
+							@empty
+							<li class="cart_item clearfix cart-form"><b class="order_total_title">{{ __('Shopping Cart is Empty') }}.</b></li>
+                            @endforelse
 							</ul>
 						</div>
 						
@@ -74,11 +75,12 @@
 								<div class="order_total_amount">${{ Cart::total() }}</div>
 							</div>
 						</div>
-
+						{{ Form::open(['route' => 'cart.destroy', 'method' => 'delete']) }}
 						<div class="cart_buttons">
-							<button type="button" class="button cart_button_clear">{{ __('Cancel All') }}</button>
+							{{ Form::submit(__('Cancel All'), ['class' => 'button cart_button_clear']) }}
 							<a href="{{ route('user.checkout') }}"  class="button cart_button_checkout" >{{ __('Checkout') }}</a>
 						</div>
+						{{ Form::close() }}
 					</div>
 				</div>
 			</div>

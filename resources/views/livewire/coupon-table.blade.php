@@ -52,7 +52,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach ($coupons as $key => $coupon)
+        @forelse ($coupons as $key => $coupon)
         <tr>
             <td>{{ $coupon->id }}</td>
             <td>{{ $coupon->coupon }}</td>
@@ -64,7 +64,11 @@
             </div>
             </td>
         </tr>
-        @endforeach
+        @empty
+        <tr>      
+          <td colspan="4" class="empty-table">No Coupons Found.</td>
+        </tr>
+        @endforelse
         </tbody>
     </table>
     </div><!-- table-wrapper -->

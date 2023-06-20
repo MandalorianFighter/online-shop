@@ -70,7 +70,7 @@ class ProductController extends Controller
             'alert-type' => 'success',
         );
 
-        return redirect()->back()->with($notification);
+        return redirect()->route('products.index')->with($notification);
     }
 
     /**

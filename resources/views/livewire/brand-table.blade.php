@@ -51,7 +51,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach ($brands as $key => $brand)
+        @forelse ($brands as $key => $brand)
         <tr>
             <td>{{ $brand->id }}</td>
             <td>{{ $brand->brand_name }}</td>
@@ -63,7 +63,11 @@
             </div>
             </td>
         </tr>
-        @endforeach
+        @empty
+        <tr>      
+          <td colspan="4" class="empty-table">No Brands Found.</td>
+        </tr>
+        @endforelse
         </tbody>
     </table>
     </div><!-- table-wrapper -->

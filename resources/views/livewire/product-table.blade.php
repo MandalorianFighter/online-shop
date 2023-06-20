@@ -80,7 +80,7 @@
                 </tr>
               </thead>
               <tbody>
-              @foreach ($products as $key => $product)
+              @forelse ($products as $key => $product)
                 <tr>
                   <td>{{ $product->code }}</td>
                   <td title="{{ $product->product_name }}">{{ $product->limitName() }}</td>
@@ -97,7 +97,11 @@
                     <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-info" title="Show"><i class="fa fa-eye"></i></a>
                   </td>
                 </tr>
-              @endforeach
+                @empty
+                <tr>      
+                  <td colspan="8" class="empty-table">No Products Found.</td>
+                </tr>
+                @endforelse
               </tbody>
             </table>
     </div><!-- table-wrapper -->

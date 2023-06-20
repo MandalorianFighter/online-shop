@@ -49,7 +49,7 @@
               <div class="col-lg-12">
                 <div class="form-group">
                   {!! Html::decode(Form::label($locale."[color]", __('Product Color') ." ($lang)" . ': <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
-                  {{ Form::text($locale."[color]", null, ['class' => 'form-control', 'placeholder' => __('Enter Product Color') ." ($lang)", 'id' => 'color', 'data-role' => 'tagsinput']) }}
+                  {{ Form::text($locale."[color]", null, ['class' => 'form-control', 'placeholder' => __('Product Color'), 'data-role' => 'tagsinput']) }}
                 </div>
               </div><!-- col-4 -->
               </div>
@@ -93,6 +93,7 @@
                 <div class="form-group">
                   {!! Html::decode(Form::label('size', __('Product Size') . ': <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
                   {{ Form::text('size', null, ['class' => 'form-control', 'placeholder' => __('Enter Product Size'), 'id' => 'size', 'data-role' => 'tagsinput']) }}
+                  <!-- {!! Form::select("[size][]", [], null, ['multiple' => 'multiple', 'class' => 'form-control tags-input']) !!} -->
                 </div>
               </div><!-- col-4 -->
               </div>

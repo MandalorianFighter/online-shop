@@ -7,7 +7,7 @@
 
       <div class="sl-pagebody">
         <div class="sl-page-title">
-          <h5>{{ __('Post List') }}</h5>
+          <h5>{{ __('Articles List') }}</h5>
         </div><!-- sl-page-title -->
 
         <livewire:post-table />

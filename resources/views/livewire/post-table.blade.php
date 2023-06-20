@@ -57,7 +57,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach ($posts as $post)
+        @forelse ($posts as $post)
         <tr>
             <td>{{ $post->id }}</td>
             <td>{{ $post->title }}</td>
@@ -70,7 +70,11 @@
             </div>
             </td>
         </tr>
-        @endforeach
+        @empty
+        <tr>      
+          <td colspan="5" class="empty-table">No Articles Found.</td>
+        </tr>
+        @endforelse
         </tbody>
     </table>
     </div><!-- table-wrapper -->

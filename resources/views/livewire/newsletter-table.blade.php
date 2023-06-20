@@ -58,7 +58,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach ($subscribers as $key => $subscriber)
+        @forelse ($subscribers as $key => $subscriber)
         <tr>
             <td><input  wire:model="selected" value="{{ $subscriber->id }}" type="checkbox"></td>
             <td>{{ $subscriber->id }}</td>
@@ -70,7 +70,11 @@
             </div>
             </td>
         </tr>
-        @endforeach
+        @empty
+        <tr>      
+          <td colspan="5" class="empty-table">No Subscribers Found.</td>
+        </tr>
+        @endforelse
         </tbody>
     </table>
     </div><!-- table-wrapper -->

@@ -74,6 +74,8 @@ Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'),'verifie
     Route::get('/user/logout', 'App\Http\Controllers\UserController@logout')->name('user.logout');
 
     Route::get('/user/checkout', 'App\Http\Controllers\CartController@checkout')->name('user.checkout');
+    Route::get('/user/payment', 'App\Http\Controllers\CartController@payment')->name('user.payment');
+    Route::post('/user/payment/process', 'App\Http\Controllers\PaymentController@payment')->name('user.payment.process');
     Route::get('/user/wishlist', 'App\Http\Controllers\CartController@wishlist')->name('user.wishlist');
 
     Route::post('/user/coupon', 'App\Http\Controllers\CartController@coupon')->name('apply.coupon');
@@ -89,6 +91,7 @@ Route::post('/add-product/wishlist', 'App\Http\Controllers\WishlistController@wi
 // Add Product to Cart
 Route::get('/cart/show', 'App\Http\Controllers\CartController@show')->name('cart.show');
 Route::post('/cart/product/add', 'App\Http\Controllers\CartController@store')->name('cart-product.add');
+Route::delete('/cart', 'App\Http\Controllers\CartController@destroy')->name('cart.destroy');
 
 // Cart Product Ajax
 Route::post('/cart/product/update', 'App\Http\Controllers\CartController@updateItem')->name('cart-item.update');
