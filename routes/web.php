@@ -115,3 +115,7 @@ Route::post('/products/add-cart/{product}', 'App\Http\Controllers\ProductControl
 
 Route::get('/blog/posts', 'App\Http\Controllers\BlogController@index')->name('blog.post');
 Route::get('/blog/posts/show/{post}', 'App\Http\Controllers\BlogController@show')->name('blog.post.show');
+
+// Frontend Subcategory
+Route::get('/products/subcategory/{subcategory}', 'App\Http\Controllers\ProductController@subcategoryProducts')->name('subcategory.products');
+Route::get('/products/category/{category}', 'App\Http\Controllers\ProductController@categoryProducts')->name('category.products');

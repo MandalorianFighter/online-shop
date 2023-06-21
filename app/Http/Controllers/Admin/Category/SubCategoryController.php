@@ -42,6 +42,18 @@ class SubCategoryController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Admin\Subcategory  $subcategory
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Subcategory  $subcategory)
+    {
+        //
+    }
+
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Admin\Subcategory  $subcategory

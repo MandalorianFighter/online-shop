@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddToCartRequest;
+use App\Models\Admin\Brand;
+use App\Models\Admin\Category;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\Admin\Product;
+use App\Models\Admin\Subcategory;
 
 class ProductController extends Controller
 {
@@ -41,6 +44,38 @@ class ProductController extends Controller
         $sizes = explode(',', $product->size);
         $product_sizes = array_combine($sizes, $sizes);
         return view('pages.product_details', compact('product', 'product_colors', 'product_sizes'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Admin\Subcategory  $subcategory
+     * @return \Illuminate\Http\Response
+     */
+    public function subcategoryProducts(Subcategory $subcategory)
+    {
+        $products = $subcategory->products()->paginate(20);
+        $categories = Category::all();
+        $brandIds = $subcategory->products()->pluck('brand_id')->unique();
+        $brands = Brand::whereIn('id', $brandIds)->get();
+        
+        return view('pages.subcategory_products', compact('subcategory', 'products', 'categories', 'brands'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Admin\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function categoryProducts(Category $category)
+    {
+        $products = $category->products()->paginate(20);
+        $categories = Category::all();
+        $brandIds = $category->products()->pluck('brand_id')->unique();
+        $brands = Brand::whereIn('id', $brandIds)->get();
+        
+        return view('pages.category_products', compact('category', 'products', 'categories', 'brands'));
     }
 
     /**
@@ -101,3 +136,5 @@ class ProductController extends Controller
         //
     }
 }
+
+
