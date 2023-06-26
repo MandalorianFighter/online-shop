@@ -17,6 +17,8 @@
 
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+<script src="https://js.stripe.com/v3/"></script>
+<!-- <script src="{{ asset('frontend/js/checkout.js') }}" defer></script> -->
 </head>
 
 <body>
@@ -261,7 +263,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</div>
 	</div>
 </div>
-
+@stack('scripts')
 <script src="{{ asset('frontend/js/jquery.min.js') }}"></script>
 <script src="{{ asset('frontend/styles/bootstrap4/popper.js') }}"></script>
 <script src="{{ asset('frontend/styles/bootstrap4/bootstrap.js') }}"></script>

@@ -85,8 +85,8 @@
                             <div class="d-flex flex-row-reverse py-3">
                             <ul class="list-group col-lg-4">
 								@if(Session::has('coupon'))
-                                <li class="list-group-item">{{ __('Subtotal') }}: <span class="float-end subtotal-sp">${{ Session::get('coupon')['balance']}}</span></li>
-                                <li class="list-group-item">{{ __('Coupon') }}: ({{ Session::get('coupon')['name'] }}) <a href="{{ route('remove.coupon') }}" class="btn btn-danger btn-sm">X</a><span class="float-end">${{ Session::get('coupon')['discount'] }}</span></li>
+                                <li class="list-group-item">{{ __('Subtotal') }}: <span class="float-end subtotal-sp">${{ Cart::subtotal() }}</span></li>
+                                <li class="list-group-item">{{ __('Coupon') }}: ({{ Session::get('coupon')['name'] }}) <a href="{{ route('remove.coupon') }}" class="btn btn-danger btn-sm">X</a><span class="float-end">- ${{ Session::get('coupon')['discount'] }}</span></li>
 								@else
 								<li class="list-group-item">{{ __('Subtotal') }}: <span class="float-end subtotal-sp">${{ Cart::subtotal() }}</span></li>
 								@endif

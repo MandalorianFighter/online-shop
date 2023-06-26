@@ -76,6 +76,8 @@ Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'),'verifie
     Route::get('/user/checkout', 'App\Http\Controllers\CartController@checkout')->name('user.checkout');
     Route::get('/user/payment', 'App\Http\Controllers\CartController@payment')->name('user.payment');
     Route::post('/user/payment/process', 'App\Http\Controllers\PaymentController@payment')->name('user.payment.process');
+    Route::post('/user/stripe/charge', 'App\Http\Controllers\PaymentController@stripeCharge')->name('stripe.charge');
+    Route::get('/payment/success', 'App\Http\Controllers\PaymentController@paymentSuccess')->name('payment.success');
     Route::get('/user/wishlist', 'App\Http\Controllers\CartController@wishlist')->name('user.wishlist');
 
     Route::post('/user/coupon', 'App\Http\Controllers\CartController@coupon')->name('apply.coupon');

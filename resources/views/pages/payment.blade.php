@@ -65,10 +65,12 @@
 							</ul>
 						</div>
 
+						<hr>
+
 						<ul class="list-group col-lg-8 float-end mt-1">
 							@if(Session::has('coupon'))
-							<li class="list-group-item">{{ __('Subtotal') }}: <span class="float-end subtotal-sp">${{ Session::get('coupon')['balance']}}</span></li>
-							<li class="list-group-item">{{ __('Coupon') }}: ({{ Session::get('coupon')['name'] }}) <a href="{{ route('remove.coupon') }}" class="btn btn-danger btn-sm">X</a><span class="float-end">${{ Session::get('coupon')['discount'] }}</span></li>
+							<li class="list-group-item">{{ __('Subtotal') }}: <span class="float-end subtotal-sp">${{ Cart::subtotal() }}</span></li>
+							<li class="list-group-item">{{ __('Coupon') }}: ({{ Session::get('coupon')['name'] }}) <a href="{{ route('remove.coupon') }}" class="btn btn-danger btn-sm">X</a><span class="float-end">- ${{ Session::get('coupon')['discount'] }}</span></li>
 							@else
 							<li class="list-group-item">{{ __('Subtotal') }}: <span class="float-end subtotal-sp">${{ Cart::subtotal() }}</span></li>
 							@endif
@@ -76,8 +78,10 @@
 							<li class="list-group-item">{{ __('VAT') }}: <span class="float-end vat-sp">${{ $settings->vat }}</span></li>
 							@if(Session::has('coupon'))
 							<li class="list-group-item">{{ __('Total') }}: <span class="float-end total-sp">${{ Session::get('coupon')['balance'] + $settings->shipping_charge + $settings->vat }}</span></li>
+							<input type="hidden" name="total" value="{{ Session::get('coupon')['balance'] + $settings->shipping_charge + $settings->vat }}">
 							@else
 							<li class="list-group-item">{{ __('Total') }}: <span class="float-end total-sp">${{ Cart::subtotal() == 0 ? '0.00' : Cart::subtotal() + $settings->shipping_charge + $settings->vat }}</span></li>
+							<input type="hidden" name="total" value="{{ Cart::subtotal() + $settings->shipping_charge + $settings->vat }}">
 							@endif
 						</ul>
                         
@@ -90,9 +94,9 @@
 
                         {{ Form::open(['route' => 'user.payment.process', 'id' => 'contact_form']) }}
                         <div class="mb-3">
-                            {{ Form::label('name', __('Full Name'), ['class' => 'form-label']) }}
-                            {{ Form::text('name', old('name'), ['class' => 'form-control'. ($errors->has('name') ? ' is-invalid' : null), 'autocomplete' => false, 'placeholder' => __('Enter Your Full Name'), 'required']) }}
-                        @error('name')
+                            {{ Form::label('shipping_name', __('Full Name'), ['class' => 'form-label']) }}
+                            {{ Form::text('shipping_name', old('shipping_name'), ['class' => 'form-control'. ($errors->has('shipping_name') ? ' is-invalid' : null), 'autocomplete' => false, 'placeholder' => __('Enter Your Full Name'), 'required']) }}
+                        @error('shipping_name')
                         <span class="invalid-feedback">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -100,9 +104,9 @@
                         </div>
 
 						<div class="mb-3">
-                            {{ Form::label('phone', __('Phone'), ['class' => 'form-label']) }}
-                            {{ Form::text('phone', old('phone'), ['class' => 'form-control'. ($errors->has('phone') ? ' is-invalid' : null), 'autocomplete' => false, 'placeholder' => __('Enter Your Phone'), 'required']) }}
-                        @error('phone')
+                            {{ Form::label('shipping_phone', __('Phone'), ['class' => 'form-label']) }}
+                            {{ Form::text('shipping_phone', old('shipping_phone'), ['class' => 'form-control'. ($errors->has('shipping_phone') ? ' is-invalid' : null), 'autocomplete' => false, 'placeholder' => __('Enter Your Phone'), 'required']) }}
+                        @error('shipping_phone')
                         <span class="invalid-feedback">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -110,9 +114,9 @@
                         </div>
 
 						<div class="mb-3">
-                            {{ Form::label('email', __('Email'), ['class' => 'form-label']) }}
-                            {{ Form::email('email', old('email'), ['class' => 'form-control'. ($errors->has('email') ? ' is-invalid' : null), 'autocomplete' => false, 'placeholder' => __('Enter Your Email'), 'required']) }}
-                        @error('email')
+                            {{ Form::label('shipping_email', __('Email'), ['class' => 'form-label']) }}
+                            {{ Form::email('shipping_email', old('shipping_email'), ['class' => 'form-control'. ($errors->has('shipping_email') ? ' is-invalid' : null), 'autocomplete' => false, 'placeholder' => __('Enter Your Email'), 'required']) }}
+                        @error('shipping_email')
                         <span class="invalid-feedback">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -120,9 +124,9 @@
                         </div>
 
 						<div class="mb-3">
-                            {{ Form::label('address', __('Address'), ['class' => 'form-label']) }}
-                            {{ Form::text('address', old('address'), ['class' => 'form-control'. ($errors->has('address') ? ' is-invalid' : null), 'autocomplete' => false, 'placeholder' => __('Enter Your Address'), 'required']) }}
-                        @error('address')
+                            {{ Form::label('shipping_address', __('Address'), ['class' => 'form-label']) }}
+                            {{ Form::text('shipping_address', old('shipping_address'), ['class' => 'form-control'. ($errors->has('shipping_address') ? ' is-invalid' : null), 'autocomplete' => false, 'placeholder' => __('Enter Your Address'), 'required']) }}
+                        @error('shipping_address')
                         <span class="invalid-feedback">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -130,9 +134,9 @@
                         </div>
 
 						<div class="mb-3">
-                            {{ Form::label('city', __('City'), ['class' => 'form-label']) }}
-                            {{ Form::text('city', old('city'), ['class' => 'form-control'. ($errors->has('city') ? ' is-invalid' : null), 'autocomplete' => false, 'placeholder' => __('Enter Your City'), 'required']) }}
-                        @error('city')
+                            {{ Form::label('shipping_city', __('City'), ['class' => 'form-label']) }}
+                            {{ Form::text('shipping_city', old('shipping_city'), ['class' => 'form-control'. ($errors->has('shipping_city') ? ' is-invalid' : null), 'autocomplete' => false, 'placeholder' => __('Enter Your City'), 'required']) }}
+                        @error('shipping_city')
                         <span class="invalid-feedback">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -142,9 +146,9 @@
 						<div class="contact_form_title text_center">{{__('Payment By:')}}</div>
 						<div class="form-group">
 							<ul class="logos_list">
-								<li><input type="radio" name="payment" value="stripe"><img src="{{ asset('frontend/images/mastercard.png') }}" alt="" style="max-height: 80px;"></li>
-								<li><input type="radio" name="payment" value="paypal"><img src="{{ asset('frontend/images/paypal.png') }}" alt="" style="max-height: 80px;"></li>
-								<li><input type="radio" name="payment" value="ideal"><img src="{{ asset('frontend/images/ideal.png') }}" alt="" style="max-height: 80px;"></li>
+								<li><input type="radio" name="payment_type" value="stripe"><img src="{{ asset('frontend/images/stripe.png') }}" alt="" style="max-height: 80px;"></li>
+								<li><input type="radio" name="payment_type" value="paypal"><img src="{{ asset('frontend/images/paypal.png') }}" alt="" style="max-height: 80px;"></li>
+								<li><input type="radio" name="payment_type" value="ideal"><img src="{{ asset('frontend/images/ideal.png') }}" alt="" style="max-height: 80px;"></li>
 							</ul>
 						</div>
 
