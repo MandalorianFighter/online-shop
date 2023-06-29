@@ -31,6 +31,25 @@ class UserController extends Controller
         return view('pages.view_order', compact('order', 'shipping', 'details'));
     }
 
+    public function orderTracking(Request $request)
+    {
+        $track = Order::where('status_code', $request->status_code)->first();
+        
+        if($track) {
+
+            // echo "<pre>";
+            // print_r($track);
+            return view('pages.tracking', compact('track'));
+        } else {
+            $notification = array(
+                'message' => __('Status Code Is Invalid!'),
+                'alert-type' => 'error'
+            );
+    
+            return redirect()->route('dashboard')->with($notification);
+        }
+    }
+
     public function changePass()
     {
         return view('auth.change-password');

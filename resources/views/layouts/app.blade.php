@@ -39,6 +39,18 @@
 						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/phone.png') }}" alt=""></div>+38 068 005 3570</div>
 						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/mail.png') }}" alt=""></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a></div>
 						<div class="top_bar_content ms-auto">
+
+						@if(auth()->user())
+							<div class="top_bar_menu">
+								<ul class="standard_dropdown top_bar_dropdown">
+									<li>
+										<a href="#" data-bs-toggle="modal" data-bs-target="#orderTrackingModal">{{ __('My Order Tracking') }}</a>
+									</li>
+								
+								</ul>
+							</div>
+						@endif
+
 							<div class="top_bar_menu">
 								<ul class="standard_dropdown top_bar_dropdown">
 									<li>
@@ -263,6 +275,34 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</div>
 	</div>
 </div>
+
+<!-- Order Tracking Modal -->
+<div class="modal fade" id="orderTrackingModal" tabindex="-1" aria-labelledby="orderTrackingModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="orderTrackingModalLabel">Your Status Code</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ route('order.tracking') }}" method="post">
+			@csrf
+			<div class="modal-body">
+				<label for="status_code">Status Code</label>
+				<input type="text" name="status_code" id="status_code" required class="form-control" placeholder="Your Order Status Code">
+			</div>
+			<div class="modal-footer">
+			<button class="btn btn-danger" type="submit">Track Now</button>
+			</div>
+		</form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
 @stack('scripts')
 <script src="{{ asset('frontend/js/jquery.min.js') }}"></script>
 <script src="{{ asset('frontend/styles/bootstrap4/popper.js') }}"></script>

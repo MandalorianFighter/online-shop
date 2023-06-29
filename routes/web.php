@@ -102,6 +102,10 @@ Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'),'verifie
 
     Route::post('/user/coupon', 'App\Http\Controllers\CartController@coupon')->name('apply.coupon');
     Route::get('/user/coupon/remove', 'App\Http\Controllers\CartController@couponRemove')->name('remove.coupon');
+
+    // Order Tracking Route
+
+    Route::post('/order/tracking', 'App\Http\Controllers\UserController@orderTracking')->name('order.tracking');
 });
 
 // Frontend Routes
