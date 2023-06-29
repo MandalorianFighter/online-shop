@@ -10,7 +10,7 @@
                 <div class="card-header">{{ __('Change Password') }}</div>
 
                 <div class="card-body">
-                {{ Form::model($user, ['route' => ['password.change.update', $user], 'method' => 'PUT']) }}
+                {{ Form::model(auth()->user(), ['route' => ['password.change.update', auth()->user()], 'method' => 'PUT']) }}
                 <div class="mb-3 row">
                 {{ Form::label('current_password', __('Current Password'), ['class' => 'col-md-4 col-form-label text-md-right']) }}
 

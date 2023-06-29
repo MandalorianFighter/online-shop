@@ -49,6 +49,21 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config
     Route::get('/profile', 'AdminProfileController@show')->name('admin.profile.show');
     Route::put('/profile/update', 'AdminProfileController@adminUpdateProfile')->name('update.admin.profile'); //no view
     Route::get('/logout', 'AdminProfileController@logout')->name('admin.logout');
+
+    // Admin Order Route
+
+    Route::get('/order/pending', 'OrderController@newOrders')->name('admin.new_orders');
+    Route::get('/order/view/{order}', 'OrderController@viewOrder')->name('admin.view_order');
+
+    Route::get('/payment/accept/{order}', 'OrderController@acceptPayment')->name('admin.accept_payment');
+    Route::get('/payment/cancel/{order}', 'OrderController@cancelPayment')->name('admin.cancel_payment');
+    Route::get('/process/delivery/{order}', 'OrderController@processDelivery')->name('admin.process_delivery');
+    Route::get('/delivery/success/{order}', 'OrderController@deliverySuccess')->name('admin.delivery_success');
+
+    Route::get('/order/payment-accept', 'OrderController@acceptPaymentOrders')->name('admin.accept_payment_orders');
+    Route::get('/order/canceled', 'OrderController@canceledOrders')->name('admin.canceled_orders');
+    Route::get('/order/process-delivery', 'OrderController@processDeliveryOrders')->name('admin.process_delivery_orders');
+    Route::get('/order/delivery-success', 'OrderController@deliverySuccessOrders')->name('admin.delivery_success_orders');
 });
 
 // Admin login & forgot password
@@ -67,7 +82,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin'], 'namespace' 
 // User routes
 
 Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'),'verified'])->group(function () {
-    Route::view('/dashboard', 'dashboard')->name('dashboard');
+    Route::get('/dashboard', 'App\Http\Controllers\UserController@dashboard')->name('dashboard');
+    Route::get('/order/view/{order}', 'App\Http\Controllers\UserController@viewOrder')->name('view.order');
 
     Route::get('/password-change', 'App\Http\Controllers\UserController@changePass')->name('password.change');
     Route::put('/password-update/{user}', 'App\Http\Controllers\UserController@updatePass')->name('password.change.update');

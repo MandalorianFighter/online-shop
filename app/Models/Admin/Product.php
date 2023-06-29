@@ -43,7 +43,7 @@ class Product extends Model implements HasMedia, TranslatableContract
         'status',
     ];
 
-    protected $with = ['category', 'subcategory', 'brand:id,brand_name'];
+    // protected $with = ['category', 'subcategory', 'brand:id,brand_name'];
 
     public function category()
     {
@@ -63,6 +63,11 @@ class Product extends Model implements HasMedia, TranslatableContract
     public function wishlist()
     {
         return $this->belongsTo(Wishlist::class);
+    }
+
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetails::class);
     }
 
     public function translate(?string $locale = null, bool $withFallback = false): ?Model 

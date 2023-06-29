@@ -65,7 +65,7 @@
 										<ul>
 											<li><a href="{{ route('user.wishlist') }}">{{ __('Wishlist') }}</a></li>
 											<li><a href="{{ route('user.checkout') }}">{{ __('Checkout') }}</a></li>
-											<li><a href="#">{{ __('Others') }}</a></li>
+											<li><a href="{{ route('user.logout') }}">{{ __('Logout') }}</a></li>
 										</ul>
 									</li>
 								</ul>

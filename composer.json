@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.7",
         "laravelcollective/html": "^6.4",
         "livewire/livewire": "^2.12",
+        "spatie/laravel-collection-macros": "^7.12",
         "spatie/laravel-medialibrary": "^10.0.0",
         "stripe/stripe-php": "^10.15"
     },

@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Passport\HasApiTokens;
+use App\Models\Admin\Order;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -61,5 +62,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function wishlist()
     {
         return $this->hasOne(Wishlist::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

@@ -95,7 +95,7 @@
         <ul class="sl-menu-sub nav flex-column">
           <li class="nav-item"><a href="{{ route('coupons.index') }}" class="nav-link">{{ __('Coupon') }}</a></li>
         </ul>
-        
+
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
@@ -106,6 +106,21 @@
         <ul class="sl-menu-sub nav flex-column">
           <li class="nav-item"><a href="{{ route('products.create') }}" class="nav-link">{{ __('Add Product') }}</a></li>
           <li class="nav-item"><a href="{{ route('products.index') }}" class="nav-link">{{ __('All Products') }}</a></li>
+        </ul>
+
+        <a href="#" class="sl-menu-link">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
+            <span class="menu-item-label">{{ __('Orders') }}</span>
+            <i class="menu-item-arrow fa fa-angle-down"></i>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <ul class="sl-menu-sub nav flex-column">
+          <li class="nav-item"><a href="{{ route('admin.new_orders') }}" class="nav-link">{{ __('New Orders') }}</a></li>
+          <li class="nav-item"><a href="{{ route('admin.accept_payment_orders') }}" class="nav-link">{{ __('Accept Payment') }}</a></li>
+          <li class="nav-item"><a href="{{ route('admin.canceled_orders') }}" class="nav-link">{{ __('Canceled Orders') }}</a></li>
+          <li class="nav-item"><a href="{{ route('admin.process_delivery_orders') }}" class="nav-link">{{ __('Process Delivery') }}</a></li>
+          <li class="nav-item"><a href="{{ route('admin.delivery_success_orders') }}" class="nav-link">{{ __('Delivery Success') }}</a></li>
         </ul>
 
         <a href="#" class="sl-menu-link">

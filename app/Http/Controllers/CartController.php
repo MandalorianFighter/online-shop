@@ -89,7 +89,7 @@ class CartController extends Controller
 
     public function viewProduct(Request $request)
     {
-        $product = Product::find($request->id);
+        $product = Product::with('category', 'subcategory', 'brand:id,brand_name')->find($request->id);
         $colors = explode(',', $product->color);
         $product_colors = array_combine($colors, $colors);
         $sizes = explode(',', $product->size);
