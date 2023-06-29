@@ -64,6 +64,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config
     Route::get('/order/canceled', 'OrderController@canceledOrders')->name('admin.canceled_orders');
     Route::get('/order/process-delivery', 'OrderController@processDeliveryOrders')->name('admin.process_delivery_orders');
     Route::get('/order/delivery-success', 'OrderController@deliverySuccessOrders')->name('admin.delivery_success_orders');
+
+    // Seo Settings Route
+    Route::get('/seo-settings', 'SeoController@seo')->name('admin.seo');
+    Route::put('/seo-settings/update/{seo}', 'SeoController@seoUpdate')->name('admin.seo.update');
 });
 
 // Admin login & forgot password

@@ -145,6 +145,7 @@
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
           <li class="nav-item"><a href="{{ route('newsletters.index') }}" class="nav-link">{{ __('Newsletters') }}</a></li>
+          <li class="nav-item"><a href="{{ route('admin.seo') }}" class="nav-link">{{ __('SEO Settings') }}</a></li>
         </ul>
       </div><!-- sl-sideleft-menu -->
 
