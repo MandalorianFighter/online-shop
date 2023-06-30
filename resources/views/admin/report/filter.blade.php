@@ -6,13 +6,14 @@
 
       <div class="sl-pagebody">
         <div class="sl-page-title">
-          <h5>{{ __('Pending Orders') }}</h5>
-        </div><!-- sl-page-title -->
+          <h5>{{ __('Reports - Search') }}</h5>
+        </div>
 
         
-        @livewire('pending-orders')
+        @livewire('report-filter')
         
         </div>
 
-    </div><!-- sl-mainpanel -->
+    </div>
+
 @endsection

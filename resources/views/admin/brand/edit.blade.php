@@ -2,7 +2,6 @@
 
 @section('admin_content')
 
-    <!-- ########## START: MAIN PANEL ########## -->
     <div class="sl-mainpanel">
 
       <div class="sl-pagebody">
@@ -52,5 +51,5 @@
         </div><!-- card -->
 
     </div><!-- sl-mainpanel -->
-    <!-- ########## END: MAIN PANEL ########## -->
+
 @endsection

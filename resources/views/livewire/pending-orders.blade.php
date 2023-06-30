@@ -91,7 +91,7 @@
             @if($order->status == 0)
                 <span class="badge badge-warning">Pending</span>
             @elseif($order->status == 1)
-                <span class="badge badge-info">Paymnet Accepted</span>
+                <span class="badge badge-info">Payment Accepted</span>
             @elseif($order->status == 2)
                 <span class="badge badge-warning">Progress</span>
             @elseif($order->status == 3)

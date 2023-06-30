@@ -6,11 +6,11 @@
 
       <div class="sl-pagebody">
         <div class="sl-page-title">
-          <h5>{{ __('Pending Orders') }}</h5>
+          <h5>{{ __('Reports - This Month') }}</h5>
         </div><!-- sl-page-title -->
 
         
-        @livewire('pending-orders')
+        @livewire('report-this-month')
         
         </div>
 

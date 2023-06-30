@@ -292,7 +292,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				<input type="text" name="status_code" id="status_code" required class="form-control" placeholder="Your Order Status Code">
 			</div>
 			<div class="modal-footer">
-			<button class="btn btn-danger" type="submit">Track Now</button>
+			<button class="btn btn-primary" type="submit">Track Now</button>
 			</div>
 		</form>
       </div>

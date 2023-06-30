@@ -6,9 +6,8 @@ use App\Models\Admin\Order;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class PendingOrders extends Component
+class ReportThisMonth extends Component
 {
-
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
@@ -54,8 +53,9 @@ class PendingOrders extends Component
 
     public function render()
     {
-        return view('livewire.pending-orders', [
-            'orders' => Order::where('status',0)
+        $month = date('F');
+        return view('livewire.report-this-month', [
+            'orders' => Order::where('status',3)->where('month', $month)
             ->when($this->sortField, function($query) {
                     $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
             })->where(function ($query) {

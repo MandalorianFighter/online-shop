@@ -1,5 +1,5 @@
 <div class="card pd-20 pd-sm-40">
-    <h6 class="card-body-title">{{ __('Accept Payment Orders') }}</h6>
+    <h6 class="card-body-title">{{ __('Order List') }}</h6>
     <div class="mb-3">
     <div class="row d-flex justify-content-between align-items-center">
     <div class="col-md-4 d-flex align-items-center">
@@ -119,3 +119,4 @@
     </div>
 
 </div><!-- card -->
+

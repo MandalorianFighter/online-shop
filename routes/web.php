@@ -65,6 +65,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config
     Route::get('/order/process-delivery', 'OrderController@processDeliveryOrders')->name('admin.process_delivery_orders');
     Route::get('/order/delivery-success', 'OrderController@deliverySuccessOrders')->name('admin.delivery_success_orders');
 
+    // Order Report Routes
+
+    Route::get('/reports/today-orders', 'ReportController@todayOrders')->name('admin.today_orders');
+    Route::get('/reports/today-deliveries', 'ReportController@todayDeliveries')->name('admin.today_deliveries');
+    Route::get('/reports/this-month', 'ReportController@thisMonth')->name('admin.this_month');
+    Route::get('/reports/filter', 'ReportController@filter')->name('admin.filter_reports');
+
     // Seo Settings Route
     Route::get('/seo-settings', 'SeoController@seo')->name('admin.seo');
     Route::put('/seo-settings/update/{seo}', 'SeoController@seoUpdate')->name('admin.seo.update');

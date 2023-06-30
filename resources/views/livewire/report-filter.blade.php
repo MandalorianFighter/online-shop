@@ -1,18 +1,51 @@
 <div class="card pd-20 pd-sm-40">
-    <h6 class="card-body-title">{{ __('Accept Payment Orders') }}</h6>
-    <div class="mb-3">
-    <div class="row d-flex justify-content-between align-items-center">
-    <div class="col-md-4 d-flex align-items-center">
-        <div class="pe-3 ml-2 order-2">{{ __('Items/page') }}</div>
-    <select wire:model="paginate" name="paginate" class="form-select rounded-0 col-md-2 order-1" id="paginate">
-        <option value="10">10</option>
-        <option value="25">25</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-    </select>
+    <h5 class="card-body-title">{{ __('Order List') }}</h5>
+    <div>
+        <h5><span class="badge badge-success">{{ __('Total Amount For Selected Values') }}: {{ $total }}$</span></h5>
     </div>
-    
-    <div class="input-group col-lg-2 float-right">
+    <div class="mb-3">
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+            <div class="ml-2 order-2">{{ __('Items/page') }}</div>
+        <select wire:model="paginate" name="paginate" class="form-select rounded-0 order-1" id="paginate">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+        </div>
+        <div>
+            <div class="input-group d-flex align-items-center pl-0">
+                <label for="date" class="text-nowrap mr-2 mb-0">Date</label>
+                <input type="date" wire:model="date" name="date" class="form-control">        
+            </div>
+        </div>
+        
+        <div>
+            <div class="input-group d-flex align-items-center">
+                <label for="date" class="text-nowrap mr-2 mb-0">Month</label>
+                <select wire:model="month" name="month" class="form-select rounded-0 order-1">
+                    <option value="">Select Month</option>
+                    @foreach($monthes as $key=>$month)
+                    <option value="{{$key}}">{{$month}}</option>
+                    @endforeach
+                </select>    
+            </div>
+        </div>
+        
+        <div>
+            <div class="input-group d-flex align-items-center">
+                <label for="date" class="text-nowrap mr-2 mb-0">Year</label>
+                <select wire:model="year" name="year" class="form-select rounded-0 order-1">
+                    <option value="">Select Year</option>
+                    @foreach($years as $key=>$year)
+                    <option value="{{$key}}">{{$year}}</option>
+                    @endforeach
+                </select>    
+            </div>
+        </div>
+        
+    <div class="input-group col-md-2 float-right pr-0">
     <input wire:model="search" class="form-control" type="search" name="search" placeholder="Search">
     </div>
     </div>
