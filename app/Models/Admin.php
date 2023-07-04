@@ -25,8 +25,22 @@ class Admin extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'phone',
         'email',
         'password',
+        'category',
+        'coupon',
+        'product',
+        'blog',
+        'orders',
+        'other',
+        'report',
+        'role',
+        'return_orders',
+        'contact',
+        'comment',
+        'setting',
+        'type',
     ];
 
     /**
@@ -35,7 +49,6 @@ class Admin extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',

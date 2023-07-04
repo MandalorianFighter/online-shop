@@ -27,18 +27,56 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config
 
     Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
 
-    Route::resource('categories', Category\CategoryController::class)->except(['create', 'show']);
-    Route::resource('brands', Category\BrandController::class)->except(['create', 'show']);
-    Route::resource('subcategories', Category\SubCategoryController::class)->except(['create', 'show']);
-    Route::resource('coupons', Category\CouponController::class)->except(['create', 'show']);
-    Route::resource('newsletters', Category\NewsletterController::class)->only(['index']);
-    Route::resource('products', ProductController::class);
-    Route::post('/subcategories/defined', 'ProductController@getSubcat')->name('get.subcategories');
-    Route::post('/product/status', 'ProductController@changeStatus')->name('change.status');
-    Route::put('/product/images/{product}', 'ProductController@updateImages')->name('products.update.images');
-    Route::resource('blog-categories', BlogCategoryController::class)->except(['create', 'show']);
-    Route::resource('posts', PostController::class);
+    Route::group(['middleware' => 'admin.access:category'], function () {
+        Route::resource('categories', Category\CategoryController::class)->except(['create', 'show']);
+        Route::resource('brands', Category\BrandController::class)->except(['create', 'show']);
+        Route::resource('subcategories', Category\SubCategoryController::class)->except(['create', 'show']);
+    });
+    Route::group(['middleware' => 'admin.access:coupon'], function () {
+        Route::resource('coupons', Category\CouponController::class)->except(['create', 'show']);
+    });
+    Route::group(['middleware' => 'admin.access:other'], function () {
+        Route::resource('newsletters', Category\NewsletterController::class)->only(['index']);
+        // Seo Settings Routes
+        Route::get('/seo-settings', 'SeoController@seo')->name('admin.seo');
+        Route::put('/seo-settings/update/{seo}', 'SeoController@seoUpdate')->name('admin.seo.update');
+    });
+    Route::group(['middleware' => 'admin.access:product'], function () {
+        Route::resource('products', ProductController::class);
+        Route::post('/subcategories/defined', 'ProductController@getSubcat')->name('get.subcategories');
+        Route::post('/product/status', 'ProductController@changeStatus')->name('change.status');
+        Route::put('/product/images/{product}', 'ProductController@updateImages')->name('products.update.images');
+    });
+    Route::group(['middleware' => 'admin.access:blog'], function () {
+        Route::resource('blog-categories', BlogCategoryController::class)->except(['create', 'show']);
+        Route::resource('posts', PostController::class);
+    });
+    Route::group(['middleware' => 'admin.access:orders'], function () {
+        // Admin Order Route
+        Route::get('/order/pending', 'OrderController@newOrders')->name('admin.new_orders');
+        Route::get('/order/view/{order}', 'OrderController@viewOrder')->name('admin.view_order');
 
+        Route::get('/payment/accept/{order}', 'OrderController@acceptPayment')->name('admin.accept_payment');
+        Route::get('/payment/cancel/{order}', 'OrderController@cancelPayment')->name('admin.cancel_payment');
+        Route::get('/delivery/process/{order}', 'OrderController@processDelivery')->name('admin.process_delivery');
+        Route::get('/delivery/success/{order}', 'OrderController@deliverySuccess')->name('admin.delivery_success');
+
+        Route::get('/order/payment-accept', 'OrderController@acceptPaymentOrders')->name('admin.accept_payment_orders');
+        Route::get('/order/canceled', 'OrderController@canceledOrders')->name('admin.canceled_orders');
+        Route::get('/order/process-delivery', 'OrderController@processDeliveryOrders')->name('admin.process_delivery_orders');
+        Route::get('/order/delivery-success', 'OrderController@deliverySuccessOrders')->name('admin.delivery_success_orders');
+    });
+    Route::group(['middleware' => 'admin.access:report'], function () {
+        // Order Report Routes
+        Route::get('/reports/today-orders', 'ReportController@todayOrders')->name('admin.today_orders');
+        Route::get('/reports/today-deliveries', 'ReportController@todayDeliveries')->name('admin.today_deliveries');
+        Route::get('/reports/this-month', 'ReportController@thisMonth')->name('admin.this_month');
+        Route::get('/reports/filter', 'ReportController@filter')->name('admin.filter_reports');
+    });
+    Route::group(['middleware' => 'admin.access:role'], function () {
+        Route::resource('admins', UserRoleController::class)->except(['show', 'destroy']);
+    });
+    
     // Admin change password
     
     Route::get('/password', 'AdminProfileController@changePass')->name('admin.password.change');
@@ -49,32 +87,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config
     Route::get('/profile', 'AdminProfileController@show')->name('admin.profile.show');
     Route::put('/profile/update', 'AdminProfileController@adminUpdateProfile')->name('update.admin.profile'); //no view
     Route::get('/logout', 'AdminProfileController@logout')->name('admin.logout');
-
-    // Admin Order Route
-
-    Route::get('/order/pending', 'OrderController@newOrders')->name('admin.new_orders');
-    Route::get('/order/view/{order}', 'OrderController@viewOrder')->name('admin.view_order');
-
-    Route::get('/payment/accept/{order}', 'OrderController@acceptPayment')->name('admin.accept_payment');
-    Route::get('/payment/cancel/{order}', 'OrderController@cancelPayment')->name('admin.cancel_payment');
-    Route::get('/process/delivery/{order}', 'OrderController@processDelivery')->name('admin.process_delivery');
-    Route::get('/delivery/success/{order}', 'OrderController@deliverySuccess')->name('admin.delivery_success');
-
-    Route::get('/order/payment-accept', 'OrderController@acceptPaymentOrders')->name('admin.accept_payment_orders');
-    Route::get('/order/canceled', 'OrderController@canceledOrders')->name('admin.canceled_orders');
-    Route::get('/order/process-delivery', 'OrderController@processDeliveryOrders')->name('admin.process_delivery_orders');
-    Route::get('/order/delivery-success', 'OrderController@deliverySuccessOrders')->name('admin.delivery_success_orders');
-
-    // Order Report Routes
-
-    Route::get('/reports/today-orders', 'ReportController@todayOrders')->name('admin.today_orders');
-    Route::get('/reports/today-deliveries', 'ReportController@todayDeliveries')->name('admin.today_deliveries');
-    Route::get('/reports/this-month', 'ReportController@thisMonth')->name('admin.this_month');
-    Route::get('/reports/filter', 'ReportController@filter')->name('admin.filter_reports');
-
-    // Seo Settings Route
-    Route::get('/seo-settings', 'SeoController@seo')->name('admin.seo');
-    Route::put('/seo-settings/update/{seo}', 'SeoController@seoUpdate')->name('admin.seo.update');
 });
 
 // Admin login & forgot password
