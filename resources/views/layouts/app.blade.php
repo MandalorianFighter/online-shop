@@ -36,8 +36,8 @@
 			<div class="container">
 				<div class="row">
 					<div class="col d-flex flex-row">
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/phone.png') }}" alt=""></div>+38 068 005 3570</div>
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/mail.png') }}" alt=""></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a></div>
+						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/phone.png') }}" alt=""></div>{{ $info->phone_one }}</div>
+						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/mail.png') }}" alt=""></div><a href="mailto:{{ $info->company_email }}">{{ $info->company_email }}</a></div>
 						<div class="top_bar_content ms-auto">
 
 						@if(auth()->user())
@@ -181,21 +181,20 @@
 				<div class="col-lg-3 footer_col">
 					<div class="footer_column footer_contact">
 						<div class="logo_container">
-							<div class="logo"><a href="#">OneTech</a></div>
+							<div class="logo"><a href="#">{{ $info->company_name }}</a></div>
 						</div>
 						<div class="footer_title">{{ __('Got Question? Call Us 24/7') }}</div>
-						<div class="footer_phone">+38 068 005 3570</div>
+						<div class="footer_phone">{{ $info->phone_two }}</div>
 						<div class="footer_contact_text">
-							<p>{{ __('17 Princess Road, London') }}</p>
-							<p>{{ __('Grester London NW18JR, UK') }}</p>
+							<p class="col-lg-8">{{ $info->company_address }}</p>
+							<!-- <p>{{ __('Grester London NW18JR, UK') }}</p> -->
 						</div>
 						<div class="footer_social">
 							<ul>
-								<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-								<li><a href="#"><i class="fab fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fab fa-youtube"></i></a></li>
-								<li><a href="#"><i class="fab fa-google"></i></a></li>
-								<li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
+								<li><a href="{{ $info->fb }}"><i class="fab fa-facebook-f"></i></a></li>
+								<li><a href="{{ $info->twitter }}"><i class="fab fa-twitter"></i></a></li>
+								<li><a href="{{ $info->youtube }}"><i class="fab fa-youtube"></i></a></li>
+								<li><a href="{{ $info->instagram }}"><i class="fab fa-instagram"></i></a></li>
 							</ul>
 						</div>
 					</div>

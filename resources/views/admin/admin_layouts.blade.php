@@ -219,7 +219,7 @@
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="" class="nav-link">{{ __('Site Settings') }}</a></li>
+          <li class="nav-item"><a href="{{ route('contacts.edit', $contact) }}" class="nav-link">{{ __('Company Info') }}</a></li>
         </ul>
         @endif
         @if(auth()->user()->other == 1)

@@ -76,6 +76,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config
     Route::group(['middleware' => 'admin.access:role'], function () {
         Route::resource('admins', UserRoleController::class)->except(['show', 'destroy']);
     });
+    Route::group(['middleware' => 'admin.access:setting'], function () {
+        Route::resource('contacts', SiteContactController::class)->only(['edit', 'update']);
+    });
     
     // Admin change password
     
