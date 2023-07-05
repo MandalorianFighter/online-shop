@@ -547,6 +547,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     });
 	});
 </script>
+
+<script type="text/javascript">
+	$('.return-order').click(function() {
+		var order_id = $(this).attr('id');
+		$('#order_id').val(order_id);
+    });
+</script>
 </body>
 
 </html>

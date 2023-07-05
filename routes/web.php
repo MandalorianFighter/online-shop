@@ -79,6 +79,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config
     Route::group(['middleware' => 'admin.access:setting'], function () {
         Route::resource('contacts', SiteContactController::class)->only(['edit', 'update']);
     });
+    Route::group(['middleware' => 'admin.access:return_orders'], function () {
+        // Route::resource('requests', ReturnOrderController::class);
+        Route::get('/request/orders/return', 'ReturnOrderController@returnRequests')->name('admin.return_requests');
+        Route::get('/request/order-approve/{order}', 'ReturnOrderController@approve')->name('admin.return_approve');
+        Route::get('/request/orders/all-returns', 'ReturnOrderController@allReturns')->name('admin.all_returns');
+    });
     
     // Admin change password
     
@@ -128,6 +134,11 @@ Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'),'verifie
     // Order Tracking Route
 
     Route::post('/order/tracking', 'App\Http\Controllers\UserController@orderTracking')->name('order.tracking');
+
+    // Return Order Route
+
+    Route::get('/order/list/success', 'App\Http\Controllers\UserController@listSuccess')->name('order_list.success');
+    Route::post('/order/return', 'App\Http\Controllers\UserController@orderReturn')->name('order.return');
 });
 
 // Frontend Routes

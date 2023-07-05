@@ -165,8 +165,8 @@
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="" class="nav-link">{{ __('Return Request') }}</a></li>
-          <li class="nav-item"><a href="" class="nav-link">{{ __('All Requests') }}</a></li>
+          <li class="nav-item"><a href="{{ route('admin.return_requests') }}" class="nav-link">{{ __('Return Requests') }}</a></li>
+          <li class="nav-item"><a href="{{ route('admin.all_returns') }}" class="nav-link">{{ __('All Requests') }}</a></li>
         </ul>
         @endif
         @if(auth()->user()->blog == 1)

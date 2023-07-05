@@ -22,6 +22,7 @@ class Order extends Model
         'vat',
         'total',
         'status',
+        'return_order',
         'month',
         'date',
         'year',
