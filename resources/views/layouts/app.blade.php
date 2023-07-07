@@ -18,6 +18,7 @@
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 <script src="https://js.stripe.com/v3/"></script>
+<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=64a7ab13df473b0019d1b1b4&product=inline-share-buttons' async='async'></script>
 <!-- <script src="{{ asset('frontend/js/checkout.js') }}" defer></script> -->
 </head>
 

@@ -12,7 +12,8 @@
 			<div class="row">
 
 				<!-- Images -->
-				<div class="col-lg-2 order-lg-1 order-2">
+				
+				<div class="col-lg-2 order-lg-1 order-3">
 					<ul class="image_list">
 						<li data-image="{{ $product->getFirstMediaUrl('products/imageOne') }}"><img src="{{ $product->getFirstMediaUrl('products/imageOne') }}" alt=""></li>
 						<li data-image="{{ $product->getFirstMediaUrl('products/imageTwo') }}"><img src="{{ $product->getFirstMediaUrl('products/imageTwo') }}" alt=""></li>
@@ -21,12 +22,14 @@
 				</div>
 
 				<!-- Selected Image -->
-				<div class="col-lg-5 order-lg-2 order-1">
+				<div class="col-lg-5 order-lg-2 order-2">
 					<div class="image_selected"><img src="{{ $product->getFirstMediaUrl('products/imageOne', 'thumb-mid') }}" alt=""></div>
+					
 				</div>
-
+				
+				
 				<!-- Description -->
-				<div class="col-lg-5 order-3">
+				<div class="col-lg-5 order-4">
 					<div class="product_description">
 						<div class="product_category">{{ $product->category->category_name }} > {{ $product->subcategory->subcategory_name ?? $product->brand->brand_name }}</div>
 						<div class="product_name">{{ $product->product_name }}</div>
@@ -61,6 +64,9 @@
                                             {{ Form::number('qty', 1, ['class' => 'form-control', 'autocomplete' => false, 'min' => '1', 'max' => '9']) }}
                                             </div>
                                         </div>
+										
+					
+				
                                     </div>
 
 								
@@ -76,14 +82,18 @@
 											<div id="product_fav"><i class="fas fa-heart"></i></div>
 										</a>
 								</div>
-								
                         {{ Form::close() }}
 						</div>
 					</div>
 				</div>
-                    </div>
+                </div>
+				<br>
+				<div class="col-lg-7 mt-3">
+					<div class="sharethis-inline-share-buttons"></div>
+				</div>
 			</div>
 		</div>
+		
 	</div>
 
 	<!-- Recently Viewed -->
@@ -108,13 +118,15 @@
 						<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">{{ __('Video Link') }}</button>
 					</li>
 					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">{{ __('Product Review') }}</button>
+						<button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">{{ __('Comments') }}</button>
 					</li>
 					</ul>
 					<div class="tab-content" id="myTabContent">
 					<div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0"><br>{!! $product->product_details !!}</div>
 					<div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0"><br>{{ $product->video_link }}</div>
-					<div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0"><br>Product Review</div>
+					<div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0"><br>
+					<div class="fb-comments" data-href="{{ Request::url() }}" data-width="100%" data-numposts="5"></div>
+					</div>
 					</div>
 
 
@@ -123,6 +135,7 @@
 		</div>
 	</div>
     
-
-
+<!-- Facebook Comments -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v17.0" nonce="av0L7TL5"></script>
 @endsection

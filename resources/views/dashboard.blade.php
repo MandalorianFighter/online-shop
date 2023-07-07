@@ -52,7 +52,7 @@
             </div>
             <div class="col-4">
                 <div class="card">
-                    <img src="{{ asset('frontend/images/profile-1.jpg') }}" alt="" class="card-img-top" style="height:90px; width:90px; margin-left:39%;">
+                    <img src="{{ auth()->user()->getFirstMediaUrl('users/avatar') }}" alt="" class="card-img-top" style="height:90px; width:90px; margin-left:39%;">
                     <div class="card-body">
                         <h5 class="card-title text-center">{{ auth()->user()->name }}</h5>
                     </div>

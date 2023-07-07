@@ -17,6 +17,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\Http\Controllers\HomeController@indexCategories')->name('home');
 
+// Google
+
+Route::get('/login/google', 'App\Http\Controllers\SocialController@redirectToGoogle')->name('login.google');
+Route::get('/login/google/callback', 'App\Http\Controllers\SocialController@handleGoogleCallback');
+
+// Facebook
+
+Route::get('/login/facebook', 'App\Http\Controllers\SocialController@redirectToFacebook')->name('login.facebook');
+Route::get('/login/facebook/callback', 'App\Http\Controllers\SocialController@handleFacebookCallback');
+
 Route::view('/email/verify', 'auth.verify-email')->middleware('auth:web')->name('verification.notice');
 
 Route::post('newsletters/sign-up', 'App\Http\Controllers\Admin\Category\NewsletterController@store')->name('newsletters.store');

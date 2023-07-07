@@ -40,8 +40,8 @@
                         <a href="{{ route('admin.login') }}" class="tx-info tx-12 d-block mg-t-10">{{ __('Are you Admin?') }}</a>
                         <hr>
                         <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary"><i class="fab fa-facebook-square"></i> {{ __('Login with Facebook') }}</button>
-                        <button type="submit" class="btn btn-danger"><i class="fab fa-google"></i> {{ __('Login with Google') }}</button>
+                        <a href="{{route('login.facebook')}}" class="btn btn-primary"><i class="fab fa-facebook-square"></i> {{ __('Login with Facebook') }}</a>
+                        <a href="{{route('login.google')}}" class="btn btn-danger"><i class="fab fa-google"></i> {{ __('Login with Google') }}</a>
                         </div>
 					</div>
 				</div>

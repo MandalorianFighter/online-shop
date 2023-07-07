@@ -157,7 +157,7 @@ class Product extends Model implements HasMedia, TranslatableContract
         } else {
             return $this->addMedia(public_path('default/image-def.png'))
             ->preservingOriginal()
-        ->toMediaCollection('products');
+        ->toMediaCollection('products/imageTwo');
         }        
     }
 
@@ -170,7 +170,7 @@ class Product extends Model implements HasMedia, TranslatableContract
         } else {
             return $this->addMedia(public_path('default/image-def.png'))
             ->preservingOriginal()
-        ->toMediaCollection('products');
+        ->toMediaCollection('products/imageThree');
         }        
     }
 

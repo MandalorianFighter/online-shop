@@ -27,7 +27,8 @@ class PaymentController extends Controller
         }
         
         if($request->payment_type == 'stripe') {
-            return view('pages.payment.stripe', compact('data', 'cart', 'settings', 'total', 'payment_type'));
+            $key = env('STRIPE_KEY');
+            return view('pages.payment.stripe', compact('data', 'cart', 'settings', 'total', 'payment_type', 'key'));
         } elseif ($request->payment_type == 'paypal') {
 
         } elseif ($request->payment_type == 'ideal') {
@@ -81,7 +82,7 @@ class PaymentController extends Controller
 
     public function stripeCharge(Request $request)
     {
-        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
             
             // Token is created using Checkout or Elements!
             // Get the payment token ID submitted by the form:
@@ -90,7 +91,7 @@ class PaymentController extends Controller
             $charge = \Stripe\Charge::create([
               'amount' => $request->total*100,
               'currency' => 'usd',
-              'description' => 'OneTech Ecommerce Charge',
+              'description' => 'OneSport Ecommerce Charge',
               'source' => $token,
               'metadata' => ['order_id' => uniqid()],
             ]);

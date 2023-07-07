@@ -116,7 +116,7 @@
 
     <script>
         // This is your test publishable API key.
-      const stripe = Stripe("{{ env('STRIPE_KEY') }}");
+      const stripe = Stripe("{{ config('services.stripe.key') }}");
 
       var elements = stripe.elements();
       var style = {
