@@ -98,7 +98,7 @@ class Product extends Model implements HasMedia, TranslatableContract
 
         $search = '%'.trim($searchTerm).'%';
         $query->where(function ($query) use ($search) {
-            $query->where('product_name', 'like', $search)
+            $query->whereTranslationLike('product_name', $search)
             ->orWhereHas('category.translations', function($query) use ($search) {
                 $query->where('category_name', 'like', $search);
             })
@@ -107,6 +107,7 @@ class Product extends Model implements HasMedia, TranslatableContract
             });
         });
         
+        return $query;
     }
 
     public static function last()

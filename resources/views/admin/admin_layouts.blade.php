@@ -183,6 +183,19 @@
           <li class="nav-item"><a href="{{ route('posts.index') }}" class="nav-link">{{ __('Articles List') }}</a></li>
         </ul>
         @endif
+
+        @if(auth()->user()->stock == 1)
+        <a href="#" class="sl-menu-link">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-ios-filing-outline tx-24"></i>
+            <span class="menu-item-label">{{ __('Product Stocks') }}</span>
+            <i class="menu-item-arrow fa fa-angle-down"></i>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <ul class="sl-menu-sub nav flex-column">
+          <li class="nav-item"><a href="{{ route('products.stock') }}" class="nav-link">{{ __('Stock') }}</a></li>
+        </ul>
+        @endif
         
         @if(auth()->user()->contact == 1)
         <a href="#" class="sl-menu-link">

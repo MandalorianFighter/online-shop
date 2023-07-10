@@ -12,7 +12,7 @@
 
       <div class="card pd-20 pd-sm-40">
           <h6 class="card-body-title">{{ __('New Admin') }}
-            <a href="{{ route('roles.index') }}" class="btn btn-success btn-sm pull-right">{{ __('All Users') }}</a>
+            <a href="{{ route('admins.index') }}" class="btn btn-success btn-sm pull-right">{{ __('All Users') }}</a>
           </h6>
 
           @if ($errors->any())
@@ -26,7 +26,7 @@
               @endif
           <p class="mg-b-20 mg-sm-b-30">{{ __('New Admin Add Form') }}</p>
 
-          {{ Form::open(['route' => 'roles.store']) }}
+          {{ Form::open(['route' => 'admins.store']) }}
 
           <div class="form-layout">
             <div class="row mg-b-25">
@@ -160,6 +160,13 @@
             </label>
             </div><!-- col-4 -->
 
+            <div class="col-lg-4">
+            <label class="ckbox">
+              {{ Form::hidden('stock', 0) }}
+              {{ Form::checkbox('stock', 1) }}
+              <span>{{ __('Stock') }}</span>
+            </label>
+            </div><!-- col-4 -->
             </div>
 
             <hr>

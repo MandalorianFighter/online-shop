@@ -35,7 +35,7 @@ Route::post('newsletters/sign-up', 'App\Http\Controllers\Admin\Category\Newslett
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config('jetstream.auth_session'),'verified'], 'namespace' => 'App\Http\Controllers\Admin'], function () {   
 
-    Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
+    Route::get('/dashboard', 'OrderController@dashboard')->name('admin.dashboard');
 
     Route::group(['middleware' => 'admin.access:category'], function () {
         Route::resource('categories', Category\CategoryController::class)->except(['create', 'show']);
@@ -90,11 +90,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config
         Route::resource('contacts', SiteContactController::class)->only(['edit', 'update']);
     });
     Route::group(['middleware' => 'admin.access:return_orders'], function () {
-        // Route::resource('requests', ReturnOrderController::class);
         Route::get('/request/orders/return', 'ReturnOrderController@returnRequests')->name('admin.return_requests');
         Route::get('/request/order-approve/{order}', 'ReturnOrderController@approve')->name('admin.return_approve');
         Route::get('/request/orders/all-returns', 'ReturnOrderController@allReturns')->name('admin.all_returns');
     });
+    
+        Route::get('/products-stock', 'ProductController@productStock')->name('products.stock');
+    
     
     // Admin change password
     

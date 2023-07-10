@@ -154,6 +154,13 @@
             </label>
             </div><!-- col-4 -->
 
+            <div class="col-lg-4">
+            <label class="ckbox">
+              {{ Form::hidden('stock', 0) }}
+              {{ Form::checkbox('stock', 1) }}
+              <span>{{ __('Stock') }}</span>
+            </label>
+            </div><!-- col-4 -->
             </div>
 
             <hr>

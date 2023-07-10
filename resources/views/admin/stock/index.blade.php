@@ -2,18 +2,17 @@
 
 @section('admin_content')
 
-    <!-- ########## START: MAIN PANEL ########## -->
     <div class="sl-mainpanel">
 
       <div class="sl-pagebody">
         <div class="sl-page-title">
-          <h5>{{ __('Order List') }}</h5>
+          <h5>{{ __('Stock Product List') }}</h5>
         </div><!-- sl-page-title -->
 
-        
-        @livewire('process-delivery-orders')
-        
-        </div>
+        <livewire:stock-table />
 
+        
+      </div>
     </div><!-- sl-mainpanel -->
+
 @endsection

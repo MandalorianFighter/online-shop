@@ -40,6 +40,7 @@ class Admin extends Authenticatable
         'contact',
         'comment',
         'setting',
+        'stock',
         'type',
     ];
 

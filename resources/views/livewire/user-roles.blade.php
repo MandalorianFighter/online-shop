@@ -79,6 +79,7 @@
                 <span class="{{ getBadgeClass($user->contact) }}">Contact</span>
                 <span class="{{ getBadgeClass($user->comment) }}">Comments</span>
                 <span class="{{ getBadgeClass($user->setting) }}">Settings</span>
+                <span class="{{ getBadgeClass($user->stock) }}">Stock</span>
             </td>
             <td>
             <div class="d-flex align-items-center justify-content-center">

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Brand;
+use App\Models\Admin\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Admin\Order;
 use App\Models\Admin\OrderDetails;
@@ -77,6 +80,14 @@ class OrderController extends Controller
 
     public function deliverySuccess(Order $order)
     {
+        $orderProducts = OrderDetails::where('order_id', $order->id)->get();
+        $productIds = $orderProducts->pluck('product_id')->toArray();
+
+        $products = Product::whereIn('id', $productIds)->get();
+        foreach($orderProducts as $item) {
+            $product = $products->firstWhere('id', $item->product_id);
+            $product->decrement('quantity', $item->qty);
+        }
         $order->update(['status' => 3]);
         $notification = array(
             'message' => __('Order Is Delivered Successfully!'),
@@ -84,6 +95,24 @@ class OrderController extends Controller
         );
 
         return redirect()->route('admin.delivery_success_orders')->with($notification);
+    }
+
+    public function dashboard()
+    {
+        $today = date('d-m-y');
+        $todayTotal = Order::where('date', $today)->sum('total');
+        $month = date('F');
+        $monthTotal = Order::where('month', $month)->sum('total');
+        $year = date('Y');
+        $yearTotal = Order::where('year', $year)->sum('total');
+        $todayDelivered = Order::where('date', $today)->where('status', 3)->sum('total');
+
+        $returnTotal = Order::where('return_order', 2)->sum('total');
+
+        $productsCount = Product::count();
+        $brandsCount = Brand::count();
+        $usersCount = User::count();
+        return view('admin.dashboard', compact('todayTotal', 'monthTotal', 'yearTotal', 'todayDelivered', 'returnTotal', 'productsCount', 'brandsCount', 'usersCount'));
     }
 }
 

@@ -189,4 +189,10 @@ class ProductController extends Controller
 
         return json_encode($data);
     }
+
+    public function productStock()
+    {
+        $products = Product::all();
+        return view('admin.stock.index', compact('products'));
+    }
 }
