@@ -18,13 +18,13 @@ return new class extends Migration
             $table->string('user_id')->nullable();
             $table->string('payment_type')->nullable();
             $table->string('payment_id')->nullable();
-            $table->string('paying_amount')->nullable();
+            $table->float('paying_amount', 10, 2)->nullable();
             $table->string('balance_transaction')->nullable();
             $table->string('order_id')->nullable();
-            $table->string('subtotal')->nullable();
-            $table->string('shipping')->nullable();
-            $table->string('vat')->nullable();
-            $table->string('total')->nullable();
+            $table->float('subtotal', 10, 2)->nullable();
+            $table->float('shipping', 10, 2)->nullable();
+            $table->float('vat', 10, 2)->nullable();
+            $table->float('total', 10, 2)->nullable();
             $table->string('status')->nullable()->default(0);
             $table->string('return_order')->nullable()->default(0);
             $table->string('month')->nullable();

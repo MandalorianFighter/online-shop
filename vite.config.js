@@ -5,7 +5,6 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/css/app.css',
                 'resources/js/app.js',
             ],
             refresh: [
@@ -14,4 +13,9 @@ export default defineConfig({
             ],
         }),
     ],
+    resolve: {
+        alias: {
+            '$': 'jQuery', // Initialize jQuery with the $ symbol
+        },
+    },
 });

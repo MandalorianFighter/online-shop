@@ -12,7 +12,7 @@ class NewsletterController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -24,7 +24,7 @@ class NewsletterController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\Newsletter\StoreNewsletterRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreNewsletterRequest $request)
     {

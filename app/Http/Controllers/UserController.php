@@ -7,9 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\User\UpdatePassRequest;
 use App\Models\Admin\Order;
 use App\Models\Admin\OrderDetails;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use DB;
-use Illuminate\Support\Facades\Hash;
 use Laravel\Fortify\Contracts\UpdatesUserPasswords;
 
 class UserController extends Controller
@@ -52,6 +51,23 @@ class UserController extends Controller
         return view('auth.change-password');
     }
 
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
+        $user->update($request->except(['avatar']));
+
+        if($request->hasFile('avatar')) 
+        {
+            $user->attachAvatar($request->file('avatar'));
+        }
+
+        $notification = array(
+            'message' => __('User Info Is Updated Successfully!'),
+            'alert-type' => 'success'
+        );
+        return Redirect()->back()->with($notification);
+    }
+
     public function updatePass(UpdatesUserPasswords $updater, UpdatePassRequest $request, User $user)
     {
         $updater->update($user, $request->only(['current_password', 'password', 'password_confirmation']));
@@ -64,6 +80,11 @@ class UserController extends Controller
 
         return Redirect()->route('login')->with($notification);
 
+    }
+
+    public function editProfile()
+    {
+        return view('profile.edit');
     }
 
     public function logout(Request $request)

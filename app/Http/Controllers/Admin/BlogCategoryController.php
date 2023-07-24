@@ -12,7 +12,7 @@ class BlogCategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -24,7 +24,7 @@ class BlogCategoryController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\BlogCategory\StoreBlogCategoryRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreBlogCategoryRequest $request)
     {
@@ -42,7 +42,7 @@ class BlogCategoryController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Admin\BlogCategory  $blogCategory
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit(BlogCategory $blogCategory)
     {
@@ -54,7 +54,7 @@ class BlogCategoryController extends Controller
      *
      * @param  \App\Http\Requests\BlogCategory\UpdateBlogCategoryRequest  $request
      * @param  \App\Models\Admin\BlogCategory  $blogCategory
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdateBlogCategoryRequest $request, BlogCategory $blogCategory)
     {
@@ -72,7 +72,7 @@ class BlogCategoryController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Admin\BlogCategory  $blogCategory
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(BlogCategory $blogCategory)
     {

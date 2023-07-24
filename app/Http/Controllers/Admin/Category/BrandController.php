@@ -12,7 +12,7 @@ class BrandController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -24,7 +24,7 @@ class BrandController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\Brand\StoreBrandRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreBrandRequest $request)
     {
@@ -46,7 +46,7 @@ class BrandController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Admin\Brand  $brand
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit(Brand $brand)
     {
@@ -58,7 +58,7 @@ class BrandController extends Controller
      *
      * @param  \App\Http\Requests\Brand\UpdateBrandRequest  $request
      * @param  \App\Models\Admin\Brand  $brand
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdateBrandRequest $request, Brand $brand)
     {
@@ -82,7 +82,7 @@ class BrandController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Admin\Brand  $brand
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Brand $brand)
     {

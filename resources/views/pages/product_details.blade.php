@@ -3,6 +3,15 @@
 @section('content')
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/product_styles.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/product_responsive.css') }}">
+<style>
+  #product-details {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px; /* Adjust the value as needed */
+  }
+</style>
+
 
 
 	<!-- Single Product -->
@@ -31,13 +40,27 @@
 				<!-- Description -->
 				<div class="col-lg-5 order-4">
 					<div class="product_description">
-						<div class="product_category">{{ $product->category->category_name }} > {{ $product->subcategory->subcategory_name ?? $product->brand->brand_name }}</div>
+						<div class="product_category"><a href="{{ route('category.products', $product->category) }}">{{ $product->category->category_name }}</a> > {{ $product->brand->brand_name ?? $product->subcategory->subcategory_name }}</div>
 						<div class="product_name">{{ $product->product_name }}</div>
 						
 						<div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div>
-						<div class="product_text"><p>
-                            {!! $product->product_details !!}
-                        </p></div>
+
+						<div class="product_text" id="product_details">
+							<p>
+							{!! substr($product->product_details, 0, 750) !!} <!-- Show the first 100 characters of the description -->
+								<span id="more" style="display: none;">
+								{!! substr($product->product_details, 750) !!} <!-- Show the remaining characters of the description -->
+								</span>
+							</p>
+							@if(strlen($product->product_details) > 750) <!-- Only show the "Show more" button if the description is longer than 100 characters -->
+								<button class="btn btn-light" id="show-more-button">Show more</button>
+								<button class="btn btn-light" id="show-less-button" style="display: none;">Show less</button>
+							@endif
+						</div>
+
+
+
+						<!-- <button class="btn btn-light" id="show-more-button">Show More</button> -->
 						<div class="order_info d-flex flex-row">
                         
 						{{ Form::model($product, ['route' => ['product.add-cart', $product]]) }}
@@ -98,44 +121,27 @@
 
 	<!-- Recently Viewed -->
 
-	<div class="viewed">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="viewed_title_container">
-						<h3 class="viewed_title">{{ __('Product Details') }}</h3>
-						<div class="viewed_nav_container">
-							<div class="viewed_nav viewed_prev"><i class="fas fa-chevron-left"></i></div>
-							<div class="viewed_nav viewed_next"><i class="fas fa-chevron-right"></i></div>
-						</div>
-					</div>
+	@include('pages.user.recently_viewed')
 
-					<ul class="nav nav-tabs" id="myTab" role="tablist">
-					<li class="nav-item" role="presentation">
-						<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">{{ __('Product Details') }}</button>
-					</li>
-					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">{{ __('Video Link') }}</button>
-					</li>
-					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">{{ __('Comments') }}</button>
-					</li>
-					</ul>
-					<div class="tab-content" id="myTabContent">
-					<div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0"><br>{!! $product->product_details !!}</div>
-					<div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0"><br>{{ $product->video_link }}</div>
-					<div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0"><br>
-					<div class="fb-comments" data-href="{{ Request::url() }}" data-width="100%" data-numposts="5"></div>
-					</div>
-					</div>
-
-
-				</div>
-			</div>
-		</div>
-	</div>
+	<div class="container">
+	<div class="fb-comments" data-href="{{ Request::url() }}" data-width="100%" data-numposts="5"></div>
+	<div/>
     
 <!-- Facebook Comments -->
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v17.0" nonce="av0L7TL5"></script>
+<script>
+  const container = document.getElementById("product-details");
+  const button = document.getElementById("show-more-button");
+
+  button.addEventListener("click", function () {
+    if (container.style.overflow === "hidden") {
+      container.style.overflow = "visible";
+      button.textContent = "Show Less";
+    } else {
+      container.style.overflow = "hidden";
+      button.textContent = "Show More";
+    }
+  });
+</script>
 @endsection

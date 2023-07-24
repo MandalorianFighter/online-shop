@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Brand;
 use App\Models\Admin\Product;
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Models\Admin\Order;
 use App\Models\Admin\OrderDetails;
 use DB;

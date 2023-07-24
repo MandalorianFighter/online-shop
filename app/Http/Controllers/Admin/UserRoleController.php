@@ -12,7 +12,7 @@ class UserRoleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -22,7 +22,7 @@ class UserRoleController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -33,7 +33,7 @@ class UserRoleController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -55,7 +55,7 @@ class UserRoleController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit(Admin $admin)
     {
@@ -67,7 +67,7 @@ class UserRoleController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Admin $admin)
     {

@@ -71,17 +71,21 @@
 							<li class="hassubs">
 								<a href="#">{{ __('Pages') }}<i class="fas fa-chevron-down"></i></a>
 								<ul>
-									<li><a href="shop.html">{{ __('Shop') }}<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="product.html">{{ __('Product') }}<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="blog.html">{{ __('Blog') }}<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="blog_single.html">{{ __('Blog Post') }}<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="regular.html">{{ __('Regular Post') }}<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="cart.html">{{ __('Cart') }}<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="contact.html">{{ __('Contact') }}<i class="fas fa-chevron-down"></i></a></li>
+									<li>
+										<a href="#">{{ __('Menu Item') }}<i class="fas fa-chevron-down"></i></a>
+										<ul>
+											<li><a href="#">{{ __('Menu Item') }}<i class="fas fa-chevron-down"></i></a></li>
+											<li><a href="#">{{ __('Menu Item') }}<i class="fas fa-chevron-down"></i></a></li>
+											<li><a href="#">{{ __('Menu Item') }}<i class="fas fa-chevron-down"></i></a></li>
+										</ul>
+									</li>
+									<li><a href="#">{{ __('Menu Item') }}<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="#">{{ __('Menu Item') }}<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="#">{{ __('Menu Item') }}<i class="fas fa-chevron-down"></i></a></li>
 								</ul>
 							</li>
 							<li><a href="{{ route('blog.post') }}">{{ __('Blog') }}<i class="fas fa-chevron-down"></i></a></li>
-							<li><a href="contact.html">{{ __('Contact') }}<i class="fas fa-chevron-down"></i></a></li>
+							<li><a href="{{ route('contact.page') }}">{{ __('Contact') }}<i class="fas fa-chevron-down"></i></a></li>
 						</ul>
 					</div>
 

@@ -8,37 +8,26 @@ use App\Models\Admin\Category;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\Admin\Product;
 use App\Models\Admin\Subcategory;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Admin\Product  $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function productDetails(Product $product)
     {
+        $recentlyViewed = session()->get('recently_viewed', []);
+        if (!in_array($product->id, $recentlyViewed)) {
+            array_unshift($recentlyViewed, $product->id);
+            $recentlyViewed = array_slice($recentlyViewed, 0, 10); // Limit the recently viewed array to 10 items
+            session()->put('recently_viewed', $recentlyViewed);
+        }
+
         $colors = explode(',', $product->color);
         $product_colors = array_combine($colors, $colors);
         $sizes = explode(',', $product->size);
@@ -50,11 +39,20 @@ class ProductController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Admin\Subcategory  $subcategory
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function subcategoryProducts(Subcategory $subcategory)
+    public function subcategoryProducts(Request $request, Subcategory $subcategory)
     {
-        $products = $subcategory->products()->paginate(20);
+        $brandSlug = trim($request->brand);
+        $brand = null;
+        
+        if($brandSlug) $brand = Brand::where('slug', $brandSlug)->first();
+
+        if($brand) {
+            $products = Product::where('subcategory_id', $subcategory->id)->where('brand_id', $brand->id)->paginate(20);
+        } else {
+            $products = $subcategory->products()->paginate(20);
+        }
         $categories = Category::all();
         $brandIds = $subcategory->products()->pluck('brand_id')->unique();
         $brands = Brand::whereIn('id', $brandIds)->get();
@@ -66,11 +64,20 @@ class ProductController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Admin\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function categoryProducts(Category $category)
+    public function categoryProducts(Request $request, Category $category)
     {
-        $products = $category->products()->paginate(20);
+        $brandSlug = trim($request->brand);
+        $brand = null;
+        
+        if($brandSlug) $brand = Brand::where('slug', $brandSlug)->first();
+
+        if($brand) {
+            $products = Product::where('category_id', $category->id)->where('brand_id', $brand->id)->paginate(20);
+        } else {
+            $products = $category->products()->paginate(20);
+        }
         $categories = Category::all();
         $brandIds = $category->products()->pluck('brand_id')->unique();
         $brands = Brand::whereIn('id', $brandIds)->get();
@@ -79,22 +86,11 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Admin\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\AddToCartRequest  $request
      * @param  \App\Models\Admin\Product  $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function productAddCart(AddToCartRequest $request, Product $product)
     {
@@ -125,15 +121,20 @@ class ProductController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Admin\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Product $product)
+    public function search(Request $request)
     {
-        //
+        $search = '%'.trim($request->search).'%';
+
+        if($request->category) {
+            $category = Category::where('slug', $request->category)->firstOrFail();
+            $products = $category->products()->whereTranslationLike('product_name', $search)->paginate(20);
+        } else {
+            $products = Product::whereTranslationLike('product_name', $search)->paginate(20);
+        }
+        $categories = Category::all();
+        $brandIds = $products->pluck('brand_id')->unique();
+        $brands = Brand::whereIn('id', $brandIds)->get();
+        return view('pages.search',compact('products', 'categories', 'brands'));
     }
 }
 

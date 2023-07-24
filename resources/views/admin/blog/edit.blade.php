@@ -53,6 +53,14 @@
               </div><!-- col-4 -->
 
             @endforeach
+
+            <div class="col-lg-12">
+                <div class="form-group">
+                  {!! Html::decode(Form::label('author', __('Post Author'). ": <span class='tx-danger'>*</span>", ['class' => 'form-control-label'])) !!}
+                  {{ Form::text('author', $post->author, ['class' => 'form-control', 'placeholder' => __('Enter Post Author')]) }}
+                </div>
+              </div><!-- col-4 -->
+
               <!-- <div class="col-lg-6">
                 <div class="form-group">
                   {!! Html::decode(Form::label('post_title_ukr', __('Post Title') . ' (Uk): <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}

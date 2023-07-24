@@ -12,7 +12,7 @@ class SiteContactController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\SiteContact  $contact
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit(SiteContact $contact)
     {
@@ -24,7 +24,7 @@ class SiteContactController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\SiteContact  $contact
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, SiteContact $contact)
     {

@@ -27,6 +27,7 @@ class UpdatePostRequest extends FormRequest
             'en.title' => 'required',
             'en.full_text' => 'required',
             'category_id' => 'required',
+            'author' => 'required',
             'post_image' => 'nullable|image|max:5120|mimes:jpeg,jpg,png',
         ];
 

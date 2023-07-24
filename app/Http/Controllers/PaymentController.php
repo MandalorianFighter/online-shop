@@ -4,88 +4,51 @@ namespace App\Http\Controllers;
 
 use DB;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use App\Http\Requests\StorePaymentRequest;
-use App\Http\Requests\UpdatePaymentRequest;
 use Illuminate\Http\Request;
-use App\Models\Payment;
+use Omnipay\Omnipay;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Session;
+use Mail;
+use App\Mail\InvoiceMail;
 
 class PaymentController extends Controller
 {
+    protected $settings;
+
+    public function __construct()
+    {
+        $this->settings = Setting::first();
+    }
+
     public function payment(Request $request)
     {
-        $data = json_encode($request->except('_token', 'payment_type'));
+        $shipping = $request->except('_token', 'payment_type');
+        Session::put('shipping', $shipping);
+
         $payment_type = $request->payment_type;
         $cart = Cart::content();
-        $settings = Setting::first();
-
-        if(Session::has('coupon')) {
-            $total = Session::get('coupon')['balance'] + $settings->shipping_charge + $settings->vat;
-        } else {
-            $total = Cart::subtotal() + $settings->shipping_charge + $settings->vat;
-        }
         
-        if($request->payment_type == 'stripe') {
-            $key = env('STRIPE_KEY');
-            return view('pages.payment.stripe', compact('data', 'cart', 'settings', 'total', 'payment_type', 'key'));
-        } elseif ($request->payment_type == 'paypal') {
-
-        } elseif ($request->payment_type == 'ideal') {
-
+        
+        if(Session::has('coupon')) {
+            $total = Session::get('coupon')['balance'] + $this->settings->shipping_charge + $this->settings->vat;
         } else {
-            echo "Cash On Delivery";
+            $total = Cart::subtotal() + $this->settings->shipping_charge + $this->settings->vat;
+        }
+        $settings = $this->settings;
+        if($request->payment_type == 'stripe') {
+            return view('pages.payment.stripe', compact('cart', 'total', 'payment_type', 'settings'));
+        } elseif ($request->payment_type == 'paypal') {
+            return $this->paypalCreate($total);
+        } elseif ($request->payment_type == 'oncash') {
+            return view('pages.payment.oncash', compact('cart', 'total', 'payment_type', 'settings'));
         }
     }
 
-    // private function stripeCharge(Request $request, Setting $settings)
-    // {
-    //     \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-
-    //     $data = $request->all();
-    //     $cart = Cart::content();
-    //     function calculateOrderAmount(Setting $settings): int {
-    //         // Replace this constant with a calculation of the order's amount
-    //         // Calculate the order total on the server to prevent
-    //         // people from directly manipulating the amount on the client
-
-    //         if(Session::has('coupon')) {
-    //             $total = (Session::get('coupon')['balance'] + $settings->shipping_charge + $settings->vat)*100;
-    //         } else {
-    //             $total = (Cart::subtotal() + $settings->shipping_charge + $settings->vat)*100;
-    //         }    
-    //         return $total;
-    //     }
-
-    //     header('Content-Type: application/json');
-
-    //     try {
-    //         // Create a PaymentIntent with amount and currency
-    //         $paymentIntent = \Stripe\PaymentIntent::create([
-    //             'amount' => calculateOrderAmount($settings),
-    //             'currency' => 'usd',
-    //             'automatic_payment_methods' => [
-    //                 'enabled' => true,
-    //             ],
-    //         ]);
-
-    //         $output = [
-    //             'clientSecret' => $paymentIntent->client_secret,
-    //         ];
-
-    //     } catch (Error $e) {
-    //         http_response_code(500);
-    //         $output = json_encode(['error' => $e->getMessage()]);
-    //     }
-    //     return view('pages.payment.stripe', compact('data', 'cart', 'settings', 'output'));
-    // }
-
     public function stripeCharge(Request $request)
     {
+        $email = auth()->user()->email;
         \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
             
-            // Token is created using Checkout or Elements!
-            // Get the payment token ID submitted by the form:
             $token = $_POST['stripeToken'];
             
             $charge = \Stripe\Charge::create([
@@ -102,11 +65,179 @@ class PaymentController extends Controller
                 'user_id' => auth()->id(),
                 'payment_type' => $request->payment_type,
                 'payment_id' => $charge->payment_method,
-                'paying_amount' => $charge->amount,
+                'paying_amount' => $charge->amount/100,
                 'balance_transaction' => $charge->balance_transaction,
                 'order_id' => $charge->metadata->order_id,
-                'shipping' => $request->shipping_charge,
-                'vat' => $request->vat,
+                'shipping' => $this->settings->shipping_charge,
+                'vat' => $this->settings->vat,
+                'total' => $request->total,
+                'subtotal' => Session::has('coupon') ? Session::get('coupon')['balance'] : Cart::subtotal(),
+                'status' => 0,
+                'date' => date('d-m-y'),
+                'month' => date('F'),
+                'year' => date('Y'),
+                'status_code' => mt_rand(100000,999999),
+            ];
+
+            $order_id = DB::table('orders')->insertGetId($data);
+
+            // Mail to User
+
+            Mail::to($email)->send(new InvoiceMail($data));
+
+            // Shipping
+
+            $shipping_info = Session::get('shipping');
+
+            $shipping = array_merge(['order_id' => $order_id], $shipping_info);
+
+            Session::forget('shipping');
+            DB::table('shipping')->insert($shipping);
+
+            // Order Details
+
+            $content = Cart::content();
+
+            foreach($content as $item) {
+                $details = [
+                    'order_id' => $order_id,
+                    'product_id' => $item->id,
+                    'product_name' => $item->name,
+                    'color' => $item->options->color,
+                    'size' => $item->options->size,
+                    'qty' => $item->qty,
+                    'single_price' => $item->price,
+                    'total_price' => $item->price*$item->qty,
+                ];
+                DB::table('order_details')->insert($details);
+            }
+
+            Cart::destroy();
+            if(Session::has('coupon')) Session::forget('coupon');
+
+            return redirect()->route('payment.success');
+    }
+
+    protected function paypalCreate($total)
+    {
+        // Set up Omnipay PayPal gateway
+        $gateway = Omnipay::create('PayPal_Rest');
+        $gateway->initialize(config('services.paypal.options'));
+
+        // Prepare the purchase parameters
+        $parameters = [
+            'amount' => $total,
+            'currency' => 'USD',
+            'description' => 'Test Payment Description',
+            'returnUrl' => route('paypal.execute'),
+            'cancelUrl' => route('payment.cancel'),
+        ];
+
+        // Generate the payment form and redirect the user
+        $response = $gateway->purchase($parameters)->send();
+        
+        $redirectUrl = $response->getRedirectUrl();
+
+        return redirect()->away($redirectUrl);
+    }
+
+    public function paypalCharge(Request $request)
+    {
+        // Retrieve the necessary data from the request
+        $paymentId = $request->input('paymentId');
+        $payerId = $request->input('PayerID');
+        $shipping_info = Session::get('shipping');
+
+
+        // Set up PayPal gateway and initialize it
+        $gateway = Omnipay::create('PayPal_Rest');
+        $gateway->initialize(config('services.paypal.options'));
+
+        // Prepare the completePurchase parameters
+        $parameters = [
+            'payer_id' => $payerId,
+            'transactionReference' => $paymentId,
+            'metadata' => ['order_id' => uniqid()],
+        ];
+
+        // Perform the payment completion
+        $response = $gateway->completePurchase($parameters)->send();
+
+        // Check if the payment was successful
+        if ($response->isSuccessful()) {
+            $email = auth()->user()->email;
+            $arr = $response->getData();
+            
+            // Orders
+
+            $data = [
+                'user_id' => auth()->id(),
+                'payment_type' => $arr['payer']['payment_method'],
+                'payment_id' => $arr['id'],
+                'paying_amount' => $arr['transactions']['0']['amount']['total'],
+                'balance_transaction' => $arr['transactions']['0']['related_resources']['0']['sale']['id'],
+                'order_id' => null,
+                'shipping' => $this->settings->shipping_charge,
+                'vat' => $this->settings->vat,
+                'total' => $arr['transactions']['0']['amount']['total'],
+                'subtotal' => Session::has('coupon') ? Session::get('coupon')['balance'] : Cart::subtotal(),
+                'status' => 0,
+                'date' => date('d-m-y'),
+                'month' => date('F'),
+                'year' => date('Y'),
+                'status_code' => mt_rand(100000,999999),
+            ];
+
+            $order_id = DB::table('orders')->insertGetId($data);
+
+            // Mail to User
+
+            Mail::to($email)->send(new InvoiceMail($data));
+
+            $shipping = array_merge(['order_id' => $order_id], $shipping_info);
+
+            Session::forget('shipping');
+            DB::table('shipping')->insert($shipping);
+
+            // Order Details
+
+            $content = Cart::content();
+
+            foreach($content as $item) {
+                $details = [
+                    'order_id' => $order_id,
+                    'product_id' => $item->id,
+                    'product_name' => $item->name,
+                    'color' => $item->options->color,
+                    'size' => $item->options->size,
+                    'qty' => $item->qty,
+                    'single_price' => $item->price,
+                    'total_price' => $item->price*$item->qty,
+                ];
+                DB::table('order_details')->insert($details);
+            }
+
+            Cart::destroy();
+            if(Session::has('coupon')) Session::forget('coupon');
+
+            // Payment successful, perform further actions (e.g., update database, send notifications)
+            return redirect()->route('payment.success');
+        } else {
+            // Payment failed, redirect to failure page
+            return redirect()->route('payment.failure');
+        }
+    }
+
+    public function oncashCharge(Request $request)
+    {
+        $email = auth()->user()->email;
+            // Orders
+
+            $data = [
+                'user_id' => auth()->id(),
+                'payment_type' => $request->payment_type,
+                'shipping' => $this->settings->shipping_charge,
+                'vat' => $this->settings->vat,
                 'total' => $request->total,
                 'subtotal' => Session::has('coupon') ? Session::get('coupon')['balance'] : Cart::subtotal(),
                 'status' => 0,
@@ -120,10 +251,11 @@ class PaymentController extends Controller
 
             // Shipping
 
-            $shipping_info = json_decode($request->shipping_info, true);
+            $shipping_info = Session::get('shipping');
 
             $shipping = array_merge(['order_id' => $order_id], $shipping_info);
 
+            Session::forget('shipping');
             DB::table('shipping')->insert($shipping);
 
             // Order Details
@@ -155,79 +287,19 @@ class PaymentController extends Controller
             return redirect()->route('home')->with($notification);
     }
 
-    public function paymentSuccess(Request $request) 
+    public function paymentSuccess() 
     {
-        if($request->payment_intent && $request->payment_intent_client_secret && $request->redirect_status == 'succeeded') {
-            Cart::destroy();
-            return view('pages.payment.complete');
-        } else {
-            abort(404);
-        }
+        Cart::destroy();
+        return view('pages.payment.success');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function paymentCancel() 
     {
-        //
+        return view('pages.payment.cancel');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorePaymentRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StorePaymentRequest $request)
+    public function paymentFailure() 
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Payment $payment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Payment $payment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatePaymentRequest  $request
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatePaymentRequest $request, Payment $payment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Payment $payment)
-    {
-        //
+        return view('pages.payment.failure');
     }
 }

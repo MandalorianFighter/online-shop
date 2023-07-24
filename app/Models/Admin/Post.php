@@ -9,11 +9,15 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
+use App\Models\PageSeo;
 
 
 class Post extends Model implements HasMedia, TranslatableContract
 {
     use HasFactory, InteractsWithMedia, Translatable;
+    use HasSlug;
 
     public $translatedAttributes = ['title', 'full_text'];
 
@@ -23,11 +27,44 @@ class Post extends Model implements HasMedia, TranslatableContract
     protected $with = ['category'];
 
     /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('title')
+            ->saveSlugsTo('slug')
+            ->usingSeparator('-')
+            ->preventOverwrite();
+    }
+
+    public function regenerateSlug()
+    {
+        $this->generateSlug();
+        $this->save();
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    /**
      * Get the category that owns the post.
      */
     public function category()
     {
         return $this->belongsTo(BlogCategory::class);
+    }
+
+    public function pageSeo()
+    {
+        return $this->morphOne(PageSeo::class, 'pageable');
     }
 
     public function translate(?string $locale = null, bool $withFallback = false): ?Model 

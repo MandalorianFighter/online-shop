@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Password;
 use Laravel\Fortify\Contracts\FailedPasswordResetLinkRequestResponse;
-use Laravel\Fortify\Contracts\RequestPasswordResetLinkViewResponse;
 use Laravel\Fortify\Contracts\SuccessfulPasswordResetLinkRequestResponse;
 use Laravel\Fortify\Fortify;
 
@@ -52,8 +51,8 @@ class PasswordResetLinkController extends Controller
      *
      * @return \Illuminate\Contracts\Auth\PasswordBroker
      */
-    protected function broker(): PasswordBroker
+    protected function broker(string $string): PasswordBroker
     {
-        return Password::broker('admins');
+        return Password::broker($string);
     }
 }

@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin\Category;
+use App\Models\Admin\Post;
 use App\Models\Admin\Product;
 use Illuminate\Http\Request;
+use App\Models\Admin\Brand;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    public function indexCategories()
+    public function indexCategories(Request $request)
     {
         $categories = Category::withOnly('subcategories')->get();
         $slider = Product::where('status',1)->where('main_slider',1)->first();
@@ -25,9 +28,11 @@ class HomeController extends Controller
         $sCproducts = Product::where('category_id', $secondCategory->id)->where('status',1)->orderBy('id','desc')->limit(10)->get();
 
         $buyGet = Product::where('status',1)->where('buyone_getone',1)->orderBy('id','desc')->limit(6)->withOnly('brand')->get();
-        
-        // return response()->json($categories);
-        return view('pages.index', compact('categories', 'slider', 'featured', 'trend', 'best', 'hot', 'midSlider', 'firstCategory', 'fCproducts', 'secondCategory', 'sCproducts', 'buyGet'));
+
+        $brands = Brand::all();
+
+        $posts = Post::all();
+        return view('pages.index', compact('categories', 'slider', 'featured', 'trend', 'best', 'hot', 'midSlider', 'firstCategory', 'fCproducts', 'secondCategory', 'sCproducts', 'buyGet', 'brands', 'posts'));
     }
 
 }

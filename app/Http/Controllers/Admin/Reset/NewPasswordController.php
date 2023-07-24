@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Password;
 use Laravel\Fortify\Actions\CompletePasswordReset;
 use Laravel\Fortify\Contracts\FailedPasswordResetResponse;
 use Laravel\Fortify\Contracts\PasswordResetResponse;
-use Laravel\Fortify\Contracts\ResetPasswordViewResponse;
 use App\Actions\Fortify\ResetAdminPassword;
 use Laravel\Fortify\Fortify;
 
@@ -85,8 +84,8 @@ class NewPasswordController extends Controller
      *
      * @return \Illuminate\Contracts\Auth\PasswordBroker
      */
-    protected function broker(): PasswordBroker
+    protected function broker(string $string): PasswordBroker
     {
-        return Password::broker('admins');
+        return Password::broker($string);
     }
 }

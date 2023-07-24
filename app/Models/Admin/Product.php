@@ -11,10 +11,14 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Support\Str;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
+use App\Models\PageSeo;
 
 class Product extends Model implements HasMedia, TranslatableContract
 {
     use HasFactory, InteractsWithMedia, Translatable;
+    use HasSlug;
 
     const LIMIT = 16;
     const DET_LIMIT = 500;
@@ -45,6 +49,34 @@ class Product extends Model implements HasMedia, TranslatableContract
 
     // protected $with = ['category', 'subcategory', 'brand:id,brand_name'];
 
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('product_name')
+            ->saveSlugsTo('slug')
+            ->usingSeparator('-')
+            ->preventOverwrite();
+    }
+
+    public function regenerateSlug()
+    {
+        $this->generateSlug();
+        $this->save();
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -68,6 +100,11 @@ class Product extends Model implements HasMedia, TranslatableContract
     public function orderDetails()
     {
         return $this->hasMany(OrderDetails::class);
+    }
+
+    public function pageSeo()
+    {
+        return $this->morphOne(PageSeo::class, 'pageable');
     }
 
     public function translate(?string $locale = null, bool $withFallback = false): ?Model 

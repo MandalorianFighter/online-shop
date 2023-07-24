@@ -5,6 +5,9 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/blog_single_responsive.css') }}">
 
 <!-- Single Blog Post -->
+<div class="home">
+	<div class="home_background parallax-window" data-parallax="scroll" data-image-src="{{ $post->getFirstMediaUrl('posts') }}" data-speed="0.8"></div>
+</div>
 
 <div class="single_post">
 		<div class="container">

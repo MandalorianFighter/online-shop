@@ -44,21 +44,10 @@
 							</div>
 						</div>
 						<div class="sidebar_section">
-							<div class="sidebar_subtitle color_subtitle">Color</div>
-							<ul class="colors_list">
-								<li class="color"><a href="#" style="background: #b19c83;"></a></li>
-								<li class="color"><a href="#" style="background: #000000;"></a></li>
-								<li class="color"><a href="#" style="background: #999999;"></a></li>
-								<li class="color"><a href="#" style="background: #0e8ce4;"></a></li>
-								<li class="color"><a href="#" style="background: #df3b3b;"></a></li>
-								<li class="color"><a href="#" style="background: #ffffff; border: solid 1px #e1e1e1;"></a></li>
-							</ul>
-						</div>
-						<div class="sidebar_section">
 							<div class="sidebar_subtitle brands_subtitle">Brands</div>
 							<ul class="brands_list">
                                 @forelse($brands as $brand)
-								<li class="brand"><a href="#">{{ $brand->brand_name }}</a></li>
+								<li class="brand"><a data-slug="{{ $brand->slug }}" href="#">{{ $brand->brand_name }}</a></li>
                                 @empty
 								<li class="brand">No Brands found</li>
                                 @endforelse
@@ -83,7 +72,7 @@
 										<ul>
 											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "original-order" }'>highest rated</li>
 											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "name" }'>name</li>
-											<li class="shop_sorting_button"data-isotope-option='{ "sortBy": "price" }'>price</li>
+											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "price" }'>price</li>
 										</ul>
 									</li>
 								</ul>
@@ -105,10 +94,12 @@
                                     @else
                                     <div class="product_price discount">${{ $item->discount_price }}<span>${{ $item->selling_price }}</span></div>
                                     @endif
-
+								
 									<div class="product_name"><div><a href="{{ route('product.details', $item) }}" tabindex="0" title="{{ $item->product_name }}">{{ $item->limitName() }}</a></div></div>
 								</div>
-								<div class="product_fav"><i class="fas fa-heart"></i></div>
+								<a id="wishlist" data-id="{{ $item->id }}">
+									<div class="product_fav"><i class="fas fa-heart"></i></div>
+								</a>
 								<ul class="product_marks">
                                     @if(!$item->discount_price) 
                                     <li class="product_mark product_new">new</li>
@@ -135,5 +126,8 @@
 			</div>
 		</div>
 	</div>
+
+	@include('pages.user.recently_viewed')
+	
     <script src="{{ asset('frontend/plugins/jquery-ui-1.12.1.custom/jquery-ui.js') }}"></script>
 @endsection

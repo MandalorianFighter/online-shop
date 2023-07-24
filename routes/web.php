@@ -48,8 +48,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config
     Route::group(['middleware' => 'admin.access:other'], function () {
         Route::resource('newsletters', Category\NewsletterController::class)->only(['index']);
         // Seo Settings Routes
-        Route::get('/seo-settings', 'SeoController@seo')->name('admin.seo');
-        Route::put('/seo-settings/update/{seo}', 'SeoController@seoUpdate')->name('admin.seo.update');
+        Route::get('/seo-settings', 'SeoController@index')->name('admin.seo.index');
+        Route::get('/seo-settings/create', 'SeoController@create')->name('admin.seo.create');
+        Route::post('/seo-settings/store', 'SeoController@store')->name('admin.seo.store');
+        Route::get('/seo-settings/{seo}/edit', 'SeoController@edit')->name('admin.seo.edit');
+        Route::put('/seo-settings/update/{seo}', 'SeoController@update')->name('admin.seo.update');
     });
     Route::group(['middleware' => 'admin.access:product'], function () {
         Route::resource('products', ProductController::class);
@@ -94,10 +97,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config
         Route::get('/request/order-approve/{order}', 'ReturnOrderController@approve')->name('admin.return_approve');
         Route::get('/request/orders/all-returns', 'ReturnOrderController@allReturns')->name('admin.all_returns');
     });
-    
+    Route::group(['middleware' => 'admin.access:stock'], function () {
         Route::get('/products-stock', 'ProductController@productStock')->name('products.stock');
-    
-    
+    });
+    Route::group(['middleware' => 'admin.access:contact'], function () {
+        Route::get('/messages', 'ContactController@indexMessages')->name('messages.index');
+        Route::get('/messages/{message}', 'ContactController@viewMessage')->name('message.show');
+    });
+
     // Admin change password
     
     Route::get('/password', 'AdminProfileController@changePass')->name('admin.password.change');
@@ -117,7 +124,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin'], 'namespace' 
     Route::post('/login', 'AdminController@store')->name('admin.login');
     
     Route::get('/forgot-password', 'Admin\Reset\PasswordResetLinkController@create')->name('admin.password.request');
-    Route::post('/forgot-password', 'Admin\Reset\PasswordResetLinkController@store')->name('admin.password.email');
+    Route::post('/forgot-password/store', 'Admin\Reset\PasswordResetLinkController@store')->name('admin.password.email');
     
     Route::post('/reset-password', 'Admin\Reset\NewPasswordController@store')->name('admin.pass-reset.update');
     Route::get('/reset-password/{token}', 'Admin\Reset\NewPasswordController@create')->name('admin.password.reset');
@@ -129,6 +136,9 @@ Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'),'verifie
     Route::get('/dashboard', 'App\Http\Controllers\UserController@dashboard')->name('dashboard');
     Route::get('/order/view/{order}', 'App\Http\Controllers\UserController@viewOrder')->name('view.order');
 
+    Route::get('/user/profile/edit', 'App\Http\Controllers\UserController@editProfile')->name('profile.edit');
+    Route::put('/user/profile/update/{user}', 'App\Http\Controllers\UserController@updateProfile')->name('profile.update');
+
     Route::get('/password-change', 'App\Http\Controllers\UserController@changePass')->name('password.change');
     Route::put('/password-update/{user}', 'App\Http\Controllers\UserController@updatePass')->name('password.change.update');
     Route::get('/user/logout', 'App\Http\Controllers\UserController@logout')->name('user.logout');
@@ -137,7 +147,8 @@ Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'),'verifie
     Route::get('/user/payment', 'App\Http\Controllers\CartController@payment')->name('user.payment');
     Route::post('/user/payment/process', 'App\Http\Controllers\PaymentController@payment')->name('user.payment.process');
     Route::post('/user/stripe/charge', 'App\Http\Controllers\PaymentController@stripeCharge')->name('stripe.charge');
-    Route::get('/payment/success', 'App\Http\Controllers\PaymentController@paymentSuccess')->name('payment.success');
+    Route::post('/user/oncash/charge', 'App\Http\Controllers\PaymentController@oncashCharge')->name('oncash.charge');
+    
     Route::get('/user/wishlist', 'App\Http\Controllers\CartController@wishlist')->name('user.wishlist');
 
     Route::post('/user/coupon', 'App\Http\Controllers\CartController@coupon')->name('apply.coupon');
@@ -151,6 +162,12 @@ Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'),'verifie
 
     Route::get('/order/list/success', 'App\Http\Controllers\UserController@listSuccess')->name('order_list.success');
     Route::post('/order/return', 'App\Http\Controllers\UserController@orderReturn')->name('order.return');
+
+    Route::post('/user/paypal/create', 'App\Http\Controllers\PaymentController@paypalCreate')->name('paypal.create');
+    Route::get('/user/paypal/execute', 'App\Http\Controllers\PaymentController@paypalCharge')->name('paypal.execute');
+    Route::get('/payment/success', 'App\Http\Controllers\PaymentController@paymentSuccess')->name('payment.success');
+    Route::get('/payment/cancel', 'App\Http\Controllers\PaymentController@paymentCancel')->name('payment.cancel');
+    Route::get('/payment/failure', 'App\Http\Controllers\PaymentController@paymentFailure')->name('payment.failure');
 });
 
 // Frontend Routes
@@ -190,3 +207,10 @@ Route::get('/blog/posts/show/{post}', 'App\Http\Controllers\BlogController@show'
 // Frontend Subcategory
 Route::get('/products/subcategory/{subcategory}', 'App\Http\Controllers\ProductController@subcategoryProducts')->name('subcategory.products');
 Route::get('/products/category/{category}', 'App\Http\Controllers\ProductController@categoryProducts')->name('category.products');
+
+// Contact Page Route
+Route::get('/contact-page', 'App\Http\Controllers\Admin\ContactController@showForm')->name('contact.page');
+Route::post('/contact-message', 'App\Http\Controllers\Admin\ContactController@contactMessage')->name('contact.message');
+
+// Product Search Route
+Route::post('/product-search', 'App\Http\Controllers\ProductController@search')->name('product.search');

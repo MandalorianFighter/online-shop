@@ -85,7 +85,7 @@
 
                 <div class="col-lg-5 sign-form">
 					<div class="contact_form_container">
-						<div class="contact_form_title text-center">{{ __('Shipping Address') }}</div>
+						<div class="contact_form_title text-center">{{ __('Payment') }}</div>
 
             <form id="payment-form" method="POST" action="{{ route('stripe.charge') }}">
               @csrf
@@ -96,10 +96,7 @@
               <!-- We'll put the error messages in this element -->
               <div id="card-errors" role="alert"></div>
 
-              <input type="hidden" name="shipping_charge" value="{{ $settings->shipping_charge }}">
-              <input type="hidden" name="vat" value="{{ $settings->vat }}">
               <input type="hidden" name="total" value="{{ $total }}">
-              <input type="hidden" name="shipping_info" value="{{ $data }}">
               <input type="hidden" name="payment_type" value="{{ $payment_type }}">
 
               <button id="card-button" class="btn btn-dark">Submit Payment</button>

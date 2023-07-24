@@ -39,7 +39,11 @@
                     <x-sort-icon field="category_name" :sortField="$sortField" :sortAsc="$sortAsc" />
                 </div>
             </th>
-            
+            <th class="wd-20p">
+              <div class="d-flex align-items-center justify-content-start">
+                  <button class="btn btn-sm text-nowrap text-uppercase font-weight-bold p-0 disabled border-0 text-black ml-2" aria-disabled="true">{{ __('Category Logo') }}</button>
+              </div>
+            </th>
             <th class="wd-20p">
             <div class="d-flex align-items-center justify-content-center">
                 <button class="btn btn-sm text-nowrap text-uppercase font-weight-bold p-0 disabled border-0 text-black" aria-disabled="true">{{ __('Action') }}</button>
@@ -52,6 +56,7 @@
         <tr>
             <td>{{ $category->id }}</td>
             <td>{{ $category->category_name }}</td>
+            <td><img src="{{ $category->getFirstMediaUrl('categories') }}" alt="{{ $category->category_name }} logo" height="70em" max-width="100%"></td>
             <td>
             <div class="d-flex align-items-center justify-content-center">
             <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-info mr-2">{{ __('Edit') }}</a>
@@ -116,14 +121,18 @@
                   </div>
               @endif
 
-              {{ Form::open(['route' => 'categories.store']) }}
+              {{ Form::open(['route' => 'categories.store', 'files' => true]) }}
               <div class="modal-body pd-20">
               @foreach(config('translatable.locales') as $lang => $locale)
                 <div class="mb-3">
                   {{ Form::label($locale."[category_name]", __('Category Name') ." ($lang)", ['class' => 'form-label']) }}
                   {{ Form::text($locale."[category_name]", null, ['class' => 'form-control', 'placeholder' => __('Category Name') ." ($lang)"]) }}
                 </div>
-                @endforeach  
+                @endforeach 
+                <div class="mb-3">
+                  {{ Form::label('category_logo', __('Category Logo'), ['class' => 'form-label']) }}
+                  {{ Form::file('category_logo', ['class' => 'form-control', 'placeholder' => __('Category Logo')]) }}
+                </div> 
               </div><!-- modal-body -->
 
               <div class="modal-footer">

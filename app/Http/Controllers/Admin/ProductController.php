@@ -18,18 +18,17 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        $products = Product::all();
-        return view('admin.product.index', compact('products'));
+        return view('admin.product.index');
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -47,7 +46,7 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\Product\StoreProductRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreProductRequest $request)
     {
@@ -65,11 +64,18 @@ class ProductController extends Controller
             $product->attachImgThree($request->file('image_three'));
         }
 
+        $product->pageSeo()->create([
+            'page_url' => route('product.details', $product),
+            'page_title' => 'OneSport - ' .$product->product_name,
+            'meta_author' => 'OneSport Company',
+            'meta_description' => "Discover our $product->product_name at OneSport. Browse through a wide selection of top-quality sports clothes and equipment designed to enhance your performance. Get the best deals on $product->product_name and take your sport to the next level with OneSport.",
+        ]);
+
         $notification = array(
             'message' => __('Product Is Added Successfully!'),
             'alert-type' => 'success',
         );
-
+ 
         return redirect()->route('products.index')->with($notification);
     }
 
@@ -77,11 +83,10 @@ class ProductController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Admin\Product  $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function show(Product $product)
     {
-        // return response()->json($product);
         return view('admin.product.show', compact('product'));
     }
 
@@ -89,7 +94,7 @@ class ProductController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Admin\Product  $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit(Product $product)
     {
@@ -109,7 +114,7 @@ class ProductController extends Controller
      *
      * @param  \App\Http\Requests\Product\UpdateProductRequest  $request
      * @param  \App\Models\Admin\Product  $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
@@ -128,7 +133,7 @@ class ProductController extends Controller
      *
      * @param  \App\Http\Requests\Product\UpdateImageRequest  $request
      * @param  \App\Models\Admin\Product  $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function updateImages(UpdateImageRequest $request, Product $product)
     {
@@ -154,12 +159,12 @@ class ProductController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Admin\Product  $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Product $product)
     {
-        $wish = Wishlist::where('prod_id', $product->id)->get();
-        $wish->delete();
+        Wishlist::where('prod_id', $product->id)->delete();
+        $product->pageSeo()->delete();
         $product->delete();
         $notification = array(
             'message' => __('Product Is Deleted Successfully!'),

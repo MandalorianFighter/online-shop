@@ -25,6 +25,7 @@ class StoreCategoryRequest extends FormRequest
     {
         $rules = [
             'en.category_name' => 'required|max:255|unique:categories',
+            'category_logo' => 'image|max:5120|mimes:jpeg,jpg,png|dimensions:min_width=200,min_height=200',
         ];
 
         foreach(config('translatable.locales') as $lang => $locale) {

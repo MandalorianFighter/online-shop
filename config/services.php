@@ -37,6 +37,15 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'paypal' => [
+        'driver' => 'PayPal_Rest',
+        'options' => [
+            'clientId' => env('PAYPAL_CLIENT_ID'),
+            'secret' => env('PAYPAL_SECRET'),
+            'testMode' => env('PAYPAL_TEST_MODE', true),
+        ],
+    ],
+
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),

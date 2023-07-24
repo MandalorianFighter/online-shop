@@ -27,14 +27,22 @@
                   </div>
               @endif
 
-              {{ Form::model($category, ['route' => ['categories.update', $category], 'method' => 'PUT']) }}
+              {{ Form::model($category, ['route' => ['categories.update', $category], 'method' => 'PUT', 'files' => true]) }}
               <div class="modal-body pd-20">
                 @foreach(config('translatable.locales') as $lang => $locale)
                 <div class="mb-3">
                   {{ Form::label($locale."[category_name]", __('Category Name') ." ($lang)", ['class' => 'form-label']) }}
                   {{ Form::text($locale."[category_name]", $category->translate($locale)->category_name, ['class' => 'form-control']) }}
                 </div>
-                @endforeach   
+                @endforeach  
+                <div class="mb-3">
+                  {{ Form::label('category_logo', __('Category Logo'), ['class' => 'form-label']) }}
+                  {{ Form::file('category_logo', ['class' => 'form-control']) }}
+                </div>
+                <div class="mb-3">
+                  {{ Form::label('old_category_logo', __('Current Category Logo'), ['class' => 'form-label']) }}
+                  <img id="old_category_logo" src="{{ $category->getFirstMediaUrl('categories') }}" alt="logo"  height="70em" max-width="100%">
+                </div> 
               </div><!-- modal-body -->
 
               <div class="modal-footer">

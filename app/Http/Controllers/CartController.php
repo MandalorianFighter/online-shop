@@ -16,31 +16,12 @@ use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\Cart\StoreCartRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
 
     public function store(StoreCartRequest $request)
@@ -79,7 +60,7 @@ class CartController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Admin\Product  $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function show()
     {
@@ -100,17 +81,6 @@ class CartController extends Controller
             'colors' => $product_colors,
             'sizes' => $product_sizes,
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Admin\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product)
-    {
-        //
     }
     
     public function updateItem(UpdateCartItemRequest $request)
@@ -228,9 +198,6 @@ class CartController extends Controller
         );
 
         return redirect()->back()->with($notification);
-
-        // return response()->json($wishProducts);
-        
     }
 
     public function couponRemove()
@@ -242,10 +209,7 @@ class CartController extends Controller
             'alert-type' => 'warning',
         );
 
-        return redirect()->back()->with($notification);
-
-        // return response()->json($wishProducts);
-        
+        return redirect()->back()->with($notification);       
     }
 
     public function updateCheck(Request $request)

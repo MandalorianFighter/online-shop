@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
@@ -20,6 +22,7 @@ class User extends Authenticatable implements HasMedia
     use HasProfilePhoto;
     use TwoFactorAuthenticatable;
     use InteractsWithMedia;
+    use HasSlug;
 
     /**
      * The attributes that are mass assignable.
@@ -32,7 +35,6 @@ class User extends Authenticatable implements HasMedia
         'email',
         'provider_id',
         'password',
-        'profile_photo_path',
     ];
 
     /**
@@ -65,6 +67,34 @@ class User extends Authenticatable implements HasMedia
         'profile_photo_url',
     ];
 
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug')
+            ->usingSeparator('-')
+            ->preventOverwrite();
+    }
+
+    public function regenerateSlug()
+    {
+        $this->generateSlug();
+        $this->save();
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function wishlist()
     {
         return $this->hasOne(Wishlist::class);
@@ -73,6 +103,11 @@ class User extends Authenticatable implements HasMedia
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function pageSeo()
+    {
+        return $this->morphOne(PageSeo::class, 'pageable');
     }
 
     public function registerMediaCollections(): void
@@ -107,7 +142,7 @@ class User extends Authenticatable implements HasMedia
             ->usingName(time())
             ->toMediaCollection('users/avatar');
         } else {
-            return $this->addMedia(public_path('default/batman-icon.png'))
+            return $this->addMedia(public_path('default/default-avatar.jpeg'))
             ->preservingOriginal()
             ->toMediaCollection('users/avatar');
         }        

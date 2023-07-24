@@ -6,16 +6,48 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
+use App\Models\PageSeo;
 
 class Subcategory extends Model implements TranslatableContract
 {
     use HasFactory, Translatable;
+    use HasSlug;
 
     public $translatedAttributes = ['subcategory_name'];
 
     protected $fillable = ['category_id'];
 
     protected $guarded = ['id'];
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('category_name')
+            ->saveSlugsTo('slug')
+            ->usingSeparator('-')
+            ->preventOverwrite();
+    }
+
+    public function regenerateSlug()
+    {
+        $this->generateSlug();
+        $this->save();
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     /**
      * Get the category that owns the subcategory.
@@ -28,6 +60,11 @@ class Subcategory extends Model implements TranslatableContract
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function pageSeo()
+    {
+        return $this->morphOne(PageSeo::class, 'pageable');
     }
 
     public function translate(?string $locale = null, bool $withFallback = false): ?Model 

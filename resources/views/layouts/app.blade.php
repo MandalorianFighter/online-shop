@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>OneTech</title>
+<title>{{ $seo->page_title ?? '' }}</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="OneTech shop project">
+<meta name="description" content="{{ $seo->meta_description ?? '' }}">
+<meta name="keywords" content="{{ $seo->meta_keywords ?? '' }}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/bootstrap4/bootstrap.min.css') }}">
 <link href="{{ asset('frontend/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css') }}" rel="stylesheet" type="text/css">
@@ -17,9 +18,9 @@
 
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
-<script src="https://js.stripe.com/v3/"></script>
 <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=64a7ab13df473b0019d1b1b4&product=inline-share-buttons' async='async'></script>
-<!-- <script src="{{ asset('frontend/js/checkout.js') }}" defer></script> -->
+<script src="https://js.stripe.com/v3/"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=ARGpVcHc0UGc2RUuA3QrdIFONDmDF6VkW8yId1bAJ683qj2YMv0SLTlVZO3QQ3I6fsyUSM_fgtgcyunB&currency=USD"></script>
 </head>
 
 <body>
@@ -109,15 +110,16 @@
 						<div class="header_search">
 							<div class="header_search_content">
 								<div class="header_search_form_container">
-									<form action="#" class="header_search_form clearfix">
-										<input type="search" required="required" class="header_search_input" placeholder="{{ __('Search for products...') }}">
+									<form method="post" action="{{ route('product.search') }}" class="header_search_form clearfix" id="search_form">
+										@csrf
+										<input type="search" name="search" required="required" class="header_search_input" placeholder="{{ __('Search for products...') }}">
 										<div class="custom_dropdown">
 											<div class="custom_dropdown_list">
 												<span class="custom_dropdown_placeholder clc">{{ __('All Categories') }}</span>
 												<i class="fas fa-chevron-down"></i>
 												<ul class="custom_list clc">
 													@foreach($categories as $category)
-													<li><a class="clc" href="#">{{ $category->category_name }}</a></li>
+													<li><a class="clc category-link" data-slug="{{ $category->slug }}" href="#">{{ $category->category_name }}</a></li>
 													@endforeach
 												</ul>
 											</div>
@@ -205,15 +207,15 @@
 					<div class="footer_column">
 						<div class="footer_title">{{ __('Find it Fast') }}</div>
 						<ul class="footer_list">
-							<li><a href="#">{{ __('Computers & Laptops') }}</a></li>
-							<li><a href="#">{{ __('Cameras & Photos') }}</a></li>
-							<li><a href="#">{{ __('Hardware') }}</a></li>
-							<li><a href="#">{{ __('Smartphones & Tablets') }}</a></li>
-							<li><a href="#">{{ __('TV & Audio') }}</a></li>
-						</ul>
-						<div class="footer_subtitle">{{ __('Gadgets') }}</div>
-						<ul class="footer_list">
-							<li><a href="#">{{ __('Car Electronics') }}</a></li>
+							@forelse($categories->take(7) as $item)
+								@if(Request()->url() == route('category.products', $item))
+								<div class="footer_subtitle mb-2 mt-2">{{ $item->category_name }}</div>
+								@else
+								<li><a href="{{ route('category.products', $item) }}">{{ $item->category_name }}</a></li>
+								@endif
+							@empty
+							<div class="footer_subtitle mb-2 mt-2">{{ __('No Fast Links Found.') }}</div>
+							@endforelse
 						</ul>
 					</div>
 				</div>
@@ -221,11 +223,15 @@
 				<div class="col-lg-2">
 					<div class="footer_column">
 						<ul class="footer_list footer_list_2">
-							<li><a href="#">{{ __('Video Games & Consoles') }}</a></li>
-							<li><a href="#">{{ __('Accessories') }}</a></li>
-							<li><a href="#">{{ __('Cameras & Photos') }}</a></li>
-							<li><a href="#">{{ __('Hardware') }}</a></li>
-							<li><a href="#">{{ __('Computers & Laptops') }}</a></li>
+							@forelse($categories->slice(7) as $item)
+								@if(Request()->url() == route('category.products', $item))
+								<div class="footer_subtitle mb-2 mt-2">{{ $item->category_name }}</div>
+								@else
+								<li><a href="{{ route('category.products', $item) }}">{{ $item->category_name }}</a></li>
+								@endif
+							@empty
+							<div class="footer_subtitle mb-2 mt-2">{{ __('No Fast Links Found.') }}</div>
+							@endforelse
 						</ul>
 					</div>
 				</div>
@@ -234,13 +240,12 @@
 					<div class="footer_column">
 						<div class="footer_title">{{ __('Customer Care') }}</div>
 						<ul class="footer_list">
-							<li><a href="#">{{ __('My Account') }}</a></li>
-							<li><a href="#">{{ __('Order Tracking') }}</a></li>
-							<li><a href="#">{{ __('Wish List') }}</a></li>
-							<li><a href="#">{{ __('Customer Services') }}</a></li>
-							<li><a href="#">{{ __('Returns / Exchange') }}</a></li>
-							<li><a href="#">{{ __('FAQs') }}</a></li>
-							<li><a href="#">{{ __('Product Support') }}</a></li>
+							<li><a href="{{ route('dashboard') }}">{{ __('My Account') }}</a></li>
+							<li><a href="{{ route('user.wishlist') }}">{{ __('Wish List') }}</a></li>
+							<li class="text-secondary"><a >{{ __('Customer Services') }}</a></li>
+							<li><a href="{{ route('order_list.success') }}">{{ __('Returns / Exchange') }}</a></li>
+							<li class="text-secondary"><a >{{ __('FAQs') }}</a></li>
+							<li class="text-secondary"><a >{{ __('Product Support') }}</a></li>
 						</ul>
 					</div>
 				</div>
@@ -315,8 +320,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="{{ asset('frontend/plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
 <script src="{{ asset('frontend/plugins/slick-1.8.0/slick.js') }}"></script>
 <script src="{{ asset('frontend/plugins/easing/easing.js') }}"></script>
+<script src="{{ asset('frontend/plugins/Isotope/isotope.pkgd.min.js') }}"></script>
+<script src="{{ asset('frontend/plugins/jquery-ui-1.12.1.custom/jquery-ui.js') }}"></script>
+<script src="{{ asset('frontend/plugins/parallax-js-master/parallax.min.js') }}"></script>
 <script src="{{ asset('frontend/js/custom.js') }}"></script>
-
+<script src="{{ asset('frontend/js/shop_custom.js') }}"></script>
 <script src="{{ asset('frontend/js/product_custom.js') }}"></script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
@@ -341,7 +349,23 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
           }
         @endif
      </script> 
-	 
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#show-more-button').click(function() {
+        $('#more').toggle(); // Toggle the display of the hidden portion of the description
+        $('#show-more-button').hide(); // Hide the "Show more" button
+        $('#show-less-button').show(); // Show the "Show less" button
+    });
+
+    $('#show-less-button').click(function() {
+        $('#more').toggle(); // Toggle the display of the hidden portion of the description
+        $('#show-less-button').hide(); // Hide the "Show less" button
+        $('#show-more-button').show(); // Show the "Show more" button
+    });
+});
+</script> 
+
 <script type="text/javascript">
   $(document).on('click', '#wishlist', function(e) {
 	e.preventDefault();
@@ -554,6 +578,29 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		var order_id = $(this).attr('id');
 		$('#order_id').val(order_id);
     });
+</script>
+<script>
+    $(document).ready(function() {
+        $('.category-link').click(function(e) {
+            e.preventDefault();
+			const selectedCategory = $(e.target).data('slug');
+
+			$('#search_form').attr('action', "{{ route('product.search') }}?category=" + encodeURIComponent(selectedCategory));
+		});
+	});
+</script>
+<script>
+    $(document).ready(function() {
+        $('.brand a').click(function(e) {
+            e.preventDefault();
+			const selectedBrand = $(e.target).data('slug');
+			var currentURL = window.location.href;
+			var baseURL = currentURL.split('?')[0];
+			var newURL = baseURL + (baseURL.includes('?') ? '&' : '?') + 'brand=' + encodeURIComponent(selectedBrand);
+
+		    window.location.href = newURL;
+		});
+	});
 </script>
 </body>
 

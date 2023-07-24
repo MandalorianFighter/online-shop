@@ -55,6 +55,12 @@
 
               @endforeach
 
+              <div class="col-lg-12">
+                <div class="form-group">
+                  {!! Html::decode(Form::label('author', __('Post Author'). ": <span class='tx-danger'>*</span>", ['class' => 'form-control-label'])) !!}
+                  {{ Form::text('author', null, ['class' => 'form-control', 'placeholder' => __('Enter Post Author')]) }}
+                </div>
+              </div><!-- col-4 -->
               <!-- <div class="col-lg-6">
                 <div class="form-group">
                   {!! Html::decode(Form::label('post_title_ukr', __('Post Title') . ' (Uk): <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
@@ -87,7 +93,7 @@
             <hr>
 
             <div class="form-layout-footer">
-            {{ Form::submit(__('Submit Form'), ['class' => 'btn btn-info mg-r-5']) }}
+            {{ Form::submit(__('Create Post'), ['class' => 'btn btn-info mg-r-5']) }}
             </div><!-- form-layout-footer -->
           </div><!-- form-layout -->
         </div><!-- card -->

@@ -146,9 +146,9 @@
 						<div class="contact_form_title text_center">{{__('Payment By:')}}</div>
 						<div class="form-group">
 							<ul class="logos_list">
-								<li><input type="radio" name="payment_type" value="stripe"><img src="{{ asset('frontend/images/stripe.png') }}" alt="" style="max-height: 80px;"></li>
-								<li><input type="radio" name="payment_type" value="paypal"><img src="{{ asset('frontend/images/paypal.png') }}" alt="" style="max-height: 80px;"></li>
-								<li><input type="radio" name="payment_type" value="ideal"><img src="{{ asset('frontend/images/ideal.png') }}" alt="" style="max-height: 80px;"></li>
+								<li><input type="radio" name="payment_type" value="stripe"><img src="{{ asset('frontend/images/stripe.png') }}" alt="" style="max-height: 75px;"></li>
+								<li><input type="radio" name="payment_type" value="paypal"><img src="{{ asset('frontend/images/paypal.png') }}" alt="" style="max-height: 75px;"></li>
+								<li><input type="radio" name="payment_type" value="oncash"><img src="{{ asset('frontend/images/cash-on-delivery.png') }}" alt="" style="max-height: 75px;"></li>
 							</ul>
 						</div>
 
