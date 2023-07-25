@@ -38,8 +38,10 @@
 			<div class="container">
 				<div class="row">
 					<div class="col d-flex flex-row">
+					@if($info)
 						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/phone.png') }}" alt=""></div>{{ $info->phone_one }}</div>
 						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/mail.png') }}" alt=""></div><a href="mailto:{{ $info->company_email }}">{{ $info->company_email }}</a></div>
+					@endif
 						<div class="top_bar_content ms-auto">
 
 						@if(auth()->user())
@@ -118,9 +120,11 @@
 												<span class="custom_dropdown_placeholder clc">{{ __('All Categories') }}</span>
 												<i class="fas fa-chevron-down"></i>
 												<ul class="custom_list clc">
-													@foreach($categories as $category)
+													@forelse($categories as $category)
 													<li><a class="clc category-link" data-slug="{{ $category->slug }}" href="#">{{ $category->category_name }}</a></li>
-													@endforeach
+													@empty
+													<li><a class="clc" href="#">No Categories Found.</a></li>
+													@endforelse
 												</ul>
 											</div>
 										</div>
@@ -184,6 +188,7 @@
 				<div class="col-lg-3 footer_col">
 					<div class="footer_column footer_contact">
 						<div class="logo_container">
+							@if($info)
 							<div class="logo"><a href="#">{{ $info->company_name }}</a></div>
 						</div>
 						<div class="footer_title">{{ __('Got Question? Call Us 24/7') }}</div>
@@ -192,12 +197,24 @@
 							<p class="col-lg-8">{{ $info->company_address }}</p>
 							<!-- <p>{{ __('Grester London NW18JR, UK') }}</p> -->
 						</div>
+							@else
+							<div class="logo"><a href="#">Company</a></div>
+						</div>
+						<div class="footer_title">{{ __('Got Question? Call Us 24/7') }}</div>
+						<div class="footer_phone">+380999999999</div>
+						<div class="footer_contact_text">
+							<p class="col-lg-8">Company Address</p>
+							<!-- <p>{{ __('Grester London NW18JR, UK') }}</p> -->
+						</div>
+							@endif
 						<div class="footer_social">
 							<ul>
+							@if($info)
 								<li><a href="{{ $info->fb }}"><i class="fab fa-facebook-f"></i></a></li>
 								<li><a href="{{ $info->twitter }}"><i class="fab fa-twitter"></i></a></li>
 								<li><a href="{{ $info->youtube }}"><i class="fab fa-youtube"></i></a></li>
 								<li><a href="{{ $info->instagram }}"><i class="fab fa-instagram"></i></a></li>
+							@endif
 							</ul>
 						</div>
 					</div>
@@ -286,18 +303,18 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="orderTrackingModalLabel">Your Status Code</h1>
+        <h1 class="modal-title fs-5" id="orderTrackingModalLabel">{{ __('Your Status Code') }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form action="{{ route('order.tracking') }}" method="post">
 			@csrf
 			<div class="modal-body">
-				<label for="status_code">Status Code</label>
-				<input type="text" name="status_code" id="status_code" required class="form-control" placeholder="Your Order Status Code">
+				<label for="status_code">{{ __('Status Code') }}</label>
+				<input type="text" name="status_code" id="status_code" required class="form-control" placeholder="{{ __('Your Order Status Code') }}">
 			</div>
 			<div class="modal-footer">
-			<button class="btn btn-primary" type="submit">Track Now</button>
+			<button class="btn btn-primary" type="submit">{{ __('Track Now') }}</button>
 			</div>
 		</form>
       </div>

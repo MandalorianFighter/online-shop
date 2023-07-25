@@ -13,7 +13,7 @@
     </div>
     
     <div class="input-group col-lg-2 float-right">
-    <input wire:model="search" class="form-control" type="search" name="search" placeholder="Search">
+    <input wire:model="search" class="form-control" type="search" name="search" placeholder="{{ __('Search') }}">
     </div>
     </div>
     </div>
@@ -89,9 +89,9 @@
             <td>{{ $order->date }}</td>
             <td>
             @if($order->return_order == 1)
-                <span class="badge badge-warning">Pending</span>
+                <span class="badge badge-warning">{{ __('Pending') }}</span>
             @elseif($order->return_order == 2)
-                <span class="badge badge-success">Success</span>
+                <span class="badge badge-success">{{ __('Success') }}</span>
             @endif
             </td>
             <td>
@@ -102,7 +102,7 @@
         </tr>
         @empty
         <tr>      
-          <td colspan="9" class="empty-table">No Orders Found.</td>
+          <td colspan="9" class="empty-table">{{ __('No Orders Found.') }}</td>
         </tr>
         @endforelse
         </tbody>

@@ -14,7 +14,7 @@
 						@endif
 					</div>
                         @if($recentlyViewed->isEmpty())
-                            <p>No recently viewed products.</p>
+                            <p>{{ __('No recently viewed products.') }}</p>
                         @else
 					<div class="viewed_slider_container">
 						

@@ -6,7 +6,7 @@
 
       <div class="sl-pagebody">
         <div class="sl-page-title">
-          <h5>{{ __('Return Orders') }}</h5>
+          <h5>{{ __('Orders Return') }}</h5>
         </div><!-- sl-page-title -->
 
         <livewire:return-orders />

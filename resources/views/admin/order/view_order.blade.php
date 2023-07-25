@@ -16,31 +16,31 @@
                             <div class="card-body">
                                 <table class="table">
                                     <tr>
-                                        <th>Name: </th>
+                                        <th>{{ __('Name:') }} </th>
                                         <th>{{ $order->user->name }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Phone: </th>
+                                        <th>{{ __('Phone') }}: </th>
                                         <th>{{ $order->user->phone }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Payment Type: </th>
+                                        <th>{{ __('Payment Type') }}: </th>
                                         <th>{{ $order->payment_type }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Paymnet ID: </th>
+                                        <th>{{ __('Payment ID') }}: </th>
                                         <th>{{ $order->payment_id }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Total: </th>
+                                        <th>{{ __('Total') }}: </th>
                                         <th>{{ $order->total }} $</th>
                                     </tr>
                                     <tr>
-                                        <th>Month: </th>
+                                        <th>{{ __('Month') }}: </th>
                                         <th>{{ $order->month }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Date: </th>
+                                        <th>{{ __('Date') }}: </th>
                                         <th>{{ $order->date }}</th>
                                     </tr>
                                 </table>
@@ -56,38 +56,38 @@
                             <div class="card-body">
                                 <table class="table">
                                     <tr>
-                                        <th>Name: </th>
+                                        <th>{{ __('Name:') }} </th>
                                         <th>{{ $shipping->shipping_name }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Phone: </th>
+                                        <th>{{ __('Phone') }}: </th>
                                         <th>{{ $shipping->shipping_phone }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Email: </th>
+                                        <th>{{ __('Email') }}: </th>
                                         <th>{{ $shipping->shipping_email }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Address: </th>
+                                        <th>{{ __('Address') }}: </th>
                                         <th>{{ $shipping->shipping_address }}</th>
                                     </tr>
                                     <tr>
-                                        <th>City: </th>
+                                        <th>{{ __('City') }}: </th>
                                         <th>{{ $shipping->shipping_city }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Status: </th>
+                                        <th>{{ __('Status') }}: </th>
                                         <th>
                                             @if($order->status == 0)
-                                                <span class="badge badge-warning">Pending</span>
+                                                <span class="badge badge-warning">{{ __('Pending') }}</span>
                                             @elseif($order->status == 1)
-                                            <span class="badge badge-info">Payment Accepted</span>
+                                            <span class="badge badge-info">{{ __('Payment Accepted') }}</span>
                                             @elseif($order->status == 2)
-                                            <span class="badge badge-warning">Progress</span>
+                                            <span class="badge badge-warning">{{ __('Progress') }}</span>
                                             @elseif($order->status == 3)
-                                            <span class="badge badge-success">Delivered</span>
+                                            <span class="badge badge-success">{{ __('Delivered') }}</span>
                                             @else
-                                            <span class="badge badge-danger">Canceled</span>
+                                            <span class="badge badge-danger">{{ __('Canceled') }}</span>
                                             @endif
                                         </th>
                                     </tr>
@@ -114,7 +114,7 @@
                         <th class="wd-10p">{{ __('Color') }}</th>
                         <th class="wd-10p">{{ __('Size') }}</th>
                         <th class="wd-10p">{{ __('Quantity') }}</th>
-                        <th class="wd-10p">{{ __('Unit Price') }}</th>
+                        <th class="wd-10p">{{ __('Price') }}</th>
                         <th class="wd-10p">{{ __('Total') }}</th>
                         </tr>
                     </thead>
@@ -141,16 +141,16 @@
 
                 </div>
             @if($order->status == 0)
-                <a href="{{ route('admin.accept_payment', $order) }}" class="btn btn-info">Payment Accept</a>
-                <a href="{{ route('admin.cancel_payment', $order) }}" class="btn btn-danger">Order Cancel</a>
+                <a href="{{ route('admin.accept_payment', $order) }}" class="btn btn-info">{{ __('Payment Accept') }}</a>
+                <a href="{{ route('admin.cancel_payment', $order) }}" class="btn btn-danger">{{ __('Order Cancel') }}</a>
             @elseif($order->status == 1)
-                <a href="{{ route('admin.process_delivery', $order) }}" class="btn btn-info">Process Delivery</a>
+                <a href="{{ route('admin.process_delivery', $order) }}" class="btn btn-info">{{ __('Process Delivery') }}</a>
             @elseif($order->status == 2)
-                <a href="{{ route('admin.delivery_success', $order) }}" class="btn btn-success">Delivery Done</a>
+                <a href="{{ route('admin.delivery_success', $order) }}" class="btn btn-success">{{ __('Delivery Done') }}</a>
             @elseif($order->status == 4)
-            <strong class="text-danger text-center">This order is not valid.</strong>
+            <strong class="text-danger text-center">{{ __('This order is not valid.') }}</strong>
             @else
-            <strong class="text-success text-center">This order is successfully delivered.</strong>
+            <strong class="text-success text-center">{{ __('This order is successfully delivered.') }}</strong>
             @endif
             <div/>
         </div>

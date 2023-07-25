@@ -25,31 +25,31 @@
 					<!-- Shop Sidebar -->
 					<div class="shop_sidebar">
 						<div class="sidebar_section">
-							<div class="sidebar_title">Categories</div>
+							<div class="sidebar_title">{{ __('Categories') }}</div>
 							<ul class="sidebar_categories">
                                 @forelse($categories as $category)
 								<li><a href="{{ route('category.products', $category) }}">{{ $category->category_name }}</a></li>
                                 @empty
-								<li>No Categories found</li>
+								<li>{{ __('No Categories found') }}</li>
                                 @endforelse
 							</ul>
 						</div>
 						<div class="sidebar_section filter_by_section">
-							<div class="sidebar_title">Filter By</div>
-							<div class="sidebar_subtitle">Price</div>
+							<div class="sidebar_title">{{ __('Filter By') }}</div>
+							<div class="sidebar_subtitle">{{ __('Price') }}</div>
 							<div class="filter_price">
 								<div id="slider-range" class="slider_range"></div>
-								<p>Range: </p>
+								<p>{{ __('Range:') }} </p>
 								<p><input type="text" id="amount" class="amount" readonly style="border:0; font-weight:bold;"></p>
 							</div>
 						</div>
 						<div class="sidebar_section">
-							<div class="sidebar_subtitle brands_subtitle">Brands</div>
+							<div class="sidebar_subtitle brands_subtitle">{{ __('Brands') }}</div>
 							<ul class="brands_list">
                                 @forelse($brands as $brand)
 								<li class="brand"><a data-slug="{{ $brand->slug }}" href="#">{{ $brand->brand_name }}</a></li>
                                 @empty
-								<li class="brand">No Brands found</li>
+								<li class="brand">{{ __('No Brands found') }}</li>
                                 @endforelse
 							</ul>
 						</div>
@@ -63,16 +63,16 @@
 
 					<div class="shop_content">
 						<div class="shop_bar clearfix">
-							<div class="shop_product_count"><span>{{ $products->count() }}</span> products found</div>
+							<div class="shop_product_count"><span>{{ $products->count() }}</span> {{ __('products found') }}</div>
 							<div class="shop_sorting">
-								<span>Sort by:</span>
+								<span>{{ __('Sort by:') }}</span>
 								<ul>
 									<li>
-										<span class="sorting_text">highest rated<i class="fas fa-chevron-down"></span></i>
+										<span class="sorting_text">{{ __('highest rated') }}<i class="fas fa-chevron-down"></span></i>
 										<ul>
-											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "original-order" }'>highest rated</li>
-											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "name" }'>name</li>
-											<li class="shop_sorting_button"data-isotope-option='{ "sortBy": "price" }'>price</li>
+											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "original-order" }'>{{ __('highest rated') }}</li>
+											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "name" }'>{{ __('name') }}</li>
+											<li class="shop_sorting_button"data-isotope-option='{ "sortBy": "price" }'>{{ __('price') }}</li>
 										</ul>
 									</li>
 								</ul>
@@ -110,7 +110,7 @@
 							</div>
                             @empty
                             <div class="d-flex justify-content-center">
-                            <h3 class="mt-3">No items found.</h3>    
+                            <h3 class="mt-3">{{ __('No items found.') }}</h3>    
                             </div>
                             
 							@endforelse

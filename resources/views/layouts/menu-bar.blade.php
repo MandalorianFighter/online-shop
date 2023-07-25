@@ -14,7 +14,7 @@
 						</div>
 
 						<ul class="cat_menu">
-							@foreach($categories as $category)
+							@forelse($categories as $category)
 							<li class="hassubs">
 								@if(count($category->subcategories))
 								<a href="{{ route('category.products', $category) }}">{{ $category->category_name }}<i class="fas fa-chevron-right"></i></a>
@@ -27,7 +27,9 @@
 								<a href="{{ route('category.products', $category) }}">{{ $category->category_name }}</a>
 								@endif
 							</li>
-							@endforeach
+							@empty
+							<a href="#">No Categories Found.</a>
+							@endforelse
 						</ul>
 					</div>
 

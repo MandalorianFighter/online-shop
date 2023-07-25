@@ -29,7 +29,7 @@
 
             <div class="col-lg-6">
                 <div class="form-group mg-b-10-force">
-                  {!! Html::decode(Form::label('page_title', __('Meta Title') . ': <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
+                  {!! Html::decode(Form::label('page_title', __('Page Title') . ': <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
                   {!! Form::text('page_title', $seo->page_title, ['class' => 'form-control', 'placeholder' => __('Enter Meta Title')]) !!}
                 </div>
             </div><!-- col-4 -->
@@ -73,7 +73,7 @@
             <hr>
 
             <div class="form-layout-footer">
-            {{ Form::submit(__('Update Seo'), ['class' => 'btn btn-info mg-r-5']) }}
+            {{ Form::submit(__('Update'), ['class' => 'btn btn-info mg-r-5']) }}
             </div><!-- form-layout-footer -->
           </div><!-- form-layout -->
         </div><!-- card -->

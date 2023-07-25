@@ -58,18 +58,18 @@ class ReportFilter extends Component
     {
         $date = date('d-m-y',strtotime($this->date));
         $monthes = [
-            'January' => 'January', 
-            'February' => 'February', 
-            'March' => 'March', 
-            'April' => 'April', 
-            'May' => 'May', 
-            'June' => 'June', 
-            'July' => 'July', 
-            'August' => 'August', 
-            'September' => 'September',
-            'October' => 'October',
-            'November' => 'November',
-            'December' => 'December',
+            __('January') => __('January'), 
+            __('February') => __('February'), 
+            __('March') => __('March'), 
+            __('April') => __('April'), 
+            __('May') => __('May'), 
+            __('June') => __('June'), 
+            __('July') => __('July'), 
+            __('August') => __('August'), 
+            __('September') => __('September'),
+            __('October') => __('October'),
+            __('November') => __('November'),
+            __('December') => __('December'),
         ];
         $years = [
             '2022' => '2022',

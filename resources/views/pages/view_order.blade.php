@@ -16,31 +16,31 @@
                             <div class="card-body">
                                 <table class="table">
                                     <tr>
-                                        <th>Name: </th>
+                                        <th>{{ __('Name:') }} </th>
                                         <th>{{ $order->user->name }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Phone: </th>
+                                        <th>{{ __('Phone') }}: </th>
                                         <th>{{ $order->user->phone }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Payment Type: </th>
+                                        <th>{{ __('Payment Type') }}: </th>
                                         <th>{{ $order->payment_type }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Paymnet ID: </th>
-                                        <th>{{ $order->payment_id }}</th>
+                                        <th>{{ __('Payment ID') }}: </th>
+                                        <th>{{ $order->payment_id ? $order->payment_id : '-' }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Total: </th>
+                                        <th>{{ __('Total') }}: </th>
                                         <th>{{ $order->total }} $</th>
                                     </tr>
                                     <tr>
-                                        <th>Month: </th>
+                                        <th>{{ __('Month') }}: </th>
                                         <th>{{ $order->month }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Date: </th>
+                                        <th>{{ __('Date') }}: </th>
                                         <th>{{ $order->date }}</th>
                                     </tr>
                                 </table>
@@ -56,38 +56,38 @@
                             <div class="card-body">
                                 <table class="table">
                                     <tr>
-                                        <th>Name: </th>
+                                        <th>{{ __('Name:') }} </th>
                                         <th>{{ $shipping->shipping_name }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Phone: </th>
+                                        <th>{{ __('Phone') }}: </th>
                                         <th>{{ $shipping->shipping_phone }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Email: </th>
+                                        <th>{{ __('Email') }}: </th>
                                         <th>{{ $shipping->shipping_email }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Address: </th>
+                                        <th>{{ __('Address') }}: </th>
                                         <th>{{ $shipping->shipping_address }}</th>
                                     </tr>
                                     <tr>
-                                        <th>City: </th>
+                                        <th>{{ __('City') }}: </th>
                                         <th>{{ $shipping->shipping_city }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Status: </th>
+                                        <th>{{ __('Status') }}: </th>
                                         <th>
                                             @if($order->status == 0)
-                                                <span class="text-warning">Pending</span>
+                                                <span class="text-warning">{{ __('Pending') }}</span>
                                             @elseif($order->status == 1)
-                                            <span class="text-info">Payment Accepted</span>
+                                            <span class="text-info">{{ __('Payment Accepted') }}</span>
                                             @elseif($order->status == 2)
-                                            <span class="text-warning">Progress</span>
+                                            <span class="text-warning">{{ __('Progress') }}</span>
                                             @elseif($order->status == 3)
-                                            <span class="text-success">Delivered</span>
+                                            <span class="text-success">{{ __('Delivered') }}</span>
                                             @else
-                                            <span class="text-danger">Canceled</span>
+                                            <span class="text-danger">{{ __('Canceled') }}</span>
                                             @endif
                                         </th>
                                     </tr>
@@ -141,15 +141,15 @@
 
                 </div>
             @if($order->status == 0)
-            <strong class="text-warning text-center">This order is pending.</strong>
+            <strong class="text-warning text-center">{{ __('This order is pending.') }}</strong>
             @elseif($order->status == 1)
-            <strong class="text-info text-center">This order is awaiting delivery confirmation.</strong>
+            <strong class="text-info text-center">{{ __('This order is awaiting delivery confirmation.') }}</strong>
             @elseif($order->status == 2)
-            <strong class="text-info text-center">This order is delivering.</strong>
+            <strong class="text-info text-center">{{ __('This order is delivering.') }}</strong>
             @elseif($order->status == 4)
-            <strong class="text-danger text-center">This order is not valid.</strong>
+            <strong class="text-danger text-center">{{ __('This order is not valid.') }}</strong>
             @else
-            <strong class="text-success text-center">This order is successfully delivered.</strong>
+            <strong class="text-success text-center">{{ __('This order is successfully delivered.') }}</strong>
             @endif
             <div/>
         </div>

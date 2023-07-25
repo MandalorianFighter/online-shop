@@ -7,7 +7,7 @@
 
       <div class="sl-pagebody">
         <div class="sl-page-title">
-          <h5>{{ __('Pending Orders') }}</h5>
+          <h5>{{ __('Canceled Orders') }}</h5>
         </div><!-- sl-page-title -->
 
         

@@ -17,7 +17,7 @@
     </div>
     
     <div class="input-group col-lg-2 float-right">
-    <input wire:model="search" class="form-control" type="search" name="search" placeholder="Search">
+    <input wire:model="search" class="form-control" type="search" name="search" placeholder="{{ __('Search') }}">
     </div>
     </div>
     </div>
@@ -67,19 +67,19 @@
             <td>{{ $user->name }}</td>
             <td>{{ $user->phone }}</td>
             <td>
-                <span class="{{ getBadgeClass($user->category) }}">Category</span>
-                <span class="{{ getBadgeClass($user->coupon) }}">Coupons</span>
-                <span class="{{ getBadgeClass($user->product) }}">Products</span>
-                <span class="{{ getBadgeClass($user->blog) }}">Blog</span>
-                <span class="{{ getBadgeClass($user->orders) }}">Orders</span>
-                <span class="{{ getBadgeClass($user->other) }}">Other</span>
-                <span class="{{ getBadgeClass($user->report) }}">Reports</span>
-                <span class="{{ getBadgeClass($user->role) }}">User Roles</span>
-                <span class="{{ getBadgeClass($user->return_orders) }}">Return Orders</span>
-                <span class="{{ getBadgeClass($user->contact) }}">Contact</span>
-                <span class="{{ getBadgeClass($user->comment) }}">Comments</span>
-                <span class="{{ getBadgeClass($user->setting) }}">Settings</span>
-                <span class="{{ getBadgeClass($user->stock) }}">Stock</span>
+                <span class="{{ getBadgeClass($user->category) }}">{{ __('Category') }}</span>
+                <span class="{{ getBadgeClass($user->coupon) }}">{{ __('Coupons') }}</span>
+                <span class="{{ getBadgeClass($user->product) }}">{{ __('Products') }}</span>
+                <span class="{{ getBadgeClass($user->blog) }}">{{ __('Blog') }}</span>
+                <span class="{{ getBadgeClass($user->orders) }}">{{ __('Orders') }}</span>
+                <span class="{{ getBadgeClass($user->other) }}">{{ __('Others') }}</span>
+                <span class="{{ getBadgeClass($user->report) }}">{{ __('Reports') }}</span>
+                <span class="{{ getBadgeClass($user->role) }}">{{ __('User Roles') }}</span>
+                <span class="{{ getBadgeClass($user->return_orders) }}">{{ __('Orders Return') }}</span>
+                <span class="{{ getBadgeClass($user->contact) }}">{{ __('Contact') }}</span>
+                <span class="{{ getBadgeClass($user->comment) }}">{{ __('Comments') }}</span>
+                <span class="{{ getBadgeClass($user->setting) }}">{{ __('Settings') }}</span>
+                <span class="{{ getBadgeClass($user->stock) }}">{{ __('Stock') }}</span>
             </td>
             <td>
             <div class="d-flex align-items-center justify-content-center">
@@ -90,7 +90,7 @@
         </tr>
         @empty
         <tr>      
-          <td colspan="5" class="empty-table">No Data Found.</td>
+          <td colspan="5" class="empty-table">{{ __('No Data Found.') }}</td>
         </tr>
         @endforelse
         </tbody>

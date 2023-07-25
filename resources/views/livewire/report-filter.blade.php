@@ -16,16 +16,16 @@
         </div>
         <div>
             <div class="input-group d-flex align-items-center pl-0">
-                <label for="date" class="text-nowrap mr-2 mb-0">Date</label>
+                <label for="date" class="text-nowrap mr-2 mb-0">{{ __('Date') }}</label>
                 <input type="date" wire:model="date" name="date" class="form-control">        
             </div>
         </div>
         
         <div>
             <div class="input-group d-flex align-items-center">
-                <label for="date" class="text-nowrap mr-2 mb-0">Month</label>
+                <label for="date" class="text-nowrap mr-2 mb-0">{{ __('Month') }}</label>
                 <select wire:model="month" name="month" class="form-select rounded-0 order-1">
-                    <option value="">Select Month</option>
+                    <option value="">{{ __('Select Month') }}</option>
                     @foreach($monthes as $key=>$month)
                     <option value="{{$key}}">{{$month}}</option>
                     @endforeach
@@ -35,9 +35,9 @@
         
         <div>
             <div class="input-group d-flex align-items-center">
-                <label for="date" class="text-nowrap mr-2 mb-0">Year</label>
+                <label for="date" class="text-nowrap mr-2 mb-0">{{ __('Year') }}</label>
                 <select wire:model="year" name="year" class="form-select rounded-0 order-1">
-                    <option value="">Select Year</option>
+                    <option value="">{{ __('Select Year') }}</option>
                     @foreach($years as $key=>$year)
                     <option value="{{$key}}">{{$year}}</option>
                     @endforeach
@@ -46,7 +46,7 @@
         </div>
         
     <div class="input-group col-md-2 float-right pr-0">
-    <input wire:model="search" class="form-control" type="search" name="search" placeholder="Search">
+    <input wire:model="search" class="form-control" type="search" name="search" placeholder="{{ __('Search') }}">
     </div>
     </div>
     </div>
@@ -122,15 +122,15 @@
             <td>{{ $order->date }}</td>
             <td>
             @if($order->status == 0)
-                <span class="badge badge-warning">Pending</span>
+                <span class="badge badge-warning">{{ __('Pending') }}</span>
             @elseif($order->status == 1)
-                <span class="badge badge-info">Payment Accepted</span>
+                <span class="badge badge-info">{{ __('Payment Accepted') }}</span>
             @elseif($order->status == 2)
-                <span class="badge badge-warning">Progress</span>
+                <span class="badge badge-warning">{{ __('Progress') }}</span>
             @elseif($order->status == 3)
-                <span class="badge badge-success">Delivered</span>
+                <span class="badge badge-success">{{ __('Delivered') }}</span>
             @else
-                <span class="badge badge-danger">Canceled</span>
+                <span class="badge badge-danger">{{ __('Canceled') }}</span>
             @endif
             </td>
             <td>
@@ -141,7 +141,7 @@
         </tr>
         @empty
         <tr>      
-          <td colspan="9" class="empty-table">No Orders Found.</td>
+          <td colspan="9" class="empty-table">{{ __('No Orders Found.') }}</td>
         </tr>
         @endforelse
         </tbody>

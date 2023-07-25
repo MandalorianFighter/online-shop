@@ -5,27 +5,35 @@
 <!-- Banner -->
 
 <div class="banner">
-		<div class="banner_background" style="background-image:url({{ asset('frontend/images/banner_background.jpg') }})"></div>
-		<div class="container fill_height">
-			<div class="row fill_height">
-				<div class="banner_product_image"><img src="{{ $slider->getFirstMediaUrl('products/imageOne') }}" class="main_banner float-end" alt=""></div>
-				<div class="col-lg-5 offset-lg-4 fill_height">
-					<div class="banner_content">
-						<h1 class="banner_text">{{ $slider->product_name }}</h1>
-						<div class="banner_price">
-							@if(!$slider->discount_price) 
-							${{ $slider->selling_price }}
-							@else
-						<span>${{ $slider->selling_price }}</span>${{ $slider->discount_price }}
-							@endif
-						</div>
-						<div class="banner_product_name">{{ $slider->brand->brand_name }}</div>
-						<div class="button banner_button"><a href="{{ route('product.details', $slider) }}">{{ __('Shop Now') }}</a></div>
+	<div class="banner_background" style="background-image:url({{ asset('frontend/images/banner_background.jpg') }})"></div>
+	<div class="container fill_height">
+		<div class="row fill_height">
+			@if($slider)
+			<div class="banner_product_image"><img src="{{ $slider->getFirstMediaUrl('products/imageOne') }}" class="main_banner float-end" alt=""></div>
+			<div class="col-lg-5 offset-lg-4 fill_height">
+				<div class="banner_content">
+					<h1 class="banner_text">{{ $slider->product_name }}</h1>
+					<div class="banner_price">
+						@if(!$slider->discount_price) 
+						${{ $slider->selling_price }}
+						@else
+					<span>${{ $slider->selling_price }}</span>${{ $slider->discount_price }}
+						@endif
 					</div>
+					<div class="banner_product_name">{{ $slider->brand->brand_name }}</div>
+					<div class="button banner_button"><a href="{{ route('product.details', $slider) }}">{{ __('Shop Now') }}</a></div>
 				</div>
 			</div>
+			@else
+				<div class="d-flex justify-content-end">
+					<div class="col-md-6 fs-3 lh-base">
+					{{ __('Sorry, there are currently no Banner products available. Please check back later!') }}
+					</div>
+				</div>
+			@endif
 		</div>
 	</div>
+</div>
 
 <div class="characteristics">
 		<div class="container">
@@ -99,7 +107,7 @@
 							<div class="owl-carousel owl-theme deals_slider">
 								
 								<!-- Deals Item -->
-								@foreach($hot as $item)
+								@forelse($hot as $item)
 								<div class="owl-item deals_item">
 									<div class="deals_image"><img src="{{ $item->getFirstMediaUrl('products/imageOne', 'thumb-mid') }}" alt="" ></div>
 									<div class="deals_content">
@@ -144,7 +152,13 @@
 										</div>
 									</div>
 								</div>
-							@endforeach
+								@empty
+								<div class="owl-item deals_item">
+									<div class="fs-3 lh-base">
+									{{ __('Sorry, there are currently no products available. Please check back later!') }}
+									</div>
+								</div>
+								@endforelse
 							</div>
 
 						</div>
@@ -172,7 +186,7 @@
 								<div class="featured_slider slider">
 
 									<!-- Slider Item -->
-									@foreach($featured as $item)
+									@forelse($featured as $item)
 									<div class="featured_slider_item">
 										<div class="border_active"></div>
 										<div class="product_item {{ $item->discount_price ? 'discount' : 'is_new' }} d-flex flex-column align-items-center justify-content-center text-center">
@@ -186,11 +200,6 @@
 												<div class="product_name"><div><a href="{{ route('product.details', $item) }}" title="{{ $item->product_name }}">{{ $item->limitName() }}</a></div></div>
 
 												<div class="product_extras">
-													<div class="product_color">
-														<input type="radio" checked name="product_color" style="background:#b19c83">
-														<input type="radio" name="product_color" style="background:#000000">
-														<input type="radio" name="product_color" style="background:#999999">
-													</div>
 													<button class="product_cart_button add-cart" id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#cartModal" onclick="productView(this.id)">{{ __('Add to Cart') }}</button>
 												</div>
 											</div>
@@ -208,7 +217,11 @@
 											</ul>
 										</div>
 									</div>
-									@endforeach
+									@empty
+										<div class="fs-5 lh-base">
+										{{ __('Sorry, there are currently no products available. Please check back later!') }}
+										</div>
+									@endforelse
 								</div>
 								<div class="featured_slider_dots_cover"></div>
 							</div>
@@ -219,7 +232,7 @@
 								<div class="featured_slider slider">
 
 									<!-- Slider Item -->
-									@foreach($trend as $item)
+									@forelse($trend as $item)
 									<div class="featured_slider_item">
 										<div class="border_active"></div>
 										<div class="product_item {{ $item->discount_price ? 'discount' : 'is_new' }} d-flex flex-column align-items-center justify-content-center text-center">
@@ -232,11 +245,6 @@
 												@endif
 												<div class="product_name"><div><a href="{{ route('product.details', $item) }}" title="{{ $item->product_name }}">{{ $item->limitName() }}</a></div></div>
 												<div class="product_extras">
-													<div class="product_color">
-														<input type="radio" checked name="product_color" style="background:#b19c83">
-														<input type="radio" name="product_color" style="background:#000000">
-														<input type="radio" name="product_color" style="background:#999999">
-													</div>
 													<button class="product_cart_button add-cart" id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#cartModal" onclick="productView(this.id)">{{ __('Add to Cart') }}</button>
 												</div>
 											</div>
@@ -252,7 +260,11 @@
 											</ul>
 										</div>
 									</div>
-								@endforeach
+									@empty
+										<div class="fs-5 lh-base">
+										{{ __('Sorry, there are currently no products available. Please check back later!') }}
+										</div>
+									@endforelse
 								</div>
 								<div class="featured_slider_dots_cover"></div>
 							</div>
@@ -262,7 +274,7 @@
 								<div class="featured_slider slider">
 
 									<!-- Slider Item -->
-									@foreach($best as $item)
+									@forelse($best as $item)
 									<div class="featured_slider_item">
 										<div class="border_active"></div>
 										<div class="product_item {{ $item->discount_price ? 'discount' : 'is_new' }} d-flex flex-column align-items-center justify-content-center text-center">
@@ -275,11 +287,6 @@
 												@endif
 												<div class="product_name"><div><a href="{{ route('product.details', $item) }}" title="{{ $item->product_name }}">{{ $item->limitName() }}</a></div></div>
 												<div class="product_extras">
-													<div class="product_color">
-														<input type="radio" checked name="product_color" style="background:#b19c83">
-														<input type="radio" name="product_color" style="background:#000000">
-														<input type="radio" name="product_color" style="background:#999999">
-													</div>
 													<button class="product_cart_button add-cart" id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#cartModal" onclick="productView(this.id)">{{ __('Add to Cart') }}</button>
 												</div>
 											</div>
@@ -295,7 +302,11 @@
 											</ul>
 										</div>
 									</div>
-									@endforeach
+									@empty
+										<div class="fs-5 lh-base">
+										{{ __('Sorry, there are currently no products available. Please check back later!') }}
+										</div>
+									@endforelse
 								</div>
 								<div class="featured_slider_dots_cover"></div>
 							</div>
@@ -320,7 +331,7 @@
 							<div class="popular_categories_prev popular_categories_nav"><i class="fas fa-angle-left ms-auto"></i></div>
 							<div class="popular_categories_next popular_categories_nav"><i class="fas fa-angle-right ms-auto"></i></div>
 						</div>
-						<div class="popular_categories_link"><a href="#">{{ __('full catalog') }}</a></div>
+						<div class="popular_categories_link"><a>{{ __('full catalog') }}</a></div>
 					</div>
 				</div>
 				
@@ -332,14 +343,18 @@
 						<div class="owl-carousel owl-theme popular_categories_slider">
 
 							<!-- Popular Categories Item -->
-				@foreach($categories as $category)
+				@forelse($categories as $category)
 							<div class="owl-item">
 								<div class="popular_category d-flex flex-column align-items-center justify-content-center">
 									<div class="popular_category_image"><img src="{{ $category->getFirstMediaUrl('categories') }}" alt="{{ $category->category_name }} logo" height="70em" max-width="100%"></div>
 									<div class="popular_category_text">{{ $category->category_name }}</div>
 								</div>
 							</div>
-				@endforeach
+				@empty
+				<div class="fs-5 lh-base text-center">
+				{{ __('Sorry, there are currently no categories set up. Please check back later!') }}
+				</div>
+				@endforelse
 						</div>
 					</div>
 				</div>
@@ -358,7 +373,7 @@
 			<div class="owl-carousel owl-theme banner_2_slider">
 
 				<!-- Banner 2 Slider Item -->
-				@foreach($midSlider as $item)
+				@forelse($midSlider as $item)
 				<div class="owl-item">
 					<div class="banner_2_item">
 						<div class="container fill_height">
@@ -382,7 +397,15 @@
 						</div>			
 					</div>
 				</div>
-			@endforeach
+				@empty
+				<div class="owl-item">
+					<div class="banner_2_item">
+						<div class="fs-3 lh-base text-center">
+						{{ __('Sorry, there are currently no products available. Please check back later!') }}
+						</div>
+					</div>
+				</div>
+				@endforelse
 			</div>
 		</div>
 	</div>
@@ -410,7 +433,7 @@
 									<div class="arrivals_slider slider">
 
 										<!-- Slider Item -->
-										@foreach($fCproducts as $item)
+											@forelse($fCproducts as $item)
 											<div class="featured_slider_item">
 												<div class="border_active"></div>
 												<div class="product_item {{ $item->discount_price ? 'discount' : 'is_new' }} d-flex flex-column align-items-center justify-content-center text-center">
@@ -423,11 +446,6 @@
 														@endif
 														<div class="product_name"><div><a href="{{ route('product.details', $item) }}" title="{{ $item->product_name }}">{{ $item->limitName() }}</a></div></div>
 														<div class="product_extras">
-															<div class="product_color">
-																<input type="radio" checked name="product_color" style="background:#b19c83">
-																<input type="radio" name="product_color" style="background:#000000">
-																<input type="radio" name="product_color" style="background:#999999">
-															</div>
 															<button class="product_cart_button add-cart" id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#cartModal" onclick="productView(this.id)">{{ __('Add to Cart') }}</button>
 														</div>
 													</div>
@@ -445,7 +463,11 @@
 													</ul>
 												</div>
 											</div>
-											@endforeach
+											@empty
+												<div class="fs-3 lh-base">
+												{{ __('Sorry, there are currently no products available. Please check back later!') }}
+												</div>
+											@endforelse
 										</div>
 										<div class="featured_slider_dots_cover"></div>
 									</div>
@@ -458,7 +480,7 @@
 									<div class="arrivals_slider slider">
 
 										<!-- Slider Item -->
-										@foreach($sCproducts as $item)
+										@forelse($sCproducts as $item)
 											<div class="featured_slider_item">
 												<div class="border_active"></div>
 												<div class="product_item {{ $item->discount_price ? 'discount' : 'is_new' }} d-flex flex-column align-items-center justify-content-center text-center">
@@ -471,11 +493,6 @@
 														@endif
 														<div class="product_name"><div><a href="{{ route('product.details', $item) }}" title="{{ $item->product_name }}">{{ $item->limitName() }}</a></div></div>
 														<div class="product_extras">
-															<div class="product_color">
-																<input type="radio" checked name="product_color" style="background:#b19c83">
-																<input type="radio" name="product_color" style="background:#000000">
-																<input type="radio" name="product_color" style="background:#999999">
-															</div>
 															<button class="product_cart_button add-cart" id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#cartModal" onclick="productView(this.id)">{{ __('Add to Cart') }}</button>
 														</div>
 													</div>
@@ -493,7 +510,11 @@
 													</ul>
 												</div>
 											</div>
-											@endforeach
+											@empty
+												<div class="fs-3 lh-base">
+												{{ __('Sorry, there are currently no products available. Please check back later!') }}
+												</div>
+											@endforelse
 										</div>
 										<div class="featured_slider_dots_cover"></div>
 									</div>
@@ -539,7 +560,7 @@
 
 						<div class="owl-carousel owl-theme trends_slider">
 
-						@foreach($buyGet as $item)
+						@forelse($buyGet as $item)
 							<!-- Trends Slider Item -->
 							<div class="owl-item">
 								<div class="trends_item is_new">
@@ -566,8 +587,11 @@
 									</a>
 								</div>
 							</div>
-						@endforeach
-							
+							@empty
+								<div class="fs-5 lh-base">
+								{{ __('Sorry, there are currently no products available. Please check back later!') }}
+								</div>
+							@endforelse
 
 						</div>
 					</div>
@@ -611,7 +635,7 @@
 								</div>
 							</div>
 						@empty
-						<h5>No Blog Posts Found.</h5>
+						<div class="fs-5 lh-base">{{ __('No Blog Posts Found.') }}</div>
 						@endforelse
 
 						</div>
@@ -640,7 +664,7 @@
 							@forelse($brands as $brand)
 							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{ $brand->getFirstMediaUrl('brands') }}" alt="{{ $brand->brand_name }} logo" height="70em" max-width="100%"></div></div>
 							@empty
-							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center">No Brands Found.</div></div>
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center">{{ __('No Brands Found.') }}</div></div>
 							@endforelse
 						</div>
 						

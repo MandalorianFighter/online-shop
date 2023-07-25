@@ -29,7 +29,7 @@
 
             <div class="col-lg-6">
                 <div class="form-group mg-b-10-force">
-                  {!! Html::decode(Form::label('page_url', __('Page Url') . ': <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
+                  {!! Html::decode(Form::label('page_url', __('Page URL') . ': <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
                   {{ Form::select('page_url', $urls, null, ['class' => 'form-control', 'placeholder' => __('Select a Page Url'), 'id' => 'page_url']) }}
                 </div>
             </div><!-- col-4 -->
@@ -37,14 +37,14 @@
             <div class="col-lg-6">
                 <div class="form-group mg-b-10-force">
                 <label for="custom_option" class="form-control-label"><span class="tx-danger">*</span></label>
-                <input type="text" id="custom_option" name="custom_option" style="display:none;" class="form-control" placeholder="Write Down a URL" pattern="https?://.+" />
+                <input type="text" id="custom_option" name="custom_option" style="display:none;" class="form-control" placeholder="{{__('Write Down a URL')}}" pattern="https?://.+" />
                 </div>
             </div><!-- col-4 -->
 
             <div class="col-lg-6">
                 <div class="form-group mg-b-10-force">
-                  {!! Html::decode(Form::label('page_title', __('Meta Title') . ': <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
-                  {!! Form::text('page_title', null, ['class' => 'form-control', 'placeholder' => __('Enter Meta Title'), 'maxlength' => '200']) !!}
+                  {!! Html::decode(Form::label('page_title', __('Page Title') . ': <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
+                  {!! Form::text('page_title', null, ['class' => 'form-control', 'placeholder' => __('Enter Page Title'), 'maxlength' => '200']) !!}
                 </div>
             </div><!-- col-4 -->
 

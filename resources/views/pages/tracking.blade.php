@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-5 offset-lg-1">
-                <div class="contact_form_title mb-3"><h4>Your Order Status</h4></div>
+                <div class="contact_form_title mb-3"><h4>{{ __('Your Order Status') }}</h4></div>
 
                 
                 <div class="progress-stacked">
@@ -53,31 +53,31 @@
                 </div>
                 <br>
                 @if($track->status == 0)
-                    <h4>Note: Your order is being processed</h4>
+                    <h4>{{ __('Note: Your order is being processed') }}</h4>
                 @elseif($track->status == 1)
-                    <h4>Note: Payment acceptance is being processed</h4>
+                    <h4>{{ __('Note: Payment acceptance is being processed') }}</h4>
                 @elseif($track->status == 2)
-                    <h4>Note: The package transfer process is complete</h4>
+                    <h4>{{ __('Note: The package transfer process is complete') }}</h4>
                 @elseif($track->status == 3)
-                    <h4>Note: Order Completed</h4>
+                    <h4>{{ __('Note: Order Completed') }}</h4>
                 @else
-                    <h4>Note: The order has been cancelled</h4>
+                    <h4>{{ __('Note: The order has been cancelled') }}</h4>
                 @endif
             </div>
 
             <div class="col-5 offset-lg-1">
-                <div class="contact_form_title mb-3"><h4>Your Order Details</h4></div>
+                <div class="contact_form_title mb-3"><h4>{{ __('Your Order Details') }}</h4></div>
                 <ul class="list-group col-lg-12">
-                    <li class="list-group-item"><b>Payment Type:</b> <span class="float-end">{{$track->payment_type}}</span> </li>
-                    <li class="list-group-item"><b>Transaction ID:</b> <span class="float-end">{{$track->payment_id}}</span> </li>
-                    <li class="list-group-item"><b>Balance ID:</b> <span class="float-end">{{$track->balance_transaction}}</span> </li>
-                    <li class="list-group-item"><b>Subtotal:</b> <span class="float-end">{{$track->subtotal}}$</span></li>
-                    <li class="list-group-item"><b>Shipping:</b> <span class="float-end">{{$track->shipping}}$</span></li>
-                    <li class="list-group-item"><b>Vat:</b> <span class="float-end">{{$track->vat}}$</span></li>
-                    <li class="list-group-item"><b>Total:</b> <span class="float-end">{{$track->total}}$</span></li>
-                    <li class="list-group-item"><b>Month:</b> <span class="float-end">{{$track->month}}</span> </li>
-                    <li class="list-group-item"><b>Date:</b> <span class="float-end">{{$track->date}}</span> </li>
-                    <li class="list-group-item"><b>Year:</b> <span class="float-end">{{$track->year}}</span> </li>
+                    <li class="list-group-item"><b>{{ __('Payment Type') }}:</b> <span class="float-end">{{$track->payment_type}}</span> </li>
+                    <li class="list-group-item"><b>{{ __('Transaction ID') }}:</b> <span class="float-end">{{$track->payment_id ? $track->payment_id : '-'}}</span> </li>
+                    <li class="list-group-item"><b>{{ __('Balance ID') }}:</b> <span class="float-end">{{$track->balance_transaction ? $track->balance_transaction : '-'}}</span> </li>
+                    <li class="list-group-item"><b>{{ __('Subtotal') }}:</b> <span class="float-end">{{$track->subtotal}}$</span></li>
+                    <li class="list-group-item"><b>{{ __('Shipping') }}:</b> <span class="float-end">{{$track->shipping}}$</span></li>
+                    <li class="list-group-item"><b>{{ __('Vat') }}:</b> <span class="float-end">{{$track->vat}}$</span></li>
+                    <li class="list-group-item"><b>{{ __('Total') }}:</b> <span class="float-end">{{$track->total}}$</span></li>
+                    <li class="list-group-item"><b>{{ __('Month') }}:</b> <span class="float-end">{{$track->month}}</span> </li>
+                    <li class="list-group-item"><b>{{ __('Date') }}:</b> <span class="float-end">{{$track->date}}</span> </li>
+                    <li class="list-group-item"><b>{{ __('Year') }}:</b> <span class="float-end">{{$track->year}}</span> </li>
                 </ul>
             </div>
         </div>

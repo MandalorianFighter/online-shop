@@ -10,12 +10,12 @@
                 <table class="table table-response">
                     <thead>
                         <tr>
-                            <th scope="col">Payment Type</th>
-                            <th scope="col">Return</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Action</th>
+                            <th scope="col">{{ __('Payment Type') }}</th>
+                            <th scope="col">{{ __('Return') }}</th>
+                            <th scope="col">{{ __('Amount') }}</th>
+                            <th scope="col">{{ __('Date') }}</th>
+                            <th scope="col">{{ __('Status') }}</th>
+                            <th scope="col">{{ __('Action') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -24,39 +24,39 @@
                             <td scope="col">{{$item->payment_type}}</td>
                             <td scope="col">
                             @if($item->return_order == 0)
-                                <span class="badge rounded-pill text-bg-warning">No Request</span>
+                                <span class="badge rounded-pill text-bg-warning">{{ __('No Request') }}</span>
                             @elseif($item->return_order == 1)
-                                <span class="badge rounded-pill text-bg-primary">Pending</span>
+                                <span class="badge rounded-pill text-bg-primary">{{ __('Pending') }}</span>
                             @elseif($item->return_order == 2)
-                                <span class="badge rounded-pill text-bg-success">Success</span>
+                                <span class="badge rounded-pill text-bg-success">{{ __('Success') }}</span>
                             @endif
                             </td>
                             <td scope="col">{{$item->total}} $</td>
                             <td scope="col">{{$item->date}}</td>
                             <td scope="col">
                             @if($item->status == 0)
-                                <span class="badge rounded-pill text-bg-warning">Pending</span>
+                                <span class="badge rounded-pill text-bg-warning">{{ __('Pending') }}</span>
                             @elseif($item->status == 1)
-                                <span class="badge rounded-pill text-bg-primary">Payment Accepted</span>
+                                <span class="badge rounded-pill text-bg-primary">{{ __('Payment Accepted') }}</span>
                             @elseif($item->status == 2)
-                                <span class="badge rounded-pill text-bg-warning">Progress</span>
+                                <span class="badge rounded-pill text-bg-warning">{{ __('Progress') }}</span>
                             @elseif($item->status == 3)
-                                <span class="badge rounded-pill text-bg-success">Delivered</span>
+                                <span class="badge rounded-pill text-bg-success">{{ __('Delivered') }}</span>
                             @else
-                                <span class="badge rounded-pill text-bg-danger">Canceled</span>
+                                <span class="badge rounded-pill text-bg-danger">{{ __('Canceled') }}</span>
                             @endif
                             </td>
                             <td scope="col">
                             @if($item->return_order == 0)
-                                <a href="#" class="btn btn-sm btn-warning return-order" id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#returnOrderModal">Return</a>
+                                <a href="#" class="btn btn-sm btn-warning return-order" id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#returnOrderModal">{{ __('Return') }}</a>
                             @else
-                            <a href="#" class="btn btn-sm btn-secondary return-order disabled">Return</a>
+                            <a href="#" class="btn btn-sm btn-secondary return-order disabled">{{ __('Return') }}</a>
                             @endif
                             </td>
                         </tr>
                         @empty
                         <tr>      
-                            <td colspan="6" class="empty-table">No Orders Found.</td>
+                            <td colspan="6" class="empty-table">{{ __('No Orders Found.') }}</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -73,7 +73,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="returnOrderModalLabel">Return Order</h1>
+        <h1 class="modal-title fs-5" id="returnOrderModalLabel">{{ __('Return Order') }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -87,7 +87,7 @@
 			</div>
 			<div class="modal-footer">
                 <button type="button" class="btn btn-secondary close-btn" data-bs-dismiss="modal">{{ __('Close') }}</button>
-                <button class="btn btn-danger" type="submit">Return</button>
+                <button class="btn btn-danger" type="submit">{{ __('Return') }}</button>
 			</div>
 		</form>
       </div>

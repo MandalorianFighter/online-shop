@@ -108,7 +108,7 @@
             <label class="ckbox">
               {{ Form::hidden('other', 0) }}
               {{ Form::checkbox('other', 1) }}
-              <span>{{ __('Other') }}</span>
+              <span>{{ __('Others') }}</span>
             </label>
             </div><!-- col-4 -->
 
@@ -132,7 +132,7 @@
             <label class="ckbox">
               {{ Form::hidden('return_orders', 0) }}
               {{ Form::checkbox('return_orders', 1) }}
-              <span>{{ __('Return Orders') }}</span>
+              <span>{{ __('Orders Return') }}</span>
             </label>
             </div><!-- col-4 -->
 

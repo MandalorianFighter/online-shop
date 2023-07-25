@@ -13,7 +13,7 @@
     </div>
     
     <div class="input-group col-lg-2 float-right">
-    <input wire:model="search" class="form-control" type="search" name="search" placeholder="Search">
+    <input wire:model="search" class="form-control" type="search" name="search" placeholder="{{ __('Search') }}">
     </div>
     </div>
     </div>
@@ -75,7 +75,7 @@
         </tr>
         @empty
         <tr>      
-          <td colspan="6" class="empty-table">No messages Found.</td>
+          <td colspan="6" class="empty-table">{{ __('No Messages Found.') }}</td>
         </tr>
         @endforelse
         </tbody>
