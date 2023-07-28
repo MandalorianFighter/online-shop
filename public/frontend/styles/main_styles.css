@@ -1026,7 +1026,6 @@ select option
 
 .page_menu
 {
-	margin-top: 15px;
 	-webkit-transition: all 500ms ease;
     -moz-transition: all 500ms ease;
     -ms-transition: all 500ms ease;
@@ -3516,10 +3515,10 @@ select option
 .footer .logo
 {
 	top: auto;
-	-webkit-transform: transform: none;
-    -moz-transform: transform: none;
-    -ms-transform: transform: none;
-    -o-transform: transform: none;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
     transform: none;
 }
 .footer .logo a

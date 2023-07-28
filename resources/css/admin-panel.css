@@ -1,0 +1,12 @@
+@import '../../public/backend/lib/font-awesome/css/font-awesome.css';
+@import '../../public/backend/lib/Ionicons/css/ionicons.css';
+@import '../../node_modules/perfect-scrollbar/css/perfect-scrollbar.css';
+@import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import '../../node_modules/toastr/build/toastr.css';
+@import '../../public/backend/css/bootstrap-tagsinput.css';
+
+@import '../../public/backend/css/starlight.css';
+
+.ck-editor__editable_inline {
+    min-height: 150px;
+}

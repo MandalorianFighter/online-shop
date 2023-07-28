@@ -29,7 +29,7 @@
                                     </tr>
                                     <tr>
                                         <th>{{ __('Payment ID') }}: </th>
-                                        <th>{{ $order->payment_id }}</th>
+                                        <th>{{ $order->payment_id ? $order->payment_id : '-' }}</th>
                                     </tr>
                                     <tr>
                                         <th>{{ __('Total') }}: </th>

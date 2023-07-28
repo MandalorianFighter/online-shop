@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/cart_styles.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/cart_responsive.css') }}">
+@push('styles')
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/cart_styles.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/cart_responsive.css') }}">
+@endpush
 
 	<!-- Cart -->
 
@@ -86,6 +88,7 @@
 			</div>
 		</div>
 	</div>
-
-<script src="{{ asset('frontend/js/cart_custom.js') }}"></script>
+	@push('scripts')
+    <script type="module" src="{{ asset('frontend/js/cart_custom.js') }}"></script>
+	@endpush
 @endsection

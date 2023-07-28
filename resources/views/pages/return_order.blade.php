@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('content')
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/product_styles.css') }}">
+@push('styles')
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/product_styles.css') }}">
+@endpush
 
 <div class="contact_form">
     <div class="container">

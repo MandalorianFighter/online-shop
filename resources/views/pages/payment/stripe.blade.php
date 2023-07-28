@@ -1,9 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/contact_styles.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/contact_responsive.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/checkout.css') }}">
+@push('styles')
+  <script src="https://js.stripe.com/v3/"></script>
+  <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/contact_styles.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/contact_responsive.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/checkout.css') }}">
+@endpush
 
 
         <div class="contact_form">
@@ -111,7 +114,7 @@
 
     @push('scripts')
 
-    <script>
+    <script type="module">
         // This is your test publishable API key.
       const stripe = Stripe("{{ config('services.stripe.key') }}");
 

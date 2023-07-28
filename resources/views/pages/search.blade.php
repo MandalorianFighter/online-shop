@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/plugins/jquery-ui-1.12.1.custom/jquery-ui.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/shop_styles.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/shop_responsive.css') }}">
+@push('styles')
+	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/shop_styles.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/shop_responsive.css') }}">
+@endpush
 
 	<!-- Home -->
 
@@ -42,17 +43,6 @@
 								<p>Range: </p>
 								<p><input type="text" id="amount" class="amount" readonly style="border:0; font-weight:bold;"></p>
 							</div>
-						</div>
-						<div class="sidebar_section">
-							<div class="sidebar_subtitle color_subtitle">Color</div>
-							<ul class="colors_list">
-								<li class="color"><a href="#" style="background: #b19c83;"></a></li>
-								<li class="color"><a href="#" style="background: #000000;"></a></li>
-								<li class="color"><a href="#" style="background: #999999;"></a></li>
-								<li class="color"><a href="#" style="background: #0e8ce4;"></a></li>
-								<li class="color"><a href="#" style="background: #df3b3b;"></a></li>
-								<li class="color"><a href="#" style="background: #ffffff; border: solid 1px #e1e1e1;"></a></li>
-							</ul>
 						</div>
 						<div class="sidebar_section">
 							<div class="sidebar_subtitle brands_subtitle">Brands</div>
@@ -135,5 +125,7 @@
 			</div>
 		</div>
 	</div>
-    <script src="{{ asset('frontend/plugins/jquery-ui-1.12.1.custom/jquery-ui.js') }}"></script>
+
+	@include('pages.user.recently_viewed')
+
 @endsection

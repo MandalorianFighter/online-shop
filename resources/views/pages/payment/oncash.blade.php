@@ -1,9 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/contact_styles.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/contact_responsive.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/checkout.css') }}">
+@push('styles')
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/contact_styles.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/contact_responsive.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/checkout.css') }}">
+@endpush
+
 
 
         <div class="contact_form">
@@ -23,7 +26,6 @@
 									<div class="cart_item_info d-flex flex-md-row justify-content-between mt-1 mb-1">
 
 									<div class="cart_item_image cart_info_col col-2">
-										<!-- <div class="cart_item_title">{{ __('Image') }}</div> -->
 										<div class="cart_item_text"><img src="{{ asset($item->options->image) }}" alt="" style="max-height: 100px;"></div>
 									</div>
 
@@ -99,7 +101,7 @@
               <input type="hidden" name="total" value="{{ $total }}">
               <input type="hidden" name="payment_type" value="{{ $payment_type }}">
 
-              <button id="card-button" class="btn btn-dark">Submit Order</button>
+              <button id="card-button" class="btn btn-dark">{{ __('Submit Order') }}</button>
             </form>
 
 					</div>

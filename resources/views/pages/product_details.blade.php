@@ -1,18 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/product_styles.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/product_responsive.css') }}">
-<style>
-  #product-details {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 200px; /* Adjust the value as needed */
-  }
-</style>
-
-
+@push('styles')
+	<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=64a7ab13df473b0019d1b1b4&product=inline-share-buttons' async='async'></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/product_styles.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/product_responsive.css') }}">
+@endpush
 
 	<!-- Single Product -->
 
@@ -129,12 +122,15 @@
     
 <!-- Facebook Comments -->
 <div id="fb-root"></div>
+
+@push('scripts')
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v17.0" nonce="av0L7TL5"></script>
-<script>
+<script type="module">
   const container = document.getElementById("product-details");
   const button = document.getElementById("show-more-button");
 
-  button.addEventListener("click", function () {
+  if(button) {
+	button.addEventListener("click", function () {
     if (container.style.overflow === "hidden") {
       container.style.overflow = "visible";
       button.textContent = "Show Less";
@@ -143,5 +139,7 @@
       button.textContent = "Show More";
     }
   });
+  }
 </script>
+@endpush
 @endsection

@@ -93,7 +93,7 @@
         </tr>
         @empty
         <tr>      
-          <td colspan="5" class="empty-table">{{ __('No Data Found.') }}</td>
+          <td colspan="7" class="empty-table">{{ __('No Data Found.') }}</td>
         </tr>
         @endforelse
         </tbody>

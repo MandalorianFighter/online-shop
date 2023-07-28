@@ -111,7 +111,7 @@
 <!-- Menu -->
 
 <div class="page_menu">
-	<div class="container">
+	<div class="container mt-0">
 		<div class="row">
 			<div class="col">
 				
@@ -123,24 +123,6 @@
 						</form>
 					</div>
 					<ul class="page_menu_nav">
-						<li class="page_menu_item has-children">
-							<a href="#">{{ __('Language') }}<i class="fa fa-angle-down"></i></a>
-							<ul class="page_menu_selection">
-								<li><a href="#">{{ __('English') }}<i class="fa fa-angle-down"></i></a></li>
-								<li><a href="#">{{ __('Italian') }}<i class="fa fa-angle-down"></i></a></li>
-								<li><a href="#">{{ __('Spanish') }}<i class="fa fa-angle-down"></i></a></li>
-								<li><a href="#">{{ __('Japanese') }}<i class="fa fa-angle-down"></i></a></li>
-							</ul>
-						</li>
-						<li class="page_menu_item has-children">
-							<a href="#">{{ __('Currency') }}<i class="fa fa-angle-down"></i></a>
-							<ul class="page_menu_selection">
-								<li><a href="#">{{ __('US Dollar') }}<i class="fa fa-angle-down"></i></a></li>
-								<li><a href="#">{{ __('EUR Euro') }}<i class="fa fa-angle-down"></i></a></li>
-								<li><a href="#">{{ __('GBP British Pound') }}<i class="fa fa-angle-down"></i></a></li>
-								<li><a href="#">{{ __('JPY Japanese Yen') }}<i class="fa fa-angle-down"></i></a></li>
-							</ul>
-						</li>
 						<li class="page_menu_item">
 							<a href="#">{{ __('Home') }}<i class="fa fa-angle-down"></i></a>
 						</li>
@@ -162,15 +144,7 @@
 								<li><a href="#">{{ __('Menu Item') }}<i class="fa fa-angle-down"></i></a></li>
 							</ul>
 						</li>
-						<li class="page_menu_item has-children">
-							<a href="#">{{ __('Featured Brands') }}<i class="fa fa-angle-down"></i></a>
-							<ul class="page_menu_selection">
-								<li><a href="#">{{ __('Featured Brands') }}<i class="fa fa-angle-down"></i></a></li>
-								<li><a href="#">{{ __('Menu Item') }}<i class="fa fa-angle-down"></i></a></li>
-								<li><a href="#">{{ __('Menu Item') }}<i class="fa fa-angle-down"></i></a></li>
-								<li><a href="#">{{ __('Menu Item') }}<i class="fa fa-angle-down"></i></a></li>
-							</ul>
-						</li>
+						
 						<li class="page_menu_item has-children">
 							<a href="#">{{ __('Trending Styles') }}<i class="fa fa-angle-down"></i></a>
 							<ul class="page_menu_selection">

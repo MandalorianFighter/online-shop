@@ -1,0 +1,14 @@
+@import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import '../../public/frontend/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css';
+
+@import '../../public/frontend/plugins/OwlCarousel2-2.2.1/owl.carousel.css';
+@import '../../public/frontend/plugins/OwlCarousel2-2.2.1/owl.theme.default.css';
+@import '../../public/frontend/plugins/OwlCarousel2-2.2.1/animate.css';
+
+@import '../../node_modules/slick-carousel/slick/slick.css';
+
+@import '../../public/frontend/styles/main_styles.css';
+@import '../../public/frontend/styles/responsive.css';
+@import '../../node_modules/toastr/build/toastr.css';
+
+@import '../../public/frontend/plugins/jquery-ui-1.12.1.custom/jquery-ui.css';

@@ -1,12 +1,24 @@
 import _ from 'lodash';
 window._ = _;
 
-// // Import jQuery
-// import $ from 'jquery';
-// window.$ = $;
+import 'bootstrap';
+
+// Import jQuery
+import $ from 'jquery';
+window.$ = $;
+
+import jQuery from "jquery";
+window.jQuery = jQuery;
+
+import { createPopper } from '@popperjs/core';
+window.createPopper = createPopper;
 
 import PerfectScrollbar from 'perfect-scrollbar';
 window.PerfectScrollbar = PerfectScrollbar;
+
+import toastr from 'toastr';
+window.toastr = toastr;
+
 
 
 /**

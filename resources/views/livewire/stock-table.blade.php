@@ -89,15 +89,10 @@
                   <td class="text-center">
                     @livewire('toggle-switch', ['model' => $product, 'field' => 'status'], key($product->id))
                   </td>
-                  <!-- <td>
-                    <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-warning" title="Edit"><i class="fa fa-edit"></i></a>
-                    <button wire:click="deleteId({{ $product->id }})" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete"><i class="fa fa-trash"></i></button>
-                    <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-info" title="Show"><i class="fa fa-eye"></i></a>
-                  </td> -->
                 </tr>
                 @empty
                 <tr>      
-                  <td colspan="8" class="empty-table">{{ __('No Products Found.') }}</td>
+                  <td colspan="7" class="empty-table">{{ __('No Products Found.') }}</td>
                 </tr>
                 @endforelse
               </tbody>

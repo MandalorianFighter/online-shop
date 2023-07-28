@@ -66,7 +66,7 @@
         </tr>
         @empty
         <tr>      
-          <td colspan="3" class="empty-table">{{ __('No Categories Found.') }}</td>
+          <td colspan="4" class="empty-table">{{ __('No Categories Found.') }}</td>
         </tr>
         @endforelse
         </tbody>

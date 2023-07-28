@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Twitter -->
     <meta name="twitter:site" content="@themepixels">
     <meta name="twitter:creator" content="@themepixels">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Starlight">
-    <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+    <meta name="twitter:description" content="Admin Dashboard For OneSport E-Commerce">
     <meta name="twitter:image" content="http://themepixels.me/starlight/img/starlight-social.png">
 
     <!-- Facebook -->
     <meta property="og:url" content="http://themepixels.me/starlight">
     <meta property="og:title" content="Starlight">
-    <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+    <meta property="og:description" content="Admin Dashboard For OneSport E-Commerce">
 
     <meta property="og:image" content="http://themepixels.me/starlight/img/starlight-social.png">
     <meta property="og:image:secure_url" content="http://themepixels.me/starlight/img/starlight-social.png">
@@ -25,34 +25,12 @@
     <meta property="og:image:height" content="600">
 
     <!-- Meta -->
-    <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
-    <meta name="author" content="ThemePixels">
+    <meta name="description" content="Admin Dashboard For OneSport E-Commerce">
+    <meta name="author" content="OneSport Company">
 
-    <title>Starlight Ecommerce Admin Panel</title>
-
-    <!-- vendor css -->
-    <link href="{{ asset('backend/lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
-    <link href="{{ asset('backend/lib/Ionicons/css/ionicons.css') }}" rel="stylesheet">
-    <!-- <link href="{{ asset('backend/lib/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet"> -->
-    <link href="{{ asset('backend/lib/rickshaw/rickshaw.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('backend/lib/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+    <title>Starlight Admin Panel For OneSport Ecommerce</title>
     
-    <!-- tags input cdn css -->
-    <link href="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet" />
-    <!-- toggle cdn css -->
-    <link href="{{ asset('backend/lib/bootstrap/bootstrap-toggle.css') }}" rel="stylesheet">
-    <!-- chart -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
-
-    <!-- datatable css -->
-    <link href="{{ asset('backend/lib/highlightjs/github.css') }}" rel="stylesheet">
-    <link href="{{ asset('backend/lib/datatables/jquery.dataTables.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('backend/lib/select2/css/select2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('backend/lib/summernote/summernote-bs4.css') }}" rel="stylesheet">
-
-    <!-- Starlight CSS -->
-    <link rel="stylesheet" href="{{ asset('backend/css/starlight.css') }}">
-    @vite('resources/js/app.js')
+    @vite('resources/js/admin-panel.js')
     @livewireStyles
   </head>
 
@@ -62,7 +40,7 @@
 
   @else
   <!-- ########## START: LEFT PANEL ########## -->
-  <div class="sl-logo"><a href=""><i class="icon ion-android-star-outline"></i> starlight</a></div>
+  <div class="sl-logo"><a href="{{ route('admin.dashboard') }}"><i class="icon ion-android-star-outline"></i> starlight</a></div>
     <div class="sl-sideleft">
             
       <div class="sl-sideleft-menu">
@@ -289,16 +267,7 @@
   @endguest
 
   @yield('admin_content')
-
-    <script src="{{ asset('backend/lib/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('backend/lib/popper.js/popper.js') }}"></script>
-    <script src="{{ asset('backend/lib/bootstrap/bootstrap.js') }}"></script>
-    <script src="{{ asset('backend/lib/jquery-ui/jquery-ui.js') }}"></script>
-    <!-- <script src="{{ asset('backend/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js') }}"></script> -->
-    <script src="{{ asset('backend/lib/highlightjs/highlight.pack.js') }}"></script>
-    <script src="{{ asset('backend/lib/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('backend/lib/datatables-responsive/dataTables.responsive.js') }}"></script>
-    <script src="{{ asset('backend/lib/select2/js/select2.min.js') }}"></script>
+  <script async src="{{ asset('backend/js/ckeditor.js') }}"></script>
 
     <script type="module">
       document.addEventListener("DOMContentLoaded", function () {
@@ -308,74 +277,21 @@
         }
       });
     </script>
-    <script>
-      $(function(){
-        'use strict';
 
-        $('#datatable1').DataTable({
-          responsive: true,
-          language: {
-            searchPlaceholder: '{{__('Search')}}...',
-            sSearch: '',
-            lengthMenu: '_MENU_ items/page',
-          },
-          "fnDrawCallback": function() {
-            $('.toggle-status').bootstrapToggle();
-            }
-        });
-
-        // Select2
-        $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
-
+    <script type="module">
+      $(function() {
+        $('.summernote').each(function(i, obj) {
+          ClassicEditor.create(obj)
+            .then(editor => {
+                console.log('CKEditor 5 is initialized for element:', obj);
+              })
+              .catch(error => {
+                console.error('Error initializing CKEditor 5 for element:', obj, error);
+              });
+        }); 
       });
     </script>
-
-    <script src="{{ asset('backend/lib/jquery.sparkline.bower/jquery.sparkline.min.js') }}"></script>
-    <script src="{{ asset('backend/lib/d3/d3.js') }}"></script>
-    <script src="{{ asset('backend/lib/rickshaw/rickshaw.min.js') }}"></script>
-    <script src="{{ asset('backend/lib/chart.js/Chart.js') }}"></script>
-    <script src="{{ asset('backend/lib/Flot/jquery.flot.js') }}"></script>
-    <script src="{{ asset('backend/lib/Flot/jquery.flot.pie.js') }}"></script>
-    <script src="{{ asset('backend/lib/Flot/jquery.flot.resize.js') }}"></script>
-    <script src="{{ asset('backend/lib/flot-spline/jquery.flot.spline.js') }}"></script>
-
-    <script src="{{ asset('backend/lib/medium-editor/medium-editor.js') }}"></script>
-    <script src="{{ asset('backend/lib/summernote/summernote-bs4.js') }}"></script>
-
-    <script>
-      $(document).ready(function() {
-        'use strict';
-
-        // Inline editor
-        // var editor = new MediumEditor('.editable');
-
-        // Summernote editor
-        // $('#summernote').summernote({
-        //   height: 150,
-        //   tooltip: false
-        // })
-
-        $('.summernote').each(function(i, obj) { 
-          $(obj).summernote({
-            height: 150,
-            tooltip: false,
-          });
-          
-        });
-       
-      });
-    </script>
-
-    <script src="{{ asset('backend/js/starlight.js') }}"></script>
-    <script src="{{ asset('backend/js/ResizeSensor.js') }}"></script>
-    <script src="{{ asset('backend/js/dashboard.js') }}"></script>
-
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
-
-    <script>
+    <script type="module">
         @if(Session::has('message'))
           var type="{{Session::get('alert-type','info')}}"
           switch(type){
@@ -401,29 +317,8 @@
              event.detail.title ?? '')
             });
     </script>
-
-     <script>  
-      $(document).on("click", "#delete", function(e){
-          e.preventDefault();
-          var form = this.form;
-          swal({
-            title: "{{__('Are you sure, you want to delete?')}}",
-            text: "{{__('Once Delete, This will be Permanently Delete!')}}",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
-              form.submit();
-            } else {
-              swal("{{__('Data is Safe!')}}");
-            }
-          });
-        });
-    </script>
     
-  <script type="text/javascript">
+  <script type="module">
   $('.toggle-status').on('change', function(e) {
     var status = $(this).prop('checked') == true ? 1 : 0;
     var prod_id = $(this).data('id');
@@ -451,7 +346,7 @@
   });
 </script>
 
-<script type="text/javascript">
+<script type="module">
     async function loadSubcat($this) {
             //Make an Ajax request to a Laravel route
             //This will return the data that we can add to our Select element.
@@ -477,9 +372,7 @@
         }
 </script>
 
-
-
-<script type="text/javascript">
+<script type="module">
   function readURL(input){
     if (input.files && input.files[0]) {
       var reader = new FileReader();
@@ -494,7 +387,7 @@
   }
 </script>
 
-<script type="text/javascript">
+<script type="module">
   function readURL2(input){
     if (input.files && input.files[0]) {
       var reader = new FileReader();
@@ -508,7 +401,7 @@
     }
   }
 </script>
-<script type="text/javascript">
+<script type="module">
   function readURL3(input){
     if (input.files && input.files[0]) {
       var reader = new FileReader();
@@ -523,7 +416,7 @@
     }
   }
 </script>
-<script>
+<script type="module">
     $(document).ready(function() {
         $("#page_url").on("change", function() {
             var customOptionInput = $("#custom_option");

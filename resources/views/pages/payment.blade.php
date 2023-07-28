@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/contact_styles.css') }}">
-<!-- <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/cart_styles.css') }}"> -->
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/contact_responsive.css') }}">
+@push('styles')
+	<script src="https://www.paypal.com/sdk/js?client-id=ARGpVcHc0UGc2RUuA3QrdIFONDmDF6VkW8yId1bAJ683qj2YMv0SLTlVZO3QQ3I6fsyUSM_fgtgcyunB&currency=USD"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/contact_styles.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/contact_responsive.css') }}">
+@endpush
 
 
         <div class="contact_form">

@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/contact_styles.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/contact_responsive.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/checkout.css') }}">
+@push('styles')
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/contact_styles.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/contact_responsive.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/checkout.css') }}">
+@endpush
 
 
         <div class="contact_form">
@@ -96,58 +98,5 @@
 		<div class="panel"></div>
 	</div>
 
-    @push('scripts')
 
-    <script>
-        // This is your test publishable API key.
-      const stripe = Stripe("{{ config('services.stripe.key') }}");
-
-      var elements = stripe.elements();
-      var style = {
-        base: {
-          color: "#32325d",
-        }
-      };
-
-      var card = elements.create("card", { style: style });
-      card.mount("#card-element");
-
-      card.on('change', ({error}) => {
-        let displayError = document.getElementById('card-errors');
-        if (error) {
-          displayError.textContent = error.message;
-        } else {
-          displayError.textContent = '';
-        }
-      });
-
-      var form = document.getElementById('payment-form');
-
-      form.addEventListener('submit', function(ev) {
-        ev.preventDefault();
-        // If the client secret was rendered server-side as a data-secret attribute
-        // on the <form> element, you can retrieve it here by calling `form.dataset.secret`
-        stripe.createToken(card).then(function(result) {
-          if (result.error) {
-            // Show error to your customer (for example, insufficient funds)
-            console.log(result.error.message);
-            var errorElement = document.getElementById('card-errors');
-            errorElement.textContent = result.error.message;
-          } else {
-            // The payment has been processed!
-            var form = document.getElementById('payment-form');
-            var hiddenInput = document.createElement('input');
-            hiddenInput.setAttribute('type', 'hidden');
-            hiddenInput.setAttribute('name', 'stripeToken');
-            hiddenInput.setAttribute('value', result.token.id);
-            form.appendChild(hiddenInput);
-            
-            // Submit the form
-            form.submit();
-          }
-        });
-      });
-    </script>
-  
-    @endpush
 @endsection

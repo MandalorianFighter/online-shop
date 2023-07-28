@@ -1,26 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-<title>{{ $seo->page_title ?? '' }}</title>
+	<title>{{ $seo->page_title ?? '' }}</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="{{ $seo->meta_description ?? '' }}">
 <meta name="keywords" content="{{ $seo->meta_keywords ?? '' }}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/bootstrap4/bootstrap.min.css') }}">
-<link href="{{ asset('frontend/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css') }}" rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/plugins/OwlCarousel2-2.2.1/owl.carousel.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/plugins/OwlCarousel2-2.2.1/owl.theme.default.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/plugins/OwlCarousel2-2.2.1/animate.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/plugins/slick-1.8.0/slick.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/main_styles.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/responsive.css') }}">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
-
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
-<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=64a7ab13df473b0019d1b1b4&product=inline-share-buttons' async='async'></script>
-<script src="https://js.stripe.com/v3/"></script>
-<script src="https://www.paypal.com/sdk/js?client-id=ARGpVcHc0UGc2RUuA3QrdIFONDmDF6VkW8yId1bAJ683qj2YMv0SLTlVZO3QQ3I6fsyUSM_fgtgcyunB&currency=USD"></script>
+@vite('resources/js/web-pages.js')
+@stack('styles')
 </head>
 
 <body>
@@ -324,51 +314,32 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </div>
 
 
+<script type="module" src="{{ asset('frontend/plugins/Isotope/isotope.pkgd.min.js') }}"></script>
 
 @stack('scripts')
-<script src="{{ asset('frontend/js/jquery.min.js') }}"></script>
-<script src="{{ asset('frontend/styles/bootstrap4/popper.js') }}"></script>
-<script src="{{ asset('frontend/styles/bootstrap4/bootstrap.js') }}"></script>
-<script src="{{ asset('frontend/plugins/greensock/TweenMax.min.js') }}"></script>
-<script src="{{ asset('frontend/plugins/greensock/TimelineMax.min.js') }}"></script>
-<script src="{{ asset('frontend/plugins/scrollmagic/ScrollMagic.min.js') }}"></script>
-<script src="{{ asset('frontend/plugins/greensock/animation.gsap.min.js') }}"></script>
-<script src="{{ asset('frontend/plugins/greensock/ScrollToPlugin.min.js') }}"></script>
-<script src="{{ asset('frontend/plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
-<script src="{{ asset('frontend/plugins/slick-1.8.0/slick.js') }}"></script>
-<script src="{{ asset('frontend/plugins/easing/easing.js') }}"></script>
-<script src="{{ asset('frontend/plugins/Isotope/isotope.pkgd.min.js') }}"></script>
-<script src="{{ asset('frontend/plugins/jquery-ui-1.12.1.custom/jquery-ui.js') }}"></script>
-<script src="{{ asset('frontend/plugins/parallax-js-master/parallax.min.js') }}"></script>
-<script src="{{ asset('frontend/js/custom.js') }}"></script>
-<script src="{{ asset('frontend/js/shop_custom.js') }}"></script>
-<script src="{{ asset('frontend/js/product_custom.js') }}"></script>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script type="module">
+	@if(Session::has('message'))
+		var type="{{Session::get('alert-type','info')}}"
+		switch(type){
+			case 'info':
+				toastr.info("{{ Session::get('message') }}");
+				break;
+			case 'success':
+				toastr.success("{{ Session::get('message') }}");
+				break;
+			case 'warning':
+				toastr.warning("{{ Session::get('message') }}");
+				break;
+			case 'error':
+				toastr.error("{{ Session::get('message') }}");
+				break;
+		}
+	@endif
+</script> 
 
-
-    <script>
-        @if(Session::has('message'))
-          var type="{{Session::get('alert-type','info')}}"
-          switch(type){
-              case 'info':
-                   toastr.info("{{ Session::get('message') }}");
-                   break;
-              case 'success':
-                  toastr.success("{{ Session::get('message') }}");
-                  break;
-              case 'warning':
-                 toastr.warning("{{ Session::get('message') }}");
-                  break;
-              case 'error':
-                  toastr.error("{{ Session::get('message') }}");
-                  break;
-          }
-        @endif
-     </script> 
-
-<script type="text/javascript">
-$(document).ready(function() {
+<script type="module">
+$(function() {
     $('#show-more-button').click(function() {
         $('#more').toggle(); // Toggle the display of the hidden portion of the description
         $('#show-more-button').hide(); // Hide the "Show more" button
@@ -383,7 +354,7 @@ $(document).ready(function() {
 });
 </script> 
 
-<script type="text/javascript">
+<script type="module">
   $(document).on('click', '#wishlist', function(e) {
 	e.preventDefault();
 	var prod_id = $(this).data('id');
@@ -409,7 +380,7 @@ $(document).ready(function() {
 </script>
 
 
-<script type="text/javascript">
+<script type="module">
 	$('.qty-change').click(function(e) {
 		e.preventDefault();
 		var item = $(e.target).parents('.cart-form');
@@ -437,7 +408,7 @@ $(document).ready(function() {
     });
 	});
 </script>
-<script type="text/javascript">
+<script type="module">
 	$('.delete-cart-item').click(function(e) {
 		e.preventDefault();
 		var item = $(e.target).parents('.cart-form');
@@ -465,7 +436,7 @@ $(document).ready(function() {
 	});
 </script>
 
-<script type="text/javascript">
+<script>
 	function productView(id) {
 		$.ajax({
         type: 'POST',
@@ -500,7 +471,7 @@ $(document).ready(function() {
 </script>
 
 
-<script type="text/javascript">
+<script type="module">
 	$('.qty-check').click(function(e) {
 		e.preventDefault();
 		var item = $(e.target).parents('.check-form');
@@ -533,7 +504,7 @@ $(document).ready(function() {
 	});
 </script>
 
-<script type="text/javascript">
+<script type="module">
 	$('.delete-cart-check').click(function(e) {
 		e.preventDefault();
 		var item = $(e.target).parents('.check-form');
@@ -564,7 +535,7 @@ $(document).ready(function() {
     });
 	});
 </script>
-<script type="text/javascript">
+<script type="module">
 	$('.delete-wish-item').click(function(e) {
 		e.preventDefault();
 		var item = $(e.target).parents('.wish-form');
@@ -590,13 +561,13 @@ $(document).ready(function() {
 	});
 </script>
 
-<script type="text/javascript">
+<script type="module">
 	$('.return-order').click(function() {
 		var order_id = $(this).attr('id');
 		$('#order_id').val(order_id);
     });
 </script>
-<script>
+<script type="module">
     $(document).ready(function() {
         $('.category-link').click(function(e) {
             e.preventDefault();
@@ -606,7 +577,7 @@ $(document).ready(function() {
 		});
 	});
 </script>
-<script>
+<script type="module">
     $(document).ready(function() {
         $('.brand a').click(function(e) {
             e.preventDefault();
