@@ -108,6 +108,4 @@
 
 </div><!-- sl-mainpanel -->
 
-
-
 @endsection

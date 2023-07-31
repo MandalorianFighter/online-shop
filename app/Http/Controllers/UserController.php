@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\User\UpdatePassRequest;
 use App\Models\Admin\Order;
 use App\Models\Admin\OrderDetails;
+use App\DataTables\UserOrdersDataTable;
+use App\DataTables\OrderReturnDataTable;
 use Illuminate\Support\Facades\Auth;
 use DB;
 use Laravel\Fortify\Contracts\UpdatesUserPasswords;
@@ -14,14 +16,10 @@ use Laravel\Fortify\Contracts\UpdatesUserPasswords;
 class UserController extends Controller
 {
 
-    public function dashboard()
-    {
-        $orders = Order::where('user_id', auth()->id())
-        ->orderBy('id', 'desc')
-        ->take(10)
-        ->get();
-        return view('dashboard', compact('orders'));
-    }
+    public function dashboard(UserOrdersDataTable $dataTable)
+{
+    return $dataTable->render('dashboard');
+}
 
     public function viewOrder(Order $order)
     {
@@ -102,14 +100,15 @@ class UserController extends Controller
         return Redirect()->route('login')->with($notification);
     }
 
-    public function listSuccess()
+    public function listSuccess(OrderReturnDataTable $dataTable)
     {
-        $orders = Order::where('user_id', auth()->id())
-        ->where('status', 3)
-        ->orderBy('id', 'desc')
-        ->take(5)
-        ->get();
-        return view('pages.return_order', compact('orders'));
+        return $dataTable->render('pages.return_order');
+        // $orders = Order::where('user_id', auth()->id())
+        // ->where('status', 3)
+        // ->orderBy('id', 'desc')
+        // ->take(10)
+        // ->get();
+        // return view('pages.return_order', compact('orders'));
     }
 
     public function orderReturn(Request $request)
@@ -123,3 +122,7 @@ class UserController extends Controller
         return Redirect()->back()->with($notification);
     }
 }
+
+
+
+

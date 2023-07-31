@@ -267,6 +267,7 @@
   @endguest
 
   @yield('admin_content')
+
   <script async src="{{ asset('backend/js/ckeditor.js') }}"></script>
 
     <script type="module">

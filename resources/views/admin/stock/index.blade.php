@@ -11,7 +11,6 @@
 
         <livewire:stock-table />
 
-        
       </div>
     </div><!-- sl-mainpanel -->
 

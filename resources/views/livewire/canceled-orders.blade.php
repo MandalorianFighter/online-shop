@@ -86,7 +86,7 @@
             <td>{{ $order->subtotal }} $</td>
             <td>{{ $order->shipping }} $</td>
             <td>{{ $order->total }} $</td>
-            <td>{{ $order->date }}</td>
+            <td>{{ $order->date->format('d-m-Y') }}</td>
             <td>
             @if($order->status == 0)
                 <span class="badge badge-warning">{{ __('Pending') }}</span>

@@ -98,13 +98,13 @@ class OrderController extends Controller
 
     public function dashboard()
     {
-        $today = date('d-m-y');
-        $todayTotal = Order::where('date', $today)->sum('total');
-        $month = date('F');
-        $monthTotal = Order::where('month', $month)->sum('total');
+        $today = date('Y-m-d H:i:s');
+        $todayTotal = Order::whereDate('date', $today)->sum('total');
+        $month = date('m');
+        $monthTotal = Order::whereMonth('date', $month)->sum('total');
         $year = date('Y');
-        $yearTotal = Order::where('year', $year)->sum('total');
-        $todayDelivered = Order::where('date', $today)->where('status', 3)->sum('total');
+        $yearTotal = Order::whereYear('date', $year)->sum('total');
+        $todayDelivered = Order::whereDate('date', $today)->where('status', 3)->sum('total');
 
         $returnTotal = Order::where('return_order', 2)->sum('total');
 

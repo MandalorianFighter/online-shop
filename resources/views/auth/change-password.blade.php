@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+@push('styles')
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/product_styles.css') }}">
+@endpush
 
-<div class="container">
+<div class="container mt-5">
     <div class="row">
         <div class="col-md-8">
             <div class="card">

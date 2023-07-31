@@ -2,6 +2,8 @@ import '../css/web-pages.css';
 
 import './bootstrap';
 
+import 'laravel-datatables-vite';
+
 // import '../../public/frontend/plugins/OwlCarousel2-2.2.1/owl.carousel.js'; // the problem was with the version of the package
 import 'owl.carousel';
 import 'slick-carousel';

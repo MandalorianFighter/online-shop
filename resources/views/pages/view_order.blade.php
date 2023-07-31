@@ -4,7 +4,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/product_styles.css') }}">
 @endpush
 
-<div class="contact_form">
+<div class="contact_form mt-5">
     <div class="container">
         <div class="row">
             <div class="col-12 card">

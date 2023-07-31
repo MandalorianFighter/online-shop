@@ -562,12 +562,6 @@ $(function() {
 </script>
 
 <script type="module">
-	$('.return-order').click(function() {
-		var order_id = $(this).attr('id');
-		$('#order_id').val(order_id);
-    });
-</script>
-<script type="module">
     $(document).ready(function() {
         $('.category-link').click(function(e) {
             e.preventDefault();

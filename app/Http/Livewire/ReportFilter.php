@@ -54,22 +54,43 @@ class ReportFilter extends Component
         $this->resetPage();
     }
 
+    private function applyFilters($query)
+    {
+        return $query->where('status',3)
+        ->when($this->date, function ($query) {
+            $query->whereDate('date', $this->date);
+        })
+        ->when($this->month, function ($query) {
+            $query->whereMonth('date', $this->month);
+        })
+        ->when($this->year, function ($query) {
+            $query->whereYear('date', $this->year);
+        })->where(function ($query) {
+            $query->where('payment_type', 'like', '%'.trim($this->search).'%')
+                ->orWhere('balance_transaction', 'like', '%'.trim($this->search).'%')
+                ->orWhere('subtotal', 'like', '%'.trim($this->search).'%')
+                ->orWhere('shipping', 'like', '%'.trim($this->search).'%')
+                ->orWhere('total', 'like', '%'.trim($this->search).'%')
+                ->orWhere('date', 'like', '%'.trim($this->search).'%');
+        });
+    }
+
+
     public function render()
     {
-        $date = date('d-m-y',strtotime($this->date));
         $monthes = [
-            __('January') => __('January'), 
-            __('February') => __('February'), 
-            __('March') => __('March'), 
-            __('April') => __('April'), 
-            __('May') => __('May'), 
-            __('June') => __('June'), 
-            __('July') => __('July'), 
-            __('August') => __('August'), 
-            __('September') => __('September'),
-            __('October') => __('October'),
-            __('November') => __('November'),
-            __('December') => __('December'),
+            '01' => __('January'), 
+            '02' => __('February'), 
+            '03' => __('March'), 
+            '04' => __('April'), 
+            '05' => __('May'), 
+            '06' => __('June'), 
+            '07' => __('July'), 
+            '08' => __('August'), 
+            '09' => __('September'),
+            '10' => __('October'),
+            '11' => __('November'),
+            '12' => __('December'),
         ];
         $years = [
             '2022' => '2022',
@@ -86,45 +107,13 @@ class ReportFilter extends Component
             '2033' => '2033',
         ];
         return view('livewire.report-filter', [
-            'orders' => Order::where('status',3)
-            ->when($this->date, function ($query) use ($date) {
-                $query->where('date', $date);
-            })
-            ->when($this->month, function ($query) {
-                $query->where('month', $this->month);
-            })
-            ->when($this->year, function ($query) {
-                $query->where('year', $this->year);
-            })
+            'orders' => $this->applyFilters(Order::query())
             ->when($this->sortField, function($query) {
-                    $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
-            })->where(function ($query) {
-                $query->where('payment_type', 'like', '%'.trim($this->search).'%')
-                    ->orWhere('balance_transaction', 'like', '%'.trim($this->search).'%')
-                    ->orWhere('subtotal', 'like', '%'.trim($this->search).'%')
-                    ->orWhere('shipping', 'like', '%'.trim($this->search).'%')
-                    ->orWhere('total', 'like', '%'.trim($this->search).'%')
-                    ->orWhere('date', 'like', '%'.trim($this->search).'%');
+                $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
             })->paginate($this->paginate),
             'monthes' => $monthes,
             'years' => $years,
-            'total' => Order::where('status',3)
-            ->when($this->date, function ($query) use ($date) {
-                $query->where('date', $date);
-            })
-            ->when($this->month, function ($query) {
-                $query->where('month', $this->month);
-            })
-            ->when($this->year, function ($query) {
-                $query->where('year', $this->year);
-            })->where(function ($query) {
-                $query->where('payment_type', 'like', '%'.trim($this->search).'%')
-                    ->orWhere('balance_transaction', 'like', '%'.trim($this->search).'%')
-                    ->orWhere('subtotal', 'like', '%'.trim($this->search).'%')
-                    ->orWhere('shipping', 'like', '%'.trim($this->search).'%')
-                    ->orWhere('total', 'like', '%'.trim($this->search).'%')
-                    ->orWhere('date', 'like', '%'.trim($this->search).'%');
-            })->sum('total'),
+            'total' => $this->applyFilters(Order::query())->sum('total'),
         ]);
     }
 }

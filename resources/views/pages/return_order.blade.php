@@ -4,73 +4,21 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/product_styles.css') }}">
 @endpush
 
-<div class="contact_form">
+<div class="contact_form mt-5">
     <div class="container">
         <div class="row">
             <div class="col-8 card">
-            <h6 class="card-body-title mt-3 mb-3">{{ __('Order List') }}</h6>
-                <table class="table table-response">
-                    <thead>
-                        <tr>
-                            <th scope="col">{{ __('Payment Type') }}</th>
-                            <th scope="col">{{ __('Return') }}</th>
-                            <th scope="col">{{ __('Amount') }}</th>
-                            <th scope="col">{{ __('Date') }}</th>
-                            <th scope="col">{{ __('Status') }}</th>
-                            <th scope="col">{{ __('Action') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($orders as $item)
-                        <tr>
-                            <td scope="col">{{$item->payment_type}}</td>
-                            <td scope="col">
-                            @if($item->return_order == 0)
-                                <span class="badge rounded-pill text-bg-warning">{{ __('No Request') }}</span>
-                            @elseif($item->return_order == 1)
-                                <span class="badge rounded-pill text-bg-primary">{{ __('Pending') }}</span>
-                            @elseif($item->return_order == 2)
-                                <span class="badge rounded-pill text-bg-success">{{ __('Success') }}</span>
-                            @endif
-                            </td>
-                            <td scope="col">{{$item->total}} $</td>
-                            <td scope="col">{{$item->date}}</td>
-                            <td scope="col">
-                            @if($item->status == 0)
-                                <span class="badge rounded-pill text-bg-warning">{{ __('Pending') }}</span>
-                            @elseif($item->status == 1)
-                                <span class="badge rounded-pill text-bg-primary">{{ __('Payment Accepted') }}</span>
-                            @elseif($item->status == 2)
-                                <span class="badge rounded-pill text-bg-warning">{{ __('Progress') }}</span>
-                            @elseif($item->status == 3)
-                                <span class="badge rounded-pill text-bg-success">{{ __('Delivered') }}</span>
-                            @else
-                                <span class="badge rounded-pill text-bg-danger">{{ __('Canceled') }}</span>
-                            @endif
-                            </td>
-                            <td scope="col">
-                            @if($item->return_order == 0)
-                                <a href="#" class="btn btn-sm btn-warning return-order" id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#returnOrderModal">{{ __('Return') }}</a>
-                            @else
-                            <a href="#" class="btn btn-sm btn-secondary return-order disabled">{{ __('Return') }}</a>
-                            @endif
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>      
-                            <td colspan="6" class="empty-table">{{ __('No Orders Found.') }}</td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                <h6 class="card-body-title mt-3 mb-3">{{ __('Order List') }}</h6>
+                {!! $dataTable->table(['class' => 'table table-response']) !!}
             </div>
             @include('profile.profile_menu')
         </div>
     </div>
 </div>
 
-
 <!-- Order Tracking Modal -->
+<!-- Modal code remains the same -->
+
 <div class="modal fade" id="returnOrderModal" tabindex="-1" aria-labelledby="returnOrderModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -99,3 +47,15 @@
 </div>
 
 @endsection
+
+@push('scripts')
+{!! $dataTable->scripts(null, ['type' => 'module']) !!}
+
+<script type="module">
+    $(document).on('click', '.return-order', function() {
+        var order_id = $(this).attr('id');
+        $('#order_id').val(order_id);
+    });
+</script>
+@endpush
+

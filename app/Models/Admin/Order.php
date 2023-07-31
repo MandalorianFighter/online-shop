@@ -28,6 +28,10 @@ class Order extends Model
         'year',
     ];
 
+    protected $dates = ['date'];
+
+    // protected $dateFormat = 'd-m-y';
+
     protected $with = ['user:id,name,phone'];
 
     public function user()

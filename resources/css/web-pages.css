@@ -1,6 +1,11 @@
 @import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 @import '../../public/frontend/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css';
 
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
+@import "datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css";
+@import 'datatables.net-select-bs5/css/select.bootstrap5.css';
+
 @import '../../public/frontend/plugins/OwlCarousel2-2.2.1/owl.carousel.css';
 @import '../../public/frontend/plugins/OwlCarousel2-2.2.1/owl.theme.default.css';
 @import '../../public/frontend/plugins/OwlCarousel2-2.2.1/animate.css';

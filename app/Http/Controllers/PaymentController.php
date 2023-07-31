@@ -73,9 +73,9 @@ class PaymentController extends Controller
                 'total' => $request->total,
                 'subtotal' => Session::has('coupon') ? Session::get('coupon')['balance'] : Cart::subtotal(),
                 'status' => 0,
-                'date' => date('d-m-y'),
-                'month' => date('F'),
-                'year' => date('Y'),
+                'date' => date('Y-m-d H:i:s'),
+                // 'month' => date('F'),
+                // 'year' => date('Y'),
                 'status_code' => mt_rand(100000,999999),
             ];
 
@@ -182,9 +182,9 @@ class PaymentController extends Controller
                 'total' => $arr['transactions']['0']['amount']['total'],
                 'subtotal' => Session::has('coupon') ? Session::get('coupon')['balance'] : Cart::subtotal(),
                 'status' => 0,
-                'date' => date('d-m-y'),
-                'month' => date('F'),
-                'year' => date('Y'),
+                'date' => date('Y-m-d H:i:s'),
+                // 'month' => date('F'),
+                // 'year' => date('Y'),
                 'status_code' => mt_rand(100000,999999),
             ];
 
@@ -241,9 +241,9 @@ class PaymentController extends Controller
                 'total' => $request->total,
                 'subtotal' => Session::has('coupon') ? Session::get('coupon')['balance'] : Cart::subtotal(),
                 'status' => 0,
-                'date' => date('d-m-y'),
-                'month' => date('F'),
-                'year' => date('Y'),
+                'date' => date('Y-m-d H:i:s'),
+                // 'month' => date('F'),
+                // 'year' => date('Y'),
                 'status_code' => mt_rand(100000,999999),
             ];
 

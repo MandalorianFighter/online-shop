@@ -179,16 +179,9 @@
 
         {{ Form::close() }}
 
-
-
-
-
-        
       </div><!-- row -->
 
 </div><!-- sl-mainpanel -->
     <!-- ########## END: MAIN PANEL ########## -->
-
-
 
 @endsection

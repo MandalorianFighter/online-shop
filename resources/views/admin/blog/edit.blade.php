@@ -61,20 +61,6 @@
                 </div>
               </div><!-- col-4 -->
 
-              <!-- <div class="col-lg-6">
-                <div class="form-group">
-                  {!! Html::decode(Form::label('post_title_ukr', __('Post Title') . ' (Uk): <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
-                  {{ Form::text('post_title_ukr', $post->post_title_ukr, ['class' => 'form-control', 'placeholder' => __('Enter Post Title in Ukrainian')]) }}
-                </div>
-              </div>col-4
-
-              <div class="col-lg-12">
-                <div class="form-group">
-                  {!! Html::decode(Form::label('details_ukr', __('Post Details') . ' (Uk): <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
-                  {{ Form::textarea('details_ukr', $post->details_ukr, ['class' => 'form-control summernote']) }}
-                </div>
-              </div>col-4 -->
-
               <div class="col-lg-4">
                 <div class="form-group">
                   {!! Html::decode(Form::label('post_image', __('Post Image') . ': <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
@@ -104,7 +90,5 @@
 
 </div><!-- sl-mainpanel -->
     <!-- ########## END: MAIN PANEL ########## -->
-
-
 
 @endsection
