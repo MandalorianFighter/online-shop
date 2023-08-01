@@ -192,19 +192,19 @@
             <li class="nav-item"><a href="{{ route('messages.index') }}" class="nav-link">{{ __('All Messages') }}</a></li>
           </ul>
           @endif
-          @if(auth()->user()->comment == 1)
+          <!-- @if(auth()->user()->comment == 1)
           <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">
               <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
               <span class="menu-item-label">{{ __('Product Comments') }}</span>
               <i class="menu-item-arrow fa fa-angle-down"></i>
-            </div><!-- menu-item -->
-          </a><!-- sl-menu-link -->
+            </div>
+          </a>
           <ul class="sl-menu-sub nav flex-column">
             <li class="nav-item"><a href="" class="nav-link">{{ __('New Comments') }}</a></li>
             <li class="nav-item"><a href="" class="nav-link">{{ __('All Comments') }}</a></li>
           </ul>
-          @endif
+          @endif -->
           @if(auth()->user()->setting == 1)
           <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">

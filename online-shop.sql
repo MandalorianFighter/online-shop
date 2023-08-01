@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 24, 2023 at 04:50 PM
--- Server version: 8.0.33-0ubuntu0.20.04.2
+-- Generation Time: Jul 31, 2023 at 05:45 PM
+-- Server version: 8.0.33-0ubuntu0.20.04.4
 -- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -616,10 +616,8 @@ CREATE TABLE `orders` (
   `total` float DEFAULT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '0',
   `return_order` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '0',
-  `month` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `year` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `status_code` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -628,33 +626,26 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `payment_type`, `payment_id`, `paying_amount`, `balance_transaction`, `order_id`, `subtotal`, `shipping`, `vat`, `total`, `status`, `return_order`, `month`, `date`, `year`, `status_code`, `created_at`, `updated_at`) VALUES
-(1, '1', 'stripe', 'card_1NNCZhGSnHOOWddHg5soUpwu', 14000, 'txn_3NNCZiGSnHOOWddH08Lfgd3l', '649967127846f', 125, 10, 5, 140, '3', '0', 'June', '26-06-23', '2023', '1', NULL, '2023-07-05 08:30:47'),
-(2, '1', 'stripe', 'card_1NNCeEGSnHOOWddHkz975FRt', 7300, 'txn_3NNCeFGSnHOOWddH16FN5kIX', '6499682b527d8', 58, 10, 5, 73, '3', '2', 'June', '26-06-23', '2023', '2', NULL, '2023-07-05 11:51:28'),
-(3, '1', 'stripe', 'card_1NNtSDGSnHOOWddHGIBt3vwb', 14000, 'txn_3NNtSGGSnHOOWddH31xCrwHB', '649beaeedb3ca', 125, 10, 5, 140, '4', '0', 'June', '28-06-23', '2023', '3', NULL, '2023-06-28 08:49:44'),
-(4, '1', 'stripe', 'card_1NNtYcGSnHOOWddHho6l45uz', 11500, 'txn_3NNtYdGSnHOOWddH27FrzAnX', '649bec7c1f180', 100, 10, 5, 115, '1', '0', 'June', '28-06-23', '2023', '4', NULL, '2023-06-28 09:41:53'),
-(5, '1', 'stripe', 'card_1NOI2gGSnHOOWddH4koZaCLR', 32000, 'txn_3NOI2iGSnHOOWddH2JzEMXHu', '649d5c2278826', 305, 10, 5, 320, '3', '2', 'June', '29-06-23', '2023', '662919', NULL, '2023-07-09 15:53:03'),
-(6, '1', 'stripe', 'card_1NOZnUGSnHOOWddHYOgJmiOM', 3500, 'txn_3NOZnWGSnHOOWddH1ZmN33dE', '649e66bccc722', 20, 10, 5, 35, '3', '0', 'June', '30-06-23', '2023', '652799', NULL, '2023-07-09 15:49:57'),
-(7, '3', 'stripe', 'card_1NQsFlGSnHOOWddHkLtJXDkR', 10000, 'txn_3NQsFmGSnHOOWddH3y6YWajP', '64a6c1ce9b7c4', 85, 10, 5, 100, '0', '0', 'July', '06-07-23', '2023', '140590', NULL, NULL),
-(8, '1', 'stripe', 'card_1NSd7kGSnHOOWddHFaQmGt9a', 9500, 'txn_3NSd7nGSnHOOWddH0Rq1f6Yj', '64ad24914ace9', 80, 10, 5, 95, '0', '0', 'July', '11-07-23', '2023', '828058', NULL, NULL),
-(9, '1', 'stripe', 'card_1NSdBoGSnHOOWddHaLrLdqiE', 13500, 'txn_3NSdBqGSnHOOWddH0l2mjgIG', '64ad258d9304a', 120, 10, 5, 135, '0', '0', 'July', '11-07-23', '2023', '965892', NULL, NULL),
-(10, '1', 'paypal', 'PAYID-MSXIOPA2T113742YF710524P', 110, '0XL01732RH792714B', NULL, 95, 10, 5, 110, '0', '0', 'July', '12-07-23', '2023', '940202', NULL, NULL),
-(11, '1', 'paypal', 'PAYID-MSXJNKQ1HS922577U624984M', 110, '8GN38135616902640', NULL, 95, 10, 5, 110, '0', '0', 'July', '12-07-23', '2023', '528732', NULL, NULL),
-(12, '1', 'paypal', 'PAYID-MSXJRXA87706341BE3167615', 110, '2NE05698M5792251S', NULL, 95, 10, 5, 110, '0', '0', 'July', '12-07-23', '2023', '694481', NULL, NULL),
-(13, '1', 'paypal', 'PAYID-MSXJRXA87706341BE3167615', 110, '2NE05698M5792251S', NULL, 95, 10, 5, 110, '0', '0', 'July', '12-07-23', '2023', '492058', NULL, NULL),
-(14, '1', 'paypal', 'PAYID-MSXKBLI9WY458439G5030917', 110, '3RW65718PB286644P', NULL, 95, 10, 5, 110, '0', '0', 'July', '12-07-23', '2023', '958690', NULL, NULL),
-(15, '1', 'paypal', 'PAYID-MSXKBLI9WY458439G5030917', 110, '3RW65718PB286644P', NULL, 95, 10, 5, 110, '0', '0', 'July', '12-07-23', '2023', '316370', NULL, NULL),
-(16, '1', 'paypal', 'PAYID-MSXKH3A0BJ33679LG8638825', 110, '2B064049TJ5836402', NULL, 95, 10, 5, 110, '0', '0', 'July', '12-07-23', '2023', '691494', NULL, NULL),
-(17, '1', 'paypal', 'PAYID-MSXKKGA0CX91174VC265070S', 110, '01W131240D913913W', NULL, 95, 10, 5, 110, '0', '0', 'July', '12-07-23', '2023', '761311', NULL, NULL),
-(18, '1', 'paypal', 'PAYID-MSXLCEA4N224553K0604894P', 95, '64K22390S68808507', NULL, 80, 10, 5, 95, '0', '0', 'July', '12-07-23', '2023', '837464', NULL, NULL),
-(19, '1', 'paypal', 'PAYID-MSXLEUQ72916387TH306071Y', 95, '62273255EG037650P', NULL, 80, 10, 5, 95, '0', '0', 'July', '12-07-23', '2023', '886930', NULL, NULL),
-(20, '1', 'paypal', 'PAYID-MSXLH6I5G252673PL701060Y', 75, '9BU20574TC385450M', NULL, 60, 10, 5, 75, '0', '0', 'July', '12-07-23', '2023', '128756', NULL, NULL),
-(21, '1', 'paypal', 'PAYID-MSXLJ3Q1AX17068AB3079342', 40, '4B619590D37329809', NULL, 25, 10, 5, 40, '0', '0', 'July', '12-07-23', '2023', '302861', NULL, NULL),
-(23, '1', 'stripe', 'card_1NT3w2GSnHOOWddHFLyVE45U', 80, 'txn_3NT3w3GSnHOOWddH31r91qi9', '64aeb726d4cbb', 65, 10, 5, 80, '0', '0', 'July', '12-07-23', '2023', '448774', NULL, NULL),
-(24, '1', 'paypal', 'PAYID-MSXLO4Q9SB841982U042552F', 135, '8XY447459G855274D', NULL, 120, 10, 5, 135, '0', '0', 'July', '12-07-23', '2023', '739514', NULL, NULL),
-(25, '1', 'stripe', 'card_1NT40WGSnHOOWddHKqPfvm8Y', 105, 'txn_3NT40XGSnHOOWddH2MLA6QR6', '64aeb83cc41b7', 90, 10, 5, 105, '0', '0', 'July', '12-07-23', '2023', '902192', NULL, NULL),
-(26, '1', 'paypal', 'PAYID-MSXLUWQ7TF04072KX4960245', 220, '3CX40476MW660414G', NULL, 205, 10, 5, 220, '0', '0', 'July', '12-07-23', '2023', '456761', NULL, NULL),
-(27, '1', 'oncash', NULL, NULL, NULL, NULL, 85, 10, 5, 100, '0', '0', 'July', '13-07-23', '2023', '566833', NULL, NULL);
+INSERT INTO `orders` (`id`, `user_id`, `payment_type`, `payment_id`, `paying_amount`, `balance_transaction`, `order_id`, `subtotal`, `shipping`, `vat`, `total`, `status`, `return_order`, `date`, `status_code`, `created_at`, `updated_at`) VALUES
+(1, '1', 'stripe', 'card_1NNCZhGSnHOOWddHg5soUpwu', 14000, 'txn_3NNCZiGSnHOOWddH08Lfgd3l', '649967127846f', 125, 10, 5, 140, '3', '0', '2023-06-26 00:00:00', 1, NULL, '2023-07-05 08:30:47'),
+(2, '1', 'stripe', 'card_1NNCeEGSnHOOWddHkz975FRt', 7300, 'txn_3NNCeFGSnHOOWddH16FN5kIX', '6499682b527d8', 58, 10, 5, 73, '3', '2', '2023-06-26 00:00:00', 2, NULL, '2023-07-05 11:51:28'),
+(3, '1', 'stripe', 'card_1NNtSDGSnHOOWddHGIBt3vwb', 14000, 'txn_3NNtSGGSnHOOWddH31xCrwHB', '649beaeedb3ca', 125, 10, 5, 140, '4', '0', '2023-06-28 00:00:00', 3, NULL, '2023-06-28 08:49:44'),
+(4, '1', 'stripe', 'card_1NNtYcGSnHOOWddHho6l45uz', 11500, 'txn_3NNtYdGSnHOOWddH27FrzAnX', '649bec7c1f180', 100, 10, 5, 115, '3', '0', '2023-06-28 00:00:00', 4, NULL, '2023-07-30 05:24:31'),
+(5, '1', 'stripe', 'card_1NOI2gGSnHOOWddH4koZaCLR', 32000, 'txn_3NOI2iGSnHOOWddH2JzEMXHu', '649d5c2278826', 305, 10, 5, 320, '3', '2', '2023-06-29 00:00:00', 662919, NULL, '2023-07-09 15:53:03'),
+(6, '1', 'stripe', 'card_1NOZnUGSnHOOWddHYOgJmiOM', 3500, 'txn_3NOZnWGSnHOOWddH1ZmN33dE', '649e66bccc722', 20, 10, 5, 35, '3', '0', '2023-06-30 00:00:00', 652799, NULL, '2023-07-09 15:49:57'),
+(8, '1', 'stripe', 'card_1NSd7kGSnHOOWddHFaQmGt9a', 9500, 'txn_3NSd7nGSnHOOWddH0Rq1f6Yj', '64ad24914ace9', 80, 10, 5, 95, '3', '1', '2023-07-11 00:00:00', 828058, NULL, '2023-07-31 06:29:10'),
+(9, '1', 'stripe', 'card_1NSdBoGSnHOOWddHaLrLdqiE', 13500, 'txn_3NSdBqGSnHOOWddH0l2mjgIG', '64ad258d9304a', 120, 10, 5, 135, '0', '0', '2023-07-11 00:00:00', 965892, NULL, NULL),
+(17, '1', 'paypal', 'PAYID-MSXKKGA0CX91174VC265070S', 110, '01W131240D913913W', NULL, 95, 10, 5, 110, '3', '0', '2023-07-12 00:00:00', 761311, NULL, '2023-07-30 05:25:51'),
+(19, '1', 'paypal', 'PAYID-MSXLEUQ72916387TH306071Y', 95, '62273255EG037650P', NULL, 80, 10, 5, 95, '0', '0', '2023-07-12 00:00:00', 886930, NULL, NULL),
+(20, '1', 'paypal', 'PAYID-MSXLH6I5G252673PL701060Y', 75, '9BU20574TC385450M', NULL, 60, 10, 5, 75, '0', '0', '2023-07-12 00:00:00', 128756, NULL, NULL),
+(21, '1', 'paypal', 'PAYID-MSXLJ3Q1AX17068AB3079342', 40, '4B619590D37329809', NULL, 25, 10, 5, 40, '0', '0', '2023-07-12 00:00:00', 302861, NULL, NULL),
+(23, '1', 'stripe', 'card_1NT3w2GSnHOOWddHFLyVE45U', 80, 'txn_3NT3w3GSnHOOWddH31r91qi9', '64aeb726d4cbb', 65, 10, 5, 80, '0', '0', '2023-07-12 00:00:00', 448774, NULL, NULL),
+(24, '1', 'paypal', 'PAYID-MSXLO4Q9SB841982U042552F', 135, '8XY447459G855274D', NULL, 120, 10, 5, 135, '3', '0', '2023-07-12 00:00:00', 739514, NULL, '2023-07-30 05:26:16'),
+(25, '1', 'stripe', 'card_1NT40WGSnHOOWddHKqPfvm8Y', 105, 'txn_3NT40XGSnHOOWddH2MLA6QR6', '64aeb83cc41b7', 90, 10, 5, 105, '0', '0', '2023-07-12 00:00:00', 902192, NULL, NULL),
+(26, '1', 'paypal', 'PAYID-MSXLUWQ7TF04072KX4960245', 220, '3CX40476MW660414G', NULL, 205, 10, 5, 220, '0', '0', '2023-07-12 00:00:00', 456761, NULL, NULL),
+(27, '1', 'oncash', NULL, NULL, NULL, NULL, 85, 10, 5, 100, '0', '0', '2023-07-13 00:00:00', 566833, NULL, NULL),
+(28, '1', 'stripe', 'card_1NYogZGSnHOOWddHq0yBYYEV', 35, 'txn_3NYogaGSnHOOWddH1yAMeAlY', '64c3a3fb62346', 20, 10, 5, 35, '2', '0', '2023-07-28 00:00:00', 955607, NULL, '2023-07-30 05:24:18'),
+(29, '1', 'oncash', NULL, NULL, NULL, NULL, 40, 10, 5, 55, '0', '0', '2023-07-28 00:00:00', 216957, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -707,7 +698,9 @@ INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `product_name`, `co
 (24, 25, '22', 'Women\'s Perfect Shape Skinny Fit Jean Capri', 'indigo blue', '12', '2', '45', '90', NULL, NULL),
 (25, 26, '23', 'Women\'s Relaxed Fit Straight Leg Cargo Pants', 'rinsed green leaf', '14', '2', '40', '80', NULL, NULL),
 (26, 26, '12', 'DuraTech Renegade FLEX Duck Jacket', 'black', 'XL', '1', '125', '125', NULL, NULL),
-(27, 27, '24', 'Women\'s Performance Workwear Softshell Jacket', 'black', 'L', '1', '85', '85', NULL, NULL);
+(27, 27, '24', 'Women\'s Performance Workwear Softshell Jacket', 'black', 'L', '1', '85', '85', NULL, NULL),
+(28, 28, '6', 'Short Sleeve Heathered T-Shirt', 'heather', 'M', '1', '20', '20', NULL, NULL),
+(29, 29, '23', 'Women\'s Relaxed Fit Straight Leg Cargo Pants', 'rinsed green leaf', '4', '1', '40', '40', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -735,10 +728,11 @@ CREATE TABLE `page_seos` (
 --
 
 INSERT INTO `page_seos` (`id`, `pageable_id`, `pageable_type`, `page_url`, `page_title`, `meta_author`, `meta_keywords`, `meta_description`, `google_analytics`, `bing_analytics`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, 'http://localhost:8000', 'OneSport Ecommerce - Premium Sports Products for Performance & Lifestyle', 'OneSport Company', 'sports products, athletic gear, fitness equipment, sportswear, online shopping, premium quality, sporting goods, athletic apparel, fitness gadgets, training tools, sporty fashion, exercise accessories, best sports brands, competitive prices.', 'Elevate your performance with OneSport ecommerce\'s premium sports \r\nproducts - gear, fitness equipment, sportswear, and more. Shop now &\r\n embrace an active lifestyle!', NULL, NULL, '2023-07-19 04:29:54', '2023-07-19 10:14:57'),
+(1, NULL, NULL, 'http://localhost:8000', 'OneSport Ecommerce - Premium Sports Products for Performance & Lifestyle', 'OneSport Company', 'sports products, athletic gear, fitness equipment, sportswear, online shopping, premium quality, sporting goods, athletic apparel, fitness gadgets, training tools, sporty fashion, exercise accessories, best sports brands, competitive prices.', 'Elevate your performance with OneSport ecommerce\'s premium sports products - gear, fitness equipment, sportswear, and more. Shop now &amp; embrace an active lifestyle!', NULL, NULL, '2023-07-19 04:29:54', '2023-07-27 05:11:09'),
 (2, NULL, NULL, 'http://localhost:8000/cart/show', 'Your Winning Cart: Shop Premium Sports Products at OneSport Ecommerce', 'OneSport Company', NULL, 'Explore OneSport ecommerce\'s cart page. Your journey to peak performance starts here. Shop\r\n now and gear up for success!', NULL, NULL, '2023-07-19 04:36:13', '2023-07-19 09:48:10'),
 (3, NULL, NULL, 'http://localhost:8000/blog/posts', 'OneSport Blog: Unleash Your Athletic Potential with Expert Insights & Trending Topics', 'OneSport Company', NULL, 'Discover the OneSport blog for sports enthusiasts. Explore \r\ntrending topics, expert tips, and product reviews to enhance your \r\nathletic journey. Fuel your passion with our comprehensive content.', NULL, NULL, '2023-07-19 04:39:09', '2023-07-19 09:48:22'),
-(4, NULL, NULL, 'http://localhost:8000/contact-page', 'Contact OneSport Ecommerce: Reach Out for Top-Notch Sporting Support', 'OneSport Company', NULL, 'Get in touch with OneSport ecommerce\'s dedicated team today. Whether you\r\n have questions about products, orders, or need assistance, we\'re here \r\nto help. Reach out and experience top-notch customer support for your \r\nsporting needs. Contact us now and take the first step towards a \r\nseamless shopping experience.', NULL, NULL, '2023-07-19 04:40:49', '2023-07-19 09:48:36');
+(4, NULL, NULL, 'http://localhost:8000/contact-page', 'Contact OneSport Ecommerce: Reach Out for Top-Notch Sporting Support', 'OneSport Company', NULL, 'Get in touch with OneSport ecommerce\'s dedicated team today. Whether you\r\n have questions about products, orders, or need assistance, we\'re here \r\nto help. Reach out and experience top-notch customer support for your \r\nsporting needs. Contact us now and take the first step towards a \r\nseamless shopping experience.', NULL, NULL, '2023-07-19 04:40:49', '2023-07-19 09:48:36'),
+(7, 13, 'App\\Models\\Admin\\Category', 'http://localhost:8000/products/category/news', 'OneSport - News Category', 'OneSport Company', NULL, 'Discover the best selection of News at OneSport. Explore a wide range of top-quality sports products and equipment designed to enhance your performance. Shop now and find everything you need for News at OneSport.', NULL, NULL, '2023-07-27 05:05:17', '2023-07-27 05:05:17');
 
 -- --------------------------------------------------------
 
@@ -864,14 +858,14 @@ INSERT INTO `products` (`id`, `category_id`, `subcategory_id`, `brand_id`, `prod
 (3, 1, 1, 15, NULL, 'long-sleeve-t-shirt', '100003', 128, NULL, NULL, 'M,L,XL,XXL', '40', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 1, 1, 1, 0, 0, 1, 0, 1, '2023-06-12 09:53:42', '2023-07-18 06:50:43'),
 (4, 1, 1, 18, NULL, 'long-sleeve-henley-t-shirt', '100004', 134, NULL, NULL, 'M,L,XL,XXL', '34', '28', 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 1, 0, 1, 0, 0, 1, 1, '2023-06-12 10:36:31', '2023-07-18 06:50:52'),
 (5, 1, 1, 20, NULL, 'short-sleeve-henley-t-shirt', '100005', 143, NULL, NULL, 'M,L,XL,XXL', '23', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 1, 0, 1, 0, 1, 1, 1, '2023-06-12 10:45:55', '2023-07-18 06:51:15'),
-(6, 1, 1, 22, NULL, 'short-sleeve-heathered-t-shirt', '100006', 127, NULL, NULL, 'M,L,XL,XXL', '20', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 1, 1, 0, 1, 1, 1, 1, '2023-06-12 10:56:05', '2023-07-18 06:51:26'),
+(6, 1, 1, 22, NULL, 'short-sleeve-heathered-t-shirt', '100006', 125, NULL, NULL, 'M,L,XL,XXL', '20', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 1, 1, 0, 1, 1, 1, 1, '2023-06-12 10:56:05', '2023-07-30 05:24:52'),
 (7, 1, 2, 21, NULL, 'relaxed-fit-straight-leg-duck-carpenter-pants', '100007', 125, NULL, NULL, 'M,L,XL,XXL', '43', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 1, 0, 0, 1, 1, 1, 1, '2023-06-12 11:14:52', '2023-07-18 06:51:38'),
-(8, 1, 2, 12, NULL, 'skateboarding-double-knee-pants', '100008', 135, NULL, NULL, 'M,L,XL,XXL', '50', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 1, 1, 0, 0, 0, 1, 1, '2023-06-12 11:27:23', '2023-07-18 06:52:29'),
-(9, 1, 2, 12, NULL, 'active-waist-relaxed-fit-jeans', '100009', 136, NULL, NULL, 'M,L,XL,XXL', '40', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 1, 1, 0, 0, 1, 1, 1, '2023-06-12 11:36:51', '2023-07-18 06:52:40'),
-(10, 1, 2, 20, NULL, 'relaxed-fit-duck-carpenter-pants', '100010', 127, NULL, NULL, 'M,L,XL,XXL,XXXL', '40', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 1, 1, 0, 0, 1, 1, 1, '2023-06-19 02:20:45', '2023-07-18 06:52:48'),
+(8, 1, 2, 12, NULL, 'skateboarding-double-knee-pants', '100008', 133, NULL, NULL, 'M,L,XL,XXL', '50', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 1, 1, 0, 0, 0, 1, 1, '2023-06-12 11:27:23', '2023-07-30 05:24:31'),
+(9, 1, 2, 12, NULL, 'active-waist-relaxed-fit-jeans', '100009', 135, NULL, NULL, 'M,L,XL,XXL', '40', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 1, 1, 0, 0, 1, 1, 1, '2023-06-12 11:36:51', '2023-07-30 05:25:50'),
+(10, 1, 2, 20, NULL, 'relaxed-fit-duck-carpenter-pants', '100010', 126, NULL, NULL, 'M,L,XL,XXL,XXXL', '40', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 1, 1, 0, 0, 1, 1, 1, '2023-06-19 02:20:45', '2023-07-30 05:24:51'),
 (11, 1, 3, 16, NULL, 'performance-workwear-insulated-jacket', '100011', 24, NULL, NULL, 'M,L,XL,XXL,XXXL', '305', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 0, 1, 1, 0, 1, 1, 1, '2023-06-19 02:31:09', '2023-07-18 06:53:13'),
 (12, 1, 3, 18, NULL, 'duratech-renegade-flex-duck-jacket', '100012', 30, NULL, NULL, 'M,L,XL,XXL,XXXL', '125', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 1, 1, 1, 1, 1, 0, 1, '2023-06-19 02:38:19', '2023-07-18 06:53:25'),
-(13, 1, 3, 20, NULL, 'duck-canvas-hooded-shirt-jacket', '100013', 34, NULL, NULL, 'S,M,L,XL,XXL,XXXL', '55', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 1, 1, 0, 1, 1, 0, 1, '2023-06-19 03:02:06', '2023-07-18 06:53:37'),
+(13, 1, 3, 20, NULL, 'duck-canvas-hooded-shirt-jacket', '100013', 33, NULL, NULL, 'S,M,L,XL,XXL,XXXL', '55', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 1, 1, 0, 1, 1, 0, 1, '2023-06-19 03:02:06', '2023-07-30 05:25:50'),
 (14, 2, 4, 18, NULL, 'womens-cooling-long-sleeve-pocket-t-shirt', '100014', 124, NULL, NULL, 'XS,S,M,L,XL,XXL', '25', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 1, 1, 0, 0, 0, 1, 1, '2023-06-19 03:12:07', '2023-07-18 06:53:52'),
 (15, 2, 4, 20, NULL, 'womens-henley-long-sleeve-shirt', '100015', 126, NULL, NULL, 'S,M,L,XL', '25', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 1, 1, 0, 0, 0, 1, 1, '2023-06-19 03:20:30', '2023-07-18 06:54:11'),
 (16, 2, 4, 16, NULL, 'womens-heavyweight-henley', '100016', 125, NULL, NULL, 'S,M,L,XL', '35', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 0, 1, 0, 0, 0, 1, 1, '2023-06-19 03:30:40', '2023-07-18 06:54:36'),
@@ -883,7 +877,7 @@ INSERT INTO `products` (`id`, `category_id`, `subcategory_id`, `brand_id`, `prod
 (22, 2, 5, 12, NULL, 'womens-perfect-shape-skinny-fit-jean-capri', '100022', 117, NULL, NULL, '2,4,6,8,10,12,14', '45', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 0, 1, 0, 0, 1, 1, 1, '2023-06-19 05:10:43', '2023-07-18 06:56:13'),
 (23, 2, 5, 20, NULL, 'womens-relaxed-fit-straight-leg-cargo-pants', '100023', 123, NULL, NULL, '4,6,8,10,12,14,16', '40', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 1, 1, 0, 1, 1, 1, 1, '2023-06-19 05:18:43', '2023-07-18 06:56:35'),
 (24, 2, 6, 22, NULL, 'womens-performance-workwear-softshell-jacket', '100024', 18, NULL, NULL, 'S,L,XXL', '85', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 0, 1, 1, 0, 1, 0, 1, '2023-06-19 05:25:57', '2023-07-18 06:56:48'),
-(25, 2, 6, 21, NULL, 'womens-duratech-renegade-insulated-jacket', '100025', 15, NULL, NULL, 'S,M,L,XL,XXL', '120', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 0, 1, 0, 1, 0, 1, 1, '2023-06-19 05:37:32', '2023-07-18 06:56:58');
+(25, 2, 6, 21, NULL, 'womens-duratech-renegade-insulated-jacket', '100025', 14, NULL, NULL, 'S,M,L,XL,XXL', '120', NULL, 'https://www.youtube.com/watch?v=HxCcKzRAGWk', 0, 0, 1, 0, 1, 0, 1, 1, '2023-06-19 05:37:32', '2023-07-30 05:26:16');
 
 -- --------------------------------------------------------
 
@@ -1015,12 +1009,12 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('3JEYAntugQSxXgG88KiG3iKYY0k0i5JJO3RJlbz8', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0', 'ZXlKcGRpSTZJbFpIWjFObmQzbEJiRmhaZW0wNWRUZGpUV055VGtFOVBTSXNJblpoYkhWbElqb2liME16VERaVFpYUnFkMGhuYUZGMVFqVk5lVXBwWlZoM2NEbFRiRUZ4TjA5aVptbEhSRGcyY25wa2IzWk5kMHBTVm5VeWNtTm1hbTVsYlcxa2NVNTJUR2xCUm1jMlJrNU5kbGRJT1dFM2JpOUJjbHB1V1ZoYU5FdHhTM1ZSV25VdlQycHRRMk5qU21wb1ozZEZNa0puTTNvMlREUlFWVGN6UWpCT2VVSnlSVzFWUWl0bVlucDZWSGRVZERFeFUwcGFRV3B5T1ROc1JEZHVRM1JTVDNaR2IzTkZTamR0WlhvMFdXWmlXQ3RrVFZwQllWWkNVbGxtY2xjdlRFTmtSV1ZITHpKWmVXRkphUzhyV0d4eGN6TlBPRkpPUldoamJsbFFOMFF4YjB3eVVFbG1PVGx5WVVWeFJFWkpaRVJFTkRCVlF6bG5kREZCSzJOUVRHcEtVbTk2VW5JemRqUm1ObEpFYmtWdVR6TldSWGxSYUdkVWVWRTlQU0lzSW0xaFl5STZJakZqTldJd1pqSXhZV0V6TlRVMk4ySXhORE0zWXpRek1qSXpNVGxtTVdZMVpqRTBaV1kzTURKallqZGpPVE5rT0RFM09UWmhaVGN3WW1SaFpEbGtOVFlpTENKMFlXY2lPaUlpZlE9PQ==', 1690193779),
-('Ag5lbFqIL535ynmNpYx9aEa4sKbkes4JtTAHL1i8', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0', 'ZXlKcGRpSTZJbEZUVFhreE5GWnJRaTl3WWt4eVlrOTVTR0o2TlZFOVBTSXNJblpoYkhWbElqb2lNMXBVWW1rdlJqTktiRXhuTkhOMWRIWXdWbmhRUWtwcGJ6bDZlVWszY0daNUwzaE5SSHBPYlhKV1VFZ3dSVGhKVm5WUVFXbDFOa1pOWnpsa2VrbFhZbkpPVG01UFJFc3hZMUJRVDFORWMwcHdkR04xYVRSdVdGRTFSblpEVW1ReGRuUTRURkZLUlRsUU1HMHlhM0J6WkV0Q2F6RXhWV1Y0WkUxTk0wOURTVkZqS3pCeFFXdDNTRmwwYUhFeldHYzRWVkpIT0d0d1duZDNURFJqT0VsQ1ZIUjJVRWs1UlVScFozcE5kVVZCUkRCT2VHeFhkVXg2V0dSRU5uVnFTV1ZQUkhscFNqRjRVVzVyTW5Fd1RHWk5SekV5Wm5RNFYxRm5WeXRSVm5SVk5sZFNWV2MzVDNacE1WVjNRVnB4VHpOSWMyVkhPV1JOUkU5U1UwaDNlalUyYnlJc0ltMWhZeUk2SWpBMk5qWTROV1F3T0dJellXWmxaV000WVRNM01HTXpaR014T1dKak9EVXhaR00wTXpkbU9HVmhNREZoWWpGa09HSmpNMk16TTJJME1EazFPRFJpWTJVaUxDSjBZV2NpT2lJaWZRPT0=', 1690205646),
-('jrejCRipw7lbtadx8O6TEtCnnIxhcyv3KyFzV0S8', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0', 'ZXlKcGRpSTZJazlaVm01c1FrWjNaSFJ6WlRCT2NURmphMmxDUmtFOVBTSXNJblpoYkhWbElqb2lUSFpoWlRaUmNWRkpiMjF4VGtnMGFteEtjWEo0YlVKdU1rRjBTRFp0ZFdsQlQwSjBUV1YzTUZKV05FczFTMk5LVkhsRVJDOTRhakJ2Ykc1MU0yMXFNSGgyUWxVMVZpOUdSRzR5WlN0UU1FSnhWMFJGZEhWcGVIVk5ZMFJFTHpZMGMyb3dLMDEwTkd0eGNFMTVZakZFUzFKdmRXMVFXV1owVVVWSFRFRkdjM2RKUjFGR2JrOXFWRWN5TTJSU1IxRnlTa3RZT0ZWemFXdDBibEZVY25GMVFTczRNbXRYVlRaRE1EZENiV3hDU1dodFNEZ3pOMk5UUjNkQ2RGSklWMWRWTURZNE5EQk9VWGx3Ym1NM1JrcEROM1J6TW1NM1VIQklNbmd2WkhoRVYyMXdNekpqUzJrNFkzTmtNbFZrTWtsUFNsVjJTWFJUVG5GaU1qQjVZbTFYT0ZZeGMxWnZRME4zTlZoTGVEUjBPRkp0V1V0Q1RXZFlPSFo1VG5nelEwOHpkek00TW5SMGRuRnBLMk1yUVRkdkszaFBPUzk2Y0haVGRVNW9SWGRKVlVoT2FsRkRaSFJ6VXpaSlYyaHRSa1ZqVDNaWVoyWjRPVzFtUm5RM1JqTTRiWEpYYUZJdlEyTXlUalZCYTNKNlZFUnVNa3RCTDFVNWRpODFVMUIyU21GMklpd2liV0ZqSWpvaU56RmxaV1l4T0Raa1lUazBNekkyWVRJd05tRm1aVEUxWTJRNVpqZ3paakZqTVdaaFlUVXlOREJoTWpVeFkyTmxPRGxrTnpnMFpEVTVaR1ExWWpFeU5DSXNJblJoWnlJNklpSjk=', 1690196761),
-('QhMfMYWqUFkz6gXZhiiWbFC2czMAy6QHzbsoRfKf', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0', 'ZXlKcGRpSTZJbXhOUlVnclJtWm5ZV3hDV204d2FXaFFXVTgwTTFFOVBTSXNJblpoYkhWbElqb2ljemRTYUU1cllUUjBla2hvVWt0T1FVeDZOalptYmtOdVNFbzFNalpOVm10bVFqVTJZVEZyTTNBNU16QnhORTFNTDBnemVHZE1kR0YzV1ROaWNFb3JaV04wVm04elpVMXFNVTlvU0RoNFRqSnFUaTlEYW1WSVdVZzBaRGxKSzFJNVZtdG9TMFZMYW1ScmExaFJkM1paVG5KVFNFY3pURk5SY1RaSmFuWlFkVkZTV0VWelJUbEJTMnA1WkZkcmRsZzRjM0JxTWpkSlptOWpjbUZETXpWMWNFTjZTa0V4UzFFME5VUldVa3MxSzNsbVNGcGpTR1p4VG05Wk1FSXdMM1ozTjJKNU0xWXlkeXM0TjNoTGJuUkRiRmhrYmtsUlFtOVRNMjlxU0RKRGFGZGxkMVZzZGpaQmVVaHFVbm8wVld4b1NITmlkVkpNZDI5bksxWXpiVFpIV2tsT05GaEdaSFIyYURScGFrOTZMelkxZG5ack0wZERZVTFqTlZoWVdsUlFNMnhyU0RrM1pISjRWVUZyZEZKRWVFTlFSVTVMZUVOak9IVllNVVpxVFZFNGNsaHFWSGxIYVRWdGVUSm5ZMGhtYW5WUU0wVjFkWFZUY0ZCU2ExY3pWRTVCUTFCak4zRmtNeXR2YlZGNUt6aHlOVlJOVjJrMVpsTnhTM2Q0VUdjMWJFUjNjeXRwU0VwRGVuZzBWVWc0Tmt4NFkwRnFkejA5SWl3aWJXRmpJam9pT0Roak1ERXdNR1ZpTXpoa09XRTFNRGxsTm1abE9HWmpNekUwTTJKa1pURmxZelUyTnpFeE1UZ3lOV1F3WkRWaE9UVXpZemxtTVdGbFl6QmpPRFpqWmlJc0luUmhaeUk2SWlKOQ==', 1690194928),
-('wucWeIMHvmoURMG5FNy1JSzOFQ6KBcIDgdvq7XDN', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0', 'ZXlKcGRpSTZJamx0Y0RsQ09GUXJOak42VjJnelEzUTFUbFp4YjJjOVBTSXNJblpoYkhWbElqb2llbXhRV1VneVpHcE1MMDUyWkdzelUwbFFUemhOZGl0VVdVMHhkMVZNYmpsdVIxQXpXVTk1WjJKbE9FUk9iWEJSUVRSMlVVWm1aMjFhT1ZGcFNHZEVVMUZPY0RoeGEzSXhXVFZ6UlZCeFZrdGtWRVp3TldNd01XdENZVmxaUjNGU0wwUm1LME5rWjNONmF6UlpPVVZpVDJkcFZuaEJUSE5rWkZORlNsZDBkVE5KTDNkcVRGaG5kMFY2VmpGSVduaGhSa2hRTlRWaGIzUjRTR0Y0WTBSSFYzbFZVM3BuU1U4MlJWQlROa3R1VGxSbVpXZzFiRVZ1YzNaaGJYVnRaRWx4TWpGRmFGVlNTWFoxT0hFemFsbFFWR0U0UkROQ1VGRnJVbFJVSzNWd2NYSXJUSEY1T0dkdGFrdGFjbFlyYWtwUEx6RmhTREp5YlZKR2F6a3dUVFIxTjNkamJ6aFFkVlpKV0VoWk9GVnpLM2RzYlU5amRHYzlQU0lzSW0xaFl5STZJbU0wTVRJMFlUTXhaVE14WTJWallUWmhOR0ZpWmpjNE9UVmlOREUzWXpnNU1tSXdaVFZrTnpOak1XTXhZVGc1TW1KbVlqbGhNekl6WkdabVpUZzNabUlpTENKMFlXY2lPaUlpZlE9PQ==', 1690194928),
-('zpnCMcwutsHUqarnCGykHlXyLO0Hvo52p6SfYFxD', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0', 'ZXlKcGRpSTZJbmxYUzBWc2FVVm1TWFZrYWpaUlZrbEdSMnBZZVhjOVBTSXNJblpoYkhWbElqb2lkbEYxT0VOeFJUUmtjbGxvSzJaWE1sQlBWamxsZVdaak5IRndSRXR1ZFdweFZtVkdNVVpoZW1kSlducHpRV3R6ZEdWclRrZG9jVGhOU25CV0wwVnpZVzFzTm1KM1EydFRRakI0VGpGelpWbGthelJWYVU1NWEyVmxhMHgwYzBaM1VIaExWRE51VVhGWVZreDFabFZaT0ROVU4xSndkbmxKUWxaVWF6TnhiV3g0UlhSdlVuZFpObXN2SzNsWGNGRkthRE5IUTA5MmFUVm5aV0V5TVZjNFJYb3ZabEEwZVM5S1FWUTVaa05YTVhGdVdVSlRVRGxJYUZCR1ZYRnBaa2x1YjJOMFVXdzBRMUZuZEdGRVluUmtTR1ZrU21kaE1ETlpabmRzTDBOM1dYUlJTRzVaYzFveFMzSnhaelVyTjFWQ2FHTlBTRFJOT1RnMVV6ZFJjemRVYnpsUUwxVkdabHByVG5aWWVsaHNMMms0UzBGcU5GRk1OREZOYm1wUVNFWTNUbFZhVm1SNlNEUjBkMkV3VTFaU1MybEtXRXhJZVVsQlIzQjJkV3RVTDFVaUxDSnRZV01pT2lJME5tUmxaR015TXpnMVpUQTFNRGt3TUdJeVlqZzNaREUwWkRFME16UmxZamd5TmpFeE5qVTBZakZqTURRelkyRmhaakU1WVRVMk4yVm1aRGRsTkRZM0lpd2lkR0ZuSWpvaUluMD0=', 1690206564);
+('C7Ei2yTz0OOTFplz1gUNTsxMabAmoVdw90DLAyWh', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0', 'ZXlKcGRpSTZJbXRGZHpsaE9IZEdhMjlNZEZwTk1WSTNTRXR1VkVFOVBTSXNJblpoYkhWbElqb2lSMkZWUldjeVlrVnVPRXBaYW1kTmRGTlNiRE4xZFRkNkwzUlhURGMxWjNOeVkwcHVWRkJqVVZSMFVIWjZVM0Z2YjJWWWFHd3pNWE5ETkhweE1VeFVVQ3M0U0VGSEsxTTRXRGtyYUVaRE9WbDBVRzl4YWxCek5WQnVVa2wzVVc5SWFUZDVWRkJ3YnpnNU5ISlpjalZ4VFdwMU5XVkRTalp1TjNVelV6QmpMMGhKUzB0bU4yUlRWMlYwZG1rMlFXUlZOalZNVUhsWE5qQkZRMFp1TkdoTVVEaEhZakpRTW13eWFuQk5jMms1ZUZKV1dWTkphV3hHVEVkS2FYRlJTMlp2VDFORU5saHNNRXBRTW1WclVtNUZaakpFUVc5NGRucE9XWHBIZW5SMWRWSjJkSE5DTkZOSVJXVk9TMEZtUTBwR1NUVnFlbFZQUzB4UFYwRnRUbWw0ZFhaSVNVZzNMMVU1ZWpWNVIyUTBNVWR5VVZwNFVrZHBjV0ZHY0hGNWVHZE1aM05EY0c5RWJqTkNPVVkwU1c1WmJsUmlXRUZvZDI1VmNVeG5XVmQwTjJ3aUxDSnRZV01pT2lJeE56VmtNalpoWkRobE0yVmxaV1EwT0RRek16Rm1ORE0xWlRCa1pUa3hZekZpTlROa1lqUmhZMkZpWmpSbVpURm1OVGRpT0dRMVpERmpaR0ZrTlRsbUlpd2lkR0ZuSWpvaUluMD0=', 1690807674),
+('PA37jrftK32i3032zxSHthFkknJHvIj7KAWF92ll', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0', 'ZXlKcGRpSTZJakF5U0c0M2EzQm5RMEZVZVhNd1ExcG5PR1JYYUVFOVBTSXNJblpoYkhWbElqb2lSamxzTDB4T1p5ODFjMWROVUVjNE0yNUtLMVZKV1hvMVNGZHBTU3RQWWs0eE4zSXdOVTlNYmtkTlpIQkhabnBIWnl0SkwxRlhiWGRzUnpBdlp6STFUR2RXVVhRdlowWm5jRkZVUXpkbFQzaDRUbko2Y21sWE9FMVNSMkU1Ym5KV1UwMW9SRVZqVkhoSVZscEhZVWsyTmtKcmMybEhUamRYYUZSemRXWjVTVkV2UjNKSFFYWm1WMngxZHpBNVprNWFNRFIzZEZGQ1pFWk9WRUpxTkhGMmRsbDRTa0V4WW5kSWIxbHlWRzlRTjFkSFRFWTFhVXBrYTFsRGIxUjFVR0ZHTlhWQmFVcFplV1ppYVVsemVXMXZSM1J5ZW5sdksybEpVMHhoVFNzeFNtSnlUa3BSU2tKR2FWaEdWVWR1TTJOeE5EWXJhMWsyWTB4dlp5dHVjbnB0ZWpVek9FaG1WVmxPYjNoc2JqQlhXR3hFVTFSeFlYQnlVMlJTUTNsNFZrTm5aV2hhYURCTldGZEVRMjF3ZDFCTFNUaFFNRXRqV0d4RlNqWk1OR2xGV0hoU2IyNUdOV1F3YWxoWWMzaENkWHBEZVdGcVRXSTVjVU5PTWsxbGNuSkJhakpKTURSU1drOWxaUzlaUFNJc0ltMWhZeUk2SWpZeVptUTNOamN4WldZeFpUbGpNVE0yT0RBek1qQTNNMk0yTjJVNU1tTTRabUZsT0dRelptWTVNMkl4WlRJNE9UazFaR0l6T0RReE56SmlOVEpqT0RjaUxDSjBZV2NpT2lJaWZRPT0=', 1690793279),
+('Pqfaju1c07a3x93DjAGlyWB2YNsprlUtH7dI7QZU', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0', 'ZXlKcGRpSTZJalYxWWpGd2NITTFlR3A1VlZwR1NXSnVNVE4yYW1jOVBTSXNJblpoYkhWbElqb2lRamg0TDA4MlQxTnhhbVpXTDBsVWIwMTZhRmhpTUVRdlV6SmtXWEYyVm5aWlRGaHRkMnRzUm5sTWFEVldWemRzUlRoclFuSmtVM0JYU3pGdVNHTmhWVGRzWVhKTFUwWTRTVGx4UzNadldIRmxOeTlYT1hkV1FVRm5hRk4zYkRKd2FYZEhSM0l2YXpCVlpFaDVVSEpQUlhWTGFVVnZlVFJ5TkRaYWMzSnZTbGxvVDNwMFlsWkVUMk5hTTFZeWVuTkZkRVZvYURocloyeHlWVFF4U21ka1NWRTNXbVpFTkdvMGJ5dElWakV2WTI1UlQxcEZjVTltYmpkM1ZuSkRiMFV3VEdZeFJYSkVkMWhFYmpkWlVrTTJXRmd6VG1adGRGUXdkalUxUjNCMlIzZG1ZbGRsVWpCdk9IUlZiMkV6VW04d1NHOXBSRlZtYTNKVFpVRkRTRE15UmlJc0ltMWhZeUk2SWpVeVlXTmhNV1JqTjJVMVltTmtOak5tWm1Ga1lXSTROamt4TkRBeFl6aGhPR1V6Wm1ZMk5qUTJNRGd6TnpRMlltUTBOMkZoT1RnM01qZzFNbUV5WldFaUxDSjBZV2NpT2lJaWZRPT0=', 1690796697),
+('Pyo1TJ4IhR5N3yQMJ277rv5Iid7fwejrjDf5Ir4S', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0', 'ZXlKcGRpSTZJa1ZFYXpaNWRGVlJUaTlVVjFORGRVRXJjazA1ZVVFOVBTSXNJblpoYkhWbElqb2lRbmN6UzJwS2FXTjJNM2xoUzBWTlJITlBUVTkyTVRSYVMwUm1Ra1ZLWlRFclNUQkJLMjVKU21OM2IwaEtaV2hDS3pab1VWQlhSVWsxWkZoVVltSmhXbEpQUzNOcU1scHhTMWhEWVhCeFdsUklZMGhHYzAxR1NETlJjRGRDUkdWdGFWQk5WbFJIWjFNNU5EQm1Ua2hLVDAxcE5VSm5UV1pvVkU1emJWaExVa2hsYVc5TE9IaFlXRWh4Wm05M05qTTBjVGMwTm5WUGVYRTBURzB4V1ZFMFUwWjVlbHBZSzB0SGFGcElkbE5HTVdOMkwycDVhREp1TVdVd2FuaFNUblZoS3l0M1JtbHdVRmh1ZERsUmFFZDViak0yTm1NMmRFcEpiMlozSzBRelUyWlVUSEZPT0cxT2FTdHZRalZ2UjBSd09VYzFibVUwYkd4VE1XTk1ZbGhHTkc1aVQxTnRSbWxyYmpoV1JuTktZa05LWlZKMk1XYzlQU0lzSW0xaFl5STZJbU5pTldVM01EQTRZek5oWXpCaFlqRXdOVGhsTkRWaFlUUTNNVGhrWVRjMU56TTBNMkUzTkdaak1qZGtPR000Tkdaak9HWTFZMk0xT0dKall6VmhZVFVpTENKMFlXY2lPaUlpZlE9PQ==', 1690793280),
+('UHsE8F5NJDnoKf1IqAyYKev41CNrUth6elaNrMHH', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0', 'ZXlKcGRpSTZJbEY1YWxRd2JGTkVTVEV4WldRNGNXVnZVRUZqY1VFOVBTSXNJblpoYkhWbElqb2lNR3B3YVUxT2FtNDJkWEJFZUVWV1pGUTROREJ2Y2xCa1EwNUxSVTVqVnpOaGQyazVjMnRVUjJWdFMyUjBha2hPTms1RWRXY3ZaVUZ1VEdSNGFqbEpOemRJZFRSMVV6RXdSV2hMVVVsa1pEbEtabEV5Tld4RWJFNVBTbTF1UlZNMFIySldiRlZHVjBwVlMzZEpPVE5KTldSUFpWTjViMVl5U1VWSU9VMDNUakEwWnpSM1NHaG9jWEZaYmk5b2RucEpLM2x2ZFd4UmVuaFhRa1pMYjFkaEt6SnlkWFJYUmtsVlpqRjZla2c1UkU5eGQzTkxZbXMxYmpWQ1NsTnpRMUJ3ZVhGWVZrRmFWRU50YTJnMU1XZEhWME0xZUZKcGFWaFdja3huV2s5WGMxVkNlVFZUTmtwdkswTjZXVVkzVjJKdlNHWXlWbkp1UjNrd1NUaEdkVWRDYTNab05saG5VbTB5TlVaQ1pFNWlZMDh6TkVOYVJuZ3pWVGMwT0VsMWVXa3ZkM0pzZUZsbWNsZHpWME5FWmk5aWFEaHRLMU5sYlN0NFRFdHlWMXB2TkVKdmEwcGFjR2s0WjJGMU4weFpSRWhTTm1aYUszbDNaWFp6TldodU1YVlBZV0U0U2xwa2JqaDFkM2xsV0ZOMVJVcFpjV2RqV20xNFVsTkpRWEpWYmxoWElpd2liV0ZqSWpvaU16SmlOR1k1WTJFNU5XRmtZV0V4TnprMU5EVXdaRFZpTmpobU56Qm1NR05sTlRJME5HRTVZakk0WTJaaE1UTXlNbUl4TXpZNFlUbG1abUV5WldFd1lpSXNJblJoWnlJNklpSjk=', 1690793088),
+('zpuBJG7Q4jk7lN1vzP9pp572Kpwr4JMc5ooITsAj', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0', 'ZXlKcGRpSTZJamgyTWtRM2EzWXpPRXR2YlZkcFUwTm5Va1JpUVVFOVBTSXNJblpoYkhWbElqb2lka1ZSUVVvcmFXZFJhVlpEVG5wM1V5dHpkMlJNUzBGeVJGWjRiMmRJU1ZsbWQzQkJNRmxUYW01NGNUaEZRbEpqTms1dWFFMVZNbmhhYm5STll6UTJiV0VyUW01UllVOURaVGRZWjJsVmRHbGlWbEl6YTFac1prY3pha2RrWVhoNlNFaFZMM0I1Um1aVFowZENRWFZKTUZWdFRrZDZURzh6YlVSWmNsWkVkMlkzTW0xRlVXeHVZblZ4VGtKcVlYWjJTelZWVVdjMFkwVXhiU3RLVUZBMVVUSkZiV3B0U2xBNFFqWk1iMmg1UVVwcmN6WkNhRlVyTmpsc05TdHRjbU5MYkhKbWFIaGthRzB4UTBKRVVqUlFRUzlPWW1aTGVGWXhlV0pPYkc5TmMweFFTM0ZqWTFCdGFVeFRhR3RaUlhSTFMzTldXVFZKUm1SU1lqVnlWM1ExSzAxbVpYaENZVnBDZFdsMWJWTm5TMU0wWkZWTmJWSk1VRFVySzBObFVUTjNOV2hUVUZjNGJuZFFaSGQwUjNaeGQyVlhaRXBaYm5NelVWbzNaakV2UTBjMWNXb3dabEZzYlVVMldHaGxUbk5TUkhaRU1XMTVZVGxwUkZkWVJrMTVRMEprWnpkeVYwb3ZZMVJ2T1ZCNWVXcFViVVpZVUhoNGRrNTVlbEJpUVUxT0lpd2liV0ZqSWpvaVkyWmxOekJqWTJKaFpXVXlNVEF5T1dJNFpUZGxZbVU0TVRObVlXSXhaV0V6WTJVM1pXRTBNMlZpWmpCalpHUTNZekExTVRjelkyUTNZakl5WmpKak5DSXNJblJoWnlJNklpSjk=', 1690804693);
 
 -- --------------------------------------------------------
 
@@ -1088,7 +1082,9 @@ INSERT INTO `shipping` (`id`, `order_id`, `shipping_name`, `shipping_phone`, `sh
 (16, '24', 'Chandler Bing', '+380991755316', 'chandler@gmail.com', 'Grove Street, West Village, Manhattan, New York City, USA', 'New York City', NULL, NULL),
 (17, '25', 'Bruce Willis', '(310) 854-8100', 'bruce.willis@gmail.com', 'Rogers & Cowan, 1840 Century Park East, 18th Floor, Los Angeles CA 90067, USA', 'Los Angeles', NULL, NULL),
 (18, '26', 'Chandler Bing', '+380991755316', 'chandler@gmail.com', 'Grove Street, West Village, Manhattan, New York City, USA', 'New York City', NULL, NULL),
-(19, '27', 'Chandler Bing', '+380991755316', 'chandler@gmail.com', 'Grove Street, West Village, Manhattan, New York City, USA', 'New York City', NULL, NULL);
+(19, '27', 'Chandler Bing', '+380991755316', 'chandler@gmail.com', 'Grove Street, West Village, Manhattan, New York City, USA', 'New York City', NULL, NULL),
+(20, '28', 'Chandler Bing', '+380991755316', 'chandler@gmail.com', 'Grove Street, West Village, Manhattan, New York City, USA', 'New York City', NULL, NULL),
+(21, '29', 'Chandler Bing', '+380991755316', 'chandler@gmail.com', 'Grove Street, West Village, Manhattan, New York City, USA', 'New York City', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1266,8 +1262,7 @@ CREATE TABLE `wishlists` (
 --
 
 INSERT INTO `wishlists` (`id`, `user_id`, `product_id`, `created_at`, `updated_at`) VALUES
-(10, 1, 2, '2023-07-24 10:04:38', '2023-07-24 10:04:38'),
-(11, 1, 11, '2023-07-24 10:04:44', '2023-07-24 10:04:44');
+(10, 1, 2, '2023-07-24 10:04:38', '2023-07-24 10:04:38');
 
 --
 -- Indexes for dumped tables
@@ -1541,13 +1536,13 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `category_translations`
 --
 ALTER TABLE `category_translations`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `contacts`
@@ -1565,7 +1560,7 @@ ALTER TABLE `coupons`
 -- AUTO_INCREMENT for table `media`
 --
 ALTER TABLE `media`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -1595,19 +1590,19 @@ ALTER TABLE `oauth_personal_access_clients`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `page_seos`
 --
 ALTER TABLE `page_seos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -1661,7 +1656,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `shipping`
 --
 ALTER TABLE `shipping`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `site_contacts`
