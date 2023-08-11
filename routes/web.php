@@ -33,7 +33,7 @@ Route::post('newsletters/sign-up', 'App\Http\Controllers\Admin\Category\Newslett
 
 // Admin routes
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config('jetstream.auth_session'),'verified'], 'namespace' => 'App\Http\Controllers\Admin'], function () {   
+Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config('jetstream.auth_session'), 'admin.verified'], 'namespace' => 'App\Http\Controllers\Admin'], function () {   
 
     Route::get('/dashboard', 'OrderController@dashboard')->name('admin.dashboard');
 
@@ -90,7 +90,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config
         Route::resource('admins', UserRoleController::class)->except(['show', 'destroy']);
     });
     Route::group(['middleware' => 'admin.access:setting'], function () {
-        Route::resource('contacts', SiteContactController::class)->only(['edit', 'update']);
+        Route::resource('contacts', SiteContactController::class)->only(['create', 'store', 'edit', 'update']);
     });
     Route::group(['middleware' => 'admin.access:return_orders'], function () {
         Route::get('/request/orders/return', 'ReturnOrderController@returnRequests')->name('admin.return_requests');
@@ -113,7 +113,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum,admin', config
     // Admin Profile
 
     Route::get('/profile', 'AdminProfileController@show')->name('admin.profile.show');
-    Route::put('/profile/update', 'AdminProfileController@adminUpdateProfile')->name('update.admin.profile'); //no view
+    Route::put('/profile/update', 'AdminProfileController@adminUpdateProfile')->name('update.admin.profile');
     Route::get('/logout', 'AdminProfileController@logout')->name('admin.logout');
 });
 
@@ -132,7 +132,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin'], 'namespace' 
 
 // User routes
 
-Route::middleware(['auth:sanctum,web', config('jetstream.auth_session'),'verified'])->group(function () {
+Route::middleware(['auth:api,web', config('jetstream.auth_session'),'verified'])->group(function () {
     Route::get('/dashboard', 'App\Http\Controllers\UserController@dashboard')->name('dashboard');
     Route::get('/order/view/{order}', 'App\Http\Controllers\UserController@viewOrder')->name('view.order');
 

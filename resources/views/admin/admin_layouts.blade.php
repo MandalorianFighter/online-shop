@@ -1,37 +1,17 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <!-- Twitter -->
-    <meta name="twitter:site" content="@themepixels">
-    <meta name="twitter:creator" content="@themepixels">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Starlight">
-    <meta name="twitter:description" content="Admin Dashboard For OneSport E-Commerce">
-    <meta name="twitter:image" content="http://themepixels.me/starlight/img/starlight-social.png">
-
-    <!-- Facebook -->
-    <meta property="og:url" content="http://themepixels.me/starlight">
-    <meta property="og:title" content="Starlight">
-    <meta property="og:description" content="Admin Dashboard For OneSport E-Commerce">
-
-    <meta property="og:image" content="http://themepixels.me/starlight/img/starlight-social.png">
-    <meta property="og:image:secure_url" content="http://themepixels.me/starlight/img/starlight-social.png">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="600">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Meta -->
     <meta name="description" content="Admin Dashboard For OneSport E-Commerce">
     <meta name="author" content="OneSport Company">
 
     <title>Starlight Admin Panel For OneSport Ecommerce</title>
-    
-    @vite('resources/js/admin-panel.js')
     @livewireStyles
+    @vite('resources/js/admin-panel.js')
   </head>
 
   <body>
@@ -192,19 +172,7 @@
             <li class="nav-item"><a href="{{ route('messages.index') }}" class="nav-link">{{ __('All Messages') }}</a></li>
           </ul>
           @endif
-          <!-- @if(auth()->user()->comment == 1)
-          <a href="#" class="sl-menu-link">
-            <div class="sl-menu-item">
-              <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
-              <span class="menu-item-label">{{ __('Product Comments') }}</span>
-              <i class="menu-item-arrow fa fa-angle-down"></i>
-            </div>
-          </a>
-          <ul class="sl-menu-sub nav flex-column">
-            <li class="nav-item"><a href="" class="nav-link">{{ __('New Comments') }}</a></li>
-            <li class="nav-item"><a href="" class="nav-link">{{ __('All Comments') }}</a></li>
-          </ul>
-          @endif -->
+          
           @if(auth()->user()->setting == 1)
           <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">
@@ -213,9 +181,15 @@
               <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
           </a><!-- sl-menu-link -->
+          @if($contact)
           <ul class="sl-menu-sub nav flex-column">
             <li class="nav-item"><a href="{{ route('contacts.edit', $contact) }}" class="nav-link">{{ __('Company Info') }}</a></li>
           </ul>
+          @else
+          <ul class="sl-menu-sub nav flex-column">
+            <li class="nav-item"><a href="{{ route('contacts.create') }}" class="nav-link">{{ __('Company Info') }}</a></li>
+          </ul>
+          @endif
           @endif
           @if(auth()->user()->other == 1)
           <a href="#" class="sl-menu-link">
@@ -292,6 +266,9 @@
         }); 
       });
     </script>
+
+    @stack('admin-scripts')
+    
     <script type="module">
         @if(Session::has('message'))
           var type="{{Session::get('alert-type','info')}}"
@@ -347,76 +324,7 @@
   });
 </script>
 
-<script type="module">
-    async function loadSubcat($this) {
-            //Make an Ajax request to a Laravel route
-            //This will return the data that we can add to our Select element.
-            $.ajax({
-                type: 'POST',
-                url: '{{ route('get.subcategories') }}',
-                data: {
-                  _token: '{{ csrf_token() }}',
-                  id: $this.value
-                },
-                success: function(response){
-                  var data = $.parseJSON(response);
-                  if(data.error) {
-                    $.notify(data.message, "warning");
-                  } else {
-                    $("#subcat").html('').append('<option value="0">{{__('Pick a subcategory...')}}</option>');
-                    $.each(data, function(key, value) {
-                        $("#subcat").append(new Option(value, key));
-                    });
-                  }
-                }
-            });
-        }
-</script>
 
-<script type="module">
-  function readURL(input){
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        $('#one')
-        .attr('src', e.target.result)
-        .height(100)
-        .removeClass("invisible");
-      };
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
-</script>
-
-<script type="module">
-  function readURL2(input){
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        $('#two')
-        .attr('src', e.target.result)
-        .height(100)
-        .removeClass("invisible");
-      };
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
-</script>
-<script type="module">
-  function readURL3(input){
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      
-      reader.onload = function(e) {
-        $('#three')
-        .attr('src', e.target.result)
-        .height(100)
-        .removeClass("invisible");
-      };
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
-</script>
 <script type="module">
     $(document).ready(function() {
         $("#page_url").on("change", function() {

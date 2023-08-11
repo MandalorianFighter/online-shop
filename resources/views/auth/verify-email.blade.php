@@ -35,7 +35,7 @@
             <div>
                 <p>
                     <a
-                    href="{{ route('profile.show') }}"
+                    href="{{ route('profile.edit') }}"
                     class="underline text-sm text-gray-600 hover:text-gray-900"
                 >
                     {{ __('Edit Profile') }}</a>

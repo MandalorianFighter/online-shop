@@ -40,6 +40,7 @@ class UserRoleController extends Controller
         $admin = Admin::create($request->all());
 
         $admin->password = Hash::make($request->password);
+        $admin->email_verified_at = date('Y-m-d H:i:s');
         $admin->type = 2;
         $admin->save();
 

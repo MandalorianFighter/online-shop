@@ -7,7 +7,6 @@
 <meta name="description" content="{{ $seo->meta_description ?? '' }}">
 <meta name="keywords" content="{{ $seo->meta_keywords ?? '' }}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="csrf-token" content="{{ csrf_token() }}">
 
 @vite('resources/js/web-pages.js')
 @stack('styles')

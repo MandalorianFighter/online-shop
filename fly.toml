@@ -1,0 +1,55 @@
+# fly.toml app configuration file generated for one-sport on 2023-08-01T17:10:24+03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "one-sport"
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+primary_region = "waw"
+console_command = "php /var/www/html/artisan tinker"
+
+[build]
+  [build.args]
+    NODE_VERSION = "18"
+    PHP_VERSION = "8.2"
+
+[env]
+  APP_ENV = "production"
+  APP_DEBUG = "true"
+  APP_URL = "https://one-sport.fly.dev"
+  LOG_CHANNEL = "stderr"
+  LOG_LEVEL = "debug"
+  LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
+  DB_CONNECTION = "mysql"
+  DB_HOST = "mysql-my-new.internal"
+  DB_PORT = 3306
+  DB_DATABASE= "onesport"
+
+  BROADCAST_DRIVER = "log"
+  CACHE_DRIVER = "redis"
+  FILESYSTEM_DISK = "local"
+  QUEUE_CONNECTION = "sync"
+  SESSION_DRIVER = "database"
+  SESSION_LIFETIME = 120
+  REDIS_URL = "redis://default:f5e910e3bb7a40f7921a62f0a04f1528@fly-frosty-tree-7792.upstash.io"
+  MEMCACHED_HOST = "memcached"
+  MAIL_MAILER = "smtp"
+  MAIL_HOST = "sandbox.smtp.mailtrap.io"
+  MAIL_PORT = 2525
+  MAIL_ENCRYPTION = "tls"
+  MAIL_FROM_ADDRESS = "info@onesport.com"
+  MAIL_FROM_NAME = "OneSport Team"
+
+[mounts]
+  source = "storage_vol"
+  destination = "/var/www/html/storage"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]

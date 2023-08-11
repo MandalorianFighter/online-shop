@@ -71,6 +71,10 @@ ul
 	list-style: none;
 	margin-bottom: 0px;
 }
+ol,ul
+{
+	padding-left:0 !important;
+}
 p
 {
 	font-family: 'Rubik', sans-serif;

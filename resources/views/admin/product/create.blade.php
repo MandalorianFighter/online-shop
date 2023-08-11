@@ -252,3 +252,77 @@
     <!-- ########## END: MAIN PANEL ########## -->
 
 @endsection
+
+@push('admin-scripts')
+<script>
+    async function loadSubcat($this) {
+            //Make an Ajax request to a Laravel route
+            //This will return the data that we can add to our Select element.
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('get.subcategories') }}',
+                data: {
+                  _token: '{{ csrf_token() }}',
+                  id: $this.value
+                },
+                success: function(response){
+                  var data = $.parseJSON(response);
+                  if(data.error) {
+                    $.notify(data.message, "warning");
+                  } else {
+                    $("#subcat").html('').append('<option value="0">{{__('Pick a subcategory...')}}</option>');
+                    $.each(data, function(key, value) {
+                        $("#subcat").append(new Option(value, key));
+                    });
+                  }
+                }
+            });
+        }
+</script>
+
+<script>
+  function readURL(input){
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $('#one')
+        .attr('src', e.target.result)
+        .height(100)
+        .removeClass("invisible");
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+
+<script>
+  function readURL2(input){
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $('#two')
+        .attr('src', e.target.result)
+        .height(100)
+        .removeClass("invisible");
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+<script>
+  function readURL3(input){
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      
+      reader.onload = function(e) {
+        $('#three')
+        .attr('src', e.target.result)
+        .height(100)
+        .removeClass("invisible");
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+
+@endpush

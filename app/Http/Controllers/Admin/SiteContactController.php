@@ -8,6 +8,22 @@ use Illuminate\Http\Request;
 
 class SiteContactController extends Controller
 {
+    public function create()
+    {
+        return view('admin.contacts.create');
+    }
+
+    public function store(Request $request)
+    {
+        SiteContact::create($request->all());
+        $notification = array(
+            'message' => __('Company Info Is Created Successfully!'),
+            'alert-type' => 'success',
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

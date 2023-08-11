@@ -92,3 +92,21 @@
     <!-- ########## END: MAIN PANEL ########## -->
 
 @endsection
+@push('admin-scripts')
+
+<script>
+  function readURL(input){
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $('#one')
+        .attr('src', e.target.result)
+        .height(100)
+        .removeClass("invisible");
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+
+@endpush
