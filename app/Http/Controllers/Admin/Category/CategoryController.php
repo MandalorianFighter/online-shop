@@ -90,6 +90,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->pageSeo()->delete();
+        $category->translations()->delete();
         $category->delete();
         $notification = array(
             'message' => __('Category Is Deleted Successfully!'),

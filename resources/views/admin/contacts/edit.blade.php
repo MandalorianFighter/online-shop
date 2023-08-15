@@ -92,6 +92,22 @@
                 </div>
               </div><!-- col-4 -->
 
+              <hr>
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  {!! Html::decode(Form::label('vat', __('VAT') . ': <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
+                  {{ Form::text('vat', $contact->vat, ['class' => 'form-control', 'required' => 'required']) }}
+                </div>
+              </div><!-- col-4 -->
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  {!! Html::decode(Form::label('shipping_charge', __('Shipping Charge') . ': <span class="tx-danger">*</span>', ['class' => 'form-control-label'])) !!}
+                  {{ Form::text('shipping_charge', $contact->shipping_charge, ['class' => 'form-control', 'required' => 'required']) }}
+                </div>
+              </div><!-- col-4 -->
+
               </div>
 
           </div><!-- row -->

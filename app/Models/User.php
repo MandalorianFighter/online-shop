@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Gloudemans\Shoppingcart\Contracts\InstanceIdentifier;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -12,14 +13,12 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Passport\HasApiTokens;
 use App\Models\Admin\Order;
 
-class User extends Authenticatable implements MustVerifyEmail, HasMedia
+class User extends Authenticatable implements MustVerifyEmail, HasMedia, InstanceIdentifier
 {
     use HasApiTokens, HasFactory, Notifiable;
-    use HasProfilePhoto;
     use TwoFactorAuthenticatable;
     use InteractsWithMedia;
     use HasSlug;
@@ -59,15 +58,6 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     ];
 
     /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array<int, string>
-     */
-    protected $appends = [
-        'profile_photo_url',
-    ];
-
-    /**
      * Get the options for generating the slug.
      */
     public function getSlugOptions(): SlugOptions
@@ -95,6 +85,24 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         return 'slug';
     }
 
+    /**
+     * Get the unique identifier to load the Cart from.
+     *
+     * @return int|string
+     */
+    public function getInstanceIdentifier($options = null) {
+        return $this->email;
+    }
+
+    /**
+     * Get the global discount rate for this instance.
+     *
+     * @return int|string
+     */
+    public function getInstanceGlobalDiscount($options = null) {
+        return 0;
+    }
+
     public function wishlist()
     {
         return $this->hasOne(Wishlist::class);
@@ -112,7 +120,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('users');
+        $this->addMediaCollection('users')->useDisk('s3');
     }
 
     public function registerMediaConversions(Media $media = null): void

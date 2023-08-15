@@ -34,7 +34,7 @@ class InvoiceMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            from: new Address('info@onesport.com', 'OneSport Team'),
+            from: new Address('yanush.polishchuk@gmail.com', 'OneSport Team'),
             subject: 'Order Invoice',
         );
     }

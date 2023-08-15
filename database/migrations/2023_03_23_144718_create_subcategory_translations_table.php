@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('subcategory_translations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('subcategory_id')->constrained();
+            $table->unsignedBigInteger('subcategory_id');
             $table->string('locale')->index();
             $table->string('subcategory_name');
             $table->unique(['subcategory_id', 'locale']);

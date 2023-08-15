@@ -110,6 +110,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->pageSeo()->delete();
+        $post->translations()->delete();
         $post->delete();
         $notification = array(
             'message' => __('Post Is Deleted Successfully!'),

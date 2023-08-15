@@ -165,6 +165,7 @@ class ProductController extends Controller
     {
         Wishlist::where('prod_id', $product->id)->delete();
         $product->pageSeo()->delete();
+        $product->translations()->delete();
         $product->delete();
         $notification = array(
             'message' => __('Product Is Deleted Successfully!'),

@@ -79,7 +79,7 @@ class Post extends Model implements HasMedia, TranslatableContract
 
         public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('posts');
+        $this->addMediaCollection('posts')->useDisk('s3');
     }
 
     public function registerMediaConversions(Media $media = null): void

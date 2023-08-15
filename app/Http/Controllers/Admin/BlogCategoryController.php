@@ -76,6 +76,7 @@ class BlogCategoryController extends Controller
      */
     public function destroy(BlogCategory $blogCategory)
     {
+        $blogCategory->translations()->delete();
         $blogCategory->delete();
         $notification = array(
             'message' => __('Blog Category Is Deleted Successfully!'),

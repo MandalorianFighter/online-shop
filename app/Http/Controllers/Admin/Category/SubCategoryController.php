@@ -91,6 +91,7 @@ class SubCategoryController extends Controller
     public function destroy(Subcategory $subcategory)
     {
         $subcategory->pageSeo()->delete();
+        $subcategory->translations()->delete();
         $subcategory->delete();
         $notification = array(
             'message' => __('SubCategory Is Deleted Successfully!'),

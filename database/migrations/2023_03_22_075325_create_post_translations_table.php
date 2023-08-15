@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('post_translations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('post_id')->constrained();
+            $table->unsignedBigInteger('post_id');
             $table->string('locale')->index();
             $table->string('title');
             $table->text('full_text');

@@ -50,7 +50,7 @@ class SocialController extends Controller
 
     protected function _registerorLoginUser($data){
         $user = User::where('email', $data->email)->first();
-        dd($data);
+
         If(!$user){
             $user = new User();
 
@@ -65,10 +65,10 @@ class SocialController extends Controller
             $user->save();
 
             if($data->avatar_original) $user->attachAvatar($data->avatar_original);
+
             $user->notify(new SocialRegister($password));
         }
 
         Auth::login($user);
-
     }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('product_translations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained();
+            $table->unsignedBigInteger('product_id');
             $table->string('locale')->index();
             $table->string('product_name');
             $table->text('product_details');

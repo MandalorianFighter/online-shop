@@ -1,13 +1,12 @@
-# fly.toml app configuration file generated for one-sport on 2023-08-01T17:10:24+03:00
+# fly.toml app configuration file generated for one-sport on 2023-08-12T15:50:31+03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = "one-sport"
-kill_signal = "SIGINT"
-kill_timeout = 5
-processes = []
 primary_region = "waw"
+kill_signal = "SIGINT"
+kill_timeout = "5s"
 console_command = "php /var/www/html/artisan tinker"
 
 [build]
@@ -16,33 +15,39 @@ console_command = "php /var/www/html/artisan tinker"
     PHP_VERSION = "8.2"
 
 [env]
-  APP_ENV = "production"
   APP_DEBUG = "true"
+  APP_ENV = "production"
   APP_URL = "https://one-sport.fly.dev"
-  LOG_CHANNEL = "stderr"
-  LOG_LEVEL = "debug"
-  LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
-  DB_CONNECTION = "mysql"
-  DB_HOST = "mysql-my-new.internal"
-  DB_PORT = 3306
-  DB_DATABASE= "onesport"
-
+  AWS_BUCKET = "onesport-storage"
+  AWS_DEFAULT_REGION = "eu-north-1"
+  AWS_USE_PATH_STYLE_ENDPOINT = "false"
   BROADCAST_DRIVER = "log"
   CACHE_DRIVER = "redis"
+  DB_CONNECTION = "mysql"
+  DB_DATABASE = "one-sport"
+  DB_HOST = "aws.connect.psdb.cloud"
+  DB_PORT = "3306"
   FILESYSTEM_DISK = "local"
-  QUEUE_CONNECTION = "sync"
-  SESSION_DRIVER = "database"
-  SESSION_LIFETIME = 120
-  REDIS_URL = "redis://default:f5e910e3bb7a40f7921a62f0a04f1528@fly-frosty-tree-7792.upstash.io"
-  MEMCACHED_HOST = "memcached"
-  MAIL_MAILER = "smtp"
-  MAIL_HOST = "sandbox.smtp.mailtrap.io"
-  MAIL_PORT = 2525
+  LOG_CHANNEL = "stderr"
+  LOG_LEVEL = "info"
+  LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
   MAIL_ENCRYPTION = "tls"
-  MAIL_FROM_ADDRESS = "info@onesport.com"
-  MAIL_FROM_NAME = "OneSport Team"
+  MAIL_FROM_ADDRESS = "yanush.polishchuk@gmail.com"
+  MAIL_FROM_NAME = "OneSport"
+  MAIL_HOST = "smtp.gmail.com"
+  MAIL_MAILER = "smtp"
+  MAIL_PORT = "587"
+  MEMCACHED_HOST = "memcached"
+  MYSQL_ATTR_SSL_CA = "/etc/ssl/certs/ca-certificates.crt"
+  PAYPAL_TEST_MODE = "true"
+  QUEUE_CONNECTION = "sync"
+  REDIS_URL = "redis://default:a9bdb01bdf8f4625b7a231bfd99bdd0f@fly-solitary-thunder-8205.upstash.io"
+  SESSION_DRIVER = "database"
+  SESSION_LIFETIME = "120"
+  GOOGLE_REDIRECT_URI = "https://one-sport.fly.dev/login/google/callback"
+  FACEBOOK_REDIRECT_URI = "https://one-sport.fly.dev/login/facebook/callback"
 
-[mounts]
+[[mounts]]
   source = "storage_vol"
   destination = "/var/www/html/storage"
 

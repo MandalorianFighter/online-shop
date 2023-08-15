@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    public function indexCategories(Request $request)
+    public function index(Request $request)
     {
         $categories = Category::withOnly('subcategories')->get();
         $slider = Product::where('status',1)->where('main_slider',1)->first();
@@ -35,4 +35,8 @@ class HomeController extends Controller
         return view('pages.index', compact('categories', 'slider', 'featured', 'trend', 'best', 'hot', 'midSlider', 'firstCategory', 'fCproducts', 'secondCategory', 'sCproducts', 'buyGet', 'brands', 'posts'));
     }
 
+    public function policy()
+    {
+        return view('pages.privacy-policy');
+    }
 }

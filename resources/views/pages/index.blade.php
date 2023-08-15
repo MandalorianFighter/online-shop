@@ -623,13 +623,9 @@
 							<div class="owl-item">
 								<div class="review d-flex flex-row align-items-start justify-content-start">
 									
-									<div><div class="review_image"><img src="{{ $post->getFirstMediaUrl('posts', 'thumb') }}" alt="{{ $post->title }} image" height="70em" max-width="100%"></div></div>
+									<div><div class="review_image"><a href="{{ route('blog.post.show', $post) }}"><img src="{{ $post->getFirstMediaUrl('posts', 'thumb') }}" alt="{{ $post->title }} image" height="70em" max-width="100%"></a></div></div>
 									<div class="review_content">
-										<div class="review_name">{{ $post->title }}</div>
-										<!-- <div class="review_rating_container">
-											<div class="rating_r rating_r_4 review_rating"><i></i><i></i><i></i><i></i><i></i></div>
-											<div class="review_time">2 day ago</div>
-										</div> -->
+										<div class="review_name"><a href="{{ route('blog.post.show', $post) }}" style="color:black;">{{ $post->title }}</a></div>
 										<div class="review_text"><p>{!! Str::limit($post->full_text) !!}</p></div>
 									</div>
 								</div>

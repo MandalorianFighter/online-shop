@@ -85,7 +85,7 @@ class Category extends Model implements TranslatableContract, HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('categories');
+        $this->addMediaCollection('categories')->useDisk('s3');
     }
 
     public function attachLogo($image)

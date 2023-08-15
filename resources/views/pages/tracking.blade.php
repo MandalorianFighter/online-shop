@@ -77,9 +77,7 @@
                     <li class="list-group-item"><b>{{ __('Shipping') }}:</b> <span class="float-end">{{$track->shipping}}$</span></li>
                     <li class="list-group-item"><b>{{ __('Vat') }}:</b> <span class="float-end">{{$track->vat}}$</span></li>
                     <li class="list-group-item"><b>{{ __('Total') }}:</b> <span class="float-end">{{$track->total}}$</span></li>
-                    <li class="list-group-item"><b>{{ __('Month') }}:</b> <span class="float-end">{{$track->month}}</span> </li>
                     <li class="list-group-item"><b>{{ __('Date') }}:</b> <span class="float-end">{{$track->date}}</span> </li>
-                    <li class="list-group-item"><b>{{ __('Year') }}:</b> <span class="float-end">{{$track->year}}</span> </li>
                 </ul>
             </div>
         </div>

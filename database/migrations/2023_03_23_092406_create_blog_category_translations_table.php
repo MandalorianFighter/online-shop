@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('blog_category_translations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('blog_category_id')->constrained();
+            $table->unsignedBigInteger('blog_category_id');
             $table->string('locale')->index();
             $table->string('category_name');
             $table->unique(['blog_category_id', 'locale']);

@@ -252,6 +252,7 @@
 							<li><a href="{{ route('order_list.success') }}">{{ __('Returns / Exchange') }}</a></li>
 							<li class="text-secondary"><a >{{ __('FAQs') }}</a></li>
 							<li class="text-secondary"><a >{{ __('Product Support') }}</a></li>
+							<li><a href="{{ route('policy') }}">{{ __('Privacy Policy') }}</a></li>
 						</ul>
 					</div>
 				</div>

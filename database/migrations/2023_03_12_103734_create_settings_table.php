@@ -15,12 +15,17 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('vat')->nullable();
-            $table->string('shipping_charge')->nullable();
-            $table->string('shop_name')->nullable();
-            $table->string('email')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('address')->nullable();
+            $table->string('phone_one')->nullable();
+            $table->string('phone_two')->nullable();
+            $table->string('company_email')->nullable();
+            $table->string('company_name')->nullable();
+            $table->string('company_address')->nullable();
+            $table->string('fb')->nullable();
+            $table->string('youtube')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('twitter')->nullable();
+            $table->float('vat', 10, 2)->default(0);
+            $table->float('shipping_charge', 10, 2)->default(0);
             $table->timestamps();
         });
     }

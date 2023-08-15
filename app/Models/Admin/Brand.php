@@ -59,7 +59,7 @@ class Brand extends Model implements HasMedia
 
         public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('brands');
+        $this->addMediaCollection('brands')->useDisk('s3');
     }
 
     public function attachLogo($image)

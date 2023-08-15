@@ -36,10 +36,6 @@
                                         <th>{{ $order->total }} $</th>
                                     </tr>
                                     <tr>
-                                        <th>{{ __('Month') }}: </th>
-                                        <th>{{ $order->month }}</th>
-                                    </tr>
-                                    <tr>
                                         <th>{{ __('Date') }}: </th>
                                         <th>{{ $order->date }}</th>
                                     </tr>

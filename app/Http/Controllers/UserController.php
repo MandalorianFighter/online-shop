@@ -56,7 +56,7 @@ class UserController extends Controller
 
         if($request->hasFile('avatar')) 
         {
-            $user->attachAvatar($request->file('avatar'));
+            $user->updateAvatar($request->file('avatar'));
         }
 
         $notification = array(

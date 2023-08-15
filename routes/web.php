@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', 'App\Http\Controllers\HomeController@indexCategories')->name('home');
+Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
+Route::get('/privacy-policy', 'App\Http\Controllers\HomeController@policy')->name('policy');
 
 // Google
 
@@ -136,13 +137,6 @@ Route::middleware(['auth:api,web', config('jetstream.auth_session'),'verified'])
     Route::get('/dashboard', 'App\Http\Controllers\UserController@dashboard')->name('dashboard');
     Route::get('/order/view/{order}', 'App\Http\Controllers\UserController@viewOrder')->name('view.order');
 
-    Route::get('/user/profile/edit', 'App\Http\Controllers\UserController@editProfile')->name('profile.edit');
-    Route::put('/user/profile/update/{user}', 'App\Http\Controllers\UserController@updateProfile')->name('profile.update');
-
-    Route::get('/password-change', 'App\Http\Controllers\UserController@changePass')->name('password.change');
-    Route::put('/password-update/{user}', 'App\Http\Controllers\UserController@updatePass')->name('password.change.update');
-    Route::get('/user/logout', 'App\Http\Controllers\UserController@logout')->name('user.logout');
-
     Route::get('/user/checkout', 'App\Http\Controllers\CartController@checkout')->name('user.checkout');
     Route::get('/user/payment', 'App\Http\Controllers\CartController@payment')->name('user.payment');
     Route::post('/user/payment/process', 'App\Http\Controllers\PaymentController@payment')->name('user.payment.process');
@@ -168,6 +162,15 @@ Route::middleware(['auth:api,web', config('jetstream.auth_session'),'verified'])
     Route::get('/payment/success', 'App\Http\Controllers\PaymentController@paymentSuccess')->name('payment.success');
     Route::get('/payment/cancel', 'App\Http\Controllers\PaymentController@paymentCancel')->name('payment.cancel');
     Route::get('/payment/failure', 'App\Http\Controllers\PaymentController@paymentFailure')->name('payment.failure');
+});
+
+Route::middleware(['auth:api,web', config('jetstream.auth_session')])->group(function () {
+    Route::get('/user/profile/edit', 'App\Http\Controllers\UserController@editProfile')->name('profile.edit');
+    Route::put('/user/profile/update/{user}', 'App\Http\Controllers\UserController@updateProfile')->name('profile.update');
+
+    Route::get('/password-change', 'App\Http\Controllers\UserController@changePass')->name('password.change');
+    Route::put('/password-update/{user}', 'App\Http\Controllers\UserController@updatePass')->name('password.change.update');
+    Route::get('/user/logout', 'App\Http\Controllers\UserController@logout')->name('user.logout');
 });
 
 // Frontend Routes

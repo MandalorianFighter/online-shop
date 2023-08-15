@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\SiteContact;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class SiteContactController extends Controller
@@ -15,7 +15,7 @@ class SiteContactController extends Controller
 
     public function store(Request $request)
     {
-        SiteContact::create($request->all());
+        Setting::create($request->all());
         $notification = array(
             'message' => __('Company Info Is Created Successfully!'),
             'alert-type' => 'success',
@@ -27,10 +27,10 @@ class SiteContactController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\SiteContact  $contact
+     * @param  \App\Models\Setting  $contact
      * @return \Illuminate\View\View
      */
-    public function edit(SiteContact $contact)
+    public function edit(Setting $contact)
     {
         return view('admin.contacts.edit',compact('contact'));
     }
@@ -39,10 +39,10 @@ class SiteContactController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\SiteContact  $contact
+     * @param  \App\Models\Setting  $contact
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, SiteContact $contact)
+    public function update(Request $request, Setting $contact)
     {
         $contact->update($request->all());
         $notification = array(

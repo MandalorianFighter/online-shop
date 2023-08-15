@@ -3,6 +3,7 @@
 namespace App\Models\Admin;
 
 use App\Models\Wishlist;
+use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -15,7 +16,7 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use App\Models\PageSeo;
 
-class Product extends Model implements HasMedia, TranslatableContract
+class Product extends Model implements HasMedia, TranslatableContract, Buyable
 {
     use HasFactory, InteractsWithMedia, Translatable;
     use HasSlug;
@@ -75,6 +76,42 @@ class Product extends Model implements HasMedia, TranslatableContract
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    /**
+     * Get the identifier of the Buyable item.
+     *
+     * @return int|string
+     */
+    public function getBuyableIdentifier($options = null) {
+        return $this->id;
+    }
+
+    /**
+     * Get the description or title of the Buyable item.
+     *
+     * @return string
+     */
+    public function getBuyableDescription($options = null) {
+        return $this->product_name;
+    }
+
+    /**
+     * Get the price of the Buyable item.
+     *
+     * @return float
+     */
+    public function getBuyablePrice($options = null) {
+        return $this->selling_price;
+    }
+
+    /**
+     * Get the weight of the Buyable item.
+     *
+     * @return float
+     */
+    public function getBuyableWeight($options = null) {
+        return 0;
     }
 
     public function category()
@@ -152,9 +189,9 @@ class Product extends Model implements HasMedia, TranslatableContract
         return static::all()->last();
     }
 
-        public function registerMediaCollections(): void
+    public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('products');
+        $this->addMediaCollection('products')->useDisk('s3');
     }
 
     public function registerMediaConversions(Media $media = null): void
